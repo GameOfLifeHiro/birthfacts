@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
+
+const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
 
 export const metadata: Metadata = {
   title: "Age Calculator – Exact Age in Years, Months, Days & Seconds | BirthFacts",
@@ -67,6 +70,18 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen">
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <header className="border-b border-[var(--card-border)] px-6 py-4 flex items-center justify-between">
           <a href="/" className="font-bold text-xl gradient-text">
             BirthFacts

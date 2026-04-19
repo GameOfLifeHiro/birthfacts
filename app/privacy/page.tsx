@@ -41,10 +41,19 @@ export default function PrivacyPage() {
         <div className="card p-6">
           <h2 className="font-semibold text-[var(--accent)] text-base mb-2">3. Analytics</h2>
           <p>
-            We may use anonymized analytics tools (such as Google Analytics) to understand
-            aggregate traffic patterns — for example, which pages are most visited and what
-            countries visitors come from. This data is aggregated and cannot be used to identify
-            individual users. You can opt out of Google Analytics using the{" "}
+            We use <strong className="text-[var(--text)]">Google Analytics 4</strong> (measurement ID{" "}
+            <code className="text-[var(--accent)]">G-4ETJP01VCC</code>) to understand aggregate traffic
+            — for example, which pages are most visited, session duration, and general geographic
+            regions. Google may set cookies and process data according to its{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--accent)] hover:underline"
+            >
+              Privacy Policy
+            </a>
+            . You can opt out of Google Analytics using the{" "}
             <a
               href="https://tools.google.com/dlpage/gaoptout"
               target="_blank"
@@ -80,9 +89,9 @@ export default function PrivacyPage() {
         <div className="card p-6">
           <h2 className="font-semibold text-[var(--accent)] text-base mb-2">5. Cookies</h2>
           <p>
-            BirthFacts itself does not set any first-party cookies. Third-party services
-            (analytics, advertising) may set their own cookies in accordance with their
-            respective privacy policies. You can control cookies through your browser settings.
+            Google Analytics may set first-party cookies (e.g. <code className="text-[var(--accent)]">_ga</code>) to
+            distinguish visitors. Third-party advertising, if enabled in the future, may set
+            additional cookies. You can control cookies through your browser settings.
           </p>
         </div>
 
