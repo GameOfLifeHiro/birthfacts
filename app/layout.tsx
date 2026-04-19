@@ -5,26 +5,31 @@ import "./globals.css";
 const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
 
 export const metadata: Metadata = {
-  title: "Age Calculator – Exact Age in Years, Months, Days & Seconds | BirthFacts",
+  title: "Age Calculator – Birthday Profile with Zodiac, Moon Phase & Mayan Calendar | BirthFacts",
   description:
-    "Calculate your exact age in years, months, weeks, days, hours and minutes. Discover your zodiac sign, birth flower, Life Path Number, generational identity, and more. Free and instant.",
+    "Calculate your exact age and discover your complete birthday profile: zodiac sign, moon phase, Mayan Kin number, Life Path Number, Chinese zodiac, birth flower, generational identity, and historical facts. Free and instant.",
   keywords: [
     "age calculator",
     "exact age calculator",
-    "age in months",
-    "age in days",
-    "age in weeks",
     "birthday calculator",
     "how old am I",
-    "zodiac sign calculator",
+    "moon phase birthday",
+    "mayan birthday calculator",
+    "kin number calculator",
     "life path number",
+    "chinese zodiac calculator",
+    "zodiac sign calculator",
     "birth flower",
+    "dog age calculator",
+    "cat age calculator",
+    "indigo child birth year",
+    "crystal child",
   ],
   metadataBase: new URL("https://birthfacts.net"),
   openGraph: {
     title: "BirthFacts – Your Complete Birthday Profile",
     description:
-      "Discover your exact age, zodiac sign, generational identity, Life Path Number, and more — all from your birthday.",
+      "Age calculator + zodiac, moon phase, Mayan Kin number, Life Path Number, spiritual generation, and historical facts — all from your birthday.",
     url: "https://birthfacts.net",
     siteName: "BirthFacts",
     type: "website",
@@ -33,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BirthFacts – Your Complete Birthday Profile",
     description:
-      "Discover your exact age, zodiac sign, generational identity, Life Path Number, and more — all from your birthday.",
+      "Age calculator + zodiac, moon phase, Mayan Kin number, Life Path Number, spiritual generation, and historical facts — all from your birthday.",
   },
   robots: { index: true, follow: true },
 };
@@ -61,7 +66,7 @@ export default function RootLayout({
               name: "BirthFacts Age Calculator",
               url: "https://birthfacts.net",
               description:
-                "Free age calculator with zodiac, generational identity, Life Path Number, and historical facts.",
+                "Free birthday profile tool: exact age calculator plus zodiac, moon phase, Mayan Dreamspell Kin number, Life Path Number, Chinese zodiac, birth flower, spiritual generation, and historical facts.",
               applicationCategory: "UtilityApplication",
               operatingSystem: "Any",
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -104,11 +109,11 @@ export default function RootLayout({
             {" · "}
             <a href="/faq/" className="hover:text-[var(--accent)]">FAQ</a>
             {" · "}
-            <a href="/age-in-months/" className="hover:text-[var(--accent)]">Age in Months</a>
-            {" · "}
             <a href="/days-between/" className="hover:text-[var(--accent)]">Days Between Dates</a>
             {" · "}
-            <a href="/birthday-countdown/" className="hover:text-[var(--accent)]">Birthday Countdown</a>
+            <a href="/dog-age-calculator/" className="hover:text-[var(--accent)]">Dog Age Calculator</a>
+            {" · "}
+            <a href="/cat-age-calculator/" className="hover:text-[var(--accent)]">Cat Age Calculator</a>
           </p>
         </footer>
       </body>

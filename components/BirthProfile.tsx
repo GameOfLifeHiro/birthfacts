@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { getBirthProfile, type BirthProfile } from "@/lib/birthProfile";
+import { getBirthProfile, type BirthProfile, type MoonPhase, type MayanProfile } from "@/lib/birthProfile";
 
 interface Props {
   dob: Date;
@@ -47,14 +47,13 @@ export default function BirthProfile({ dob }: Props) {
           <p className="text-sm text-[var(--muted)]">{profile.westernZodiac.traits}</p>
         </Section>
 
-        {/* Chinese / Japanese Zodiac */}
-        <Section title="Japanese Zodiac (十二支)" icon="🐉">
+        {/* Chinese Zodiac */}
+        <Section title="Chinese Zodiac" icon="🐉">
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-4xl">{profile.chineseZodiac.kanji}</span>
+            <span className="text-4xl">🐾</span>
             <div>
               <div className="font-bold text-lg text-[var(--accent)]">
                 {profile.chineseZodiac.animal}
-                <span className="text-base text-[var(--muted)] ml-2">({profile.chineseZodiac.animalJa})</span>
               </div>
               <div className="text-xs text-[var(--muted)]">Lucky numbers: {profile.chineseZodiac.luckyNumbers}</div>
             </div>
@@ -62,17 +61,6 @@ export default function BirthProfile({ dob }: Props) {
           <p className="text-sm text-[var(--muted)]">{profile.chineseZodiac.traits}</p>
         </Section>
       </div>
-
-      {/* Japanese Imperial Era */}
-      <Section title="Japanese Imperial Era (元号)" icon="🏯">
-        <div className="flex items-center justify-between flex-wrap gap-2">
-          <div>
-            <span className="text-2xl font-bold text-[var(--accent)]">{profile.japaneseEra.eraJa}{profile.japaneseEra.year}年</span>
-            <span className="text-[var(--muted)] ml-3 text-sm">({profile.japaneseEra.era} {profile.japaneseEra.year})</span>
-          </div>
-          <div className="text-sm text-[var(--muted)]">Era: {profile.japaneseEra.era}</div>
-        </div>
-      </Section>
 
       {/* Life Path Number */}
       <Section title="Life Path Number" icon="🔢">
@@ -84,6 +72,39 @@ export default function BirthProfile({ dob }: Props) {
           <div>
             <p className="text-sm font-medium text-[var(--text)] mb-1">{profile.lifePathNumber.meaning}</p>
             <p className="text-xs text-[var(--muted)]">Strengths: {profile.lifePathNumber.strengths}</p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Moon Phase */}
+      <Section title="Moon Phase at Birth" icon="🌙">
+        <div className="flex items-start gap-4">
+          <span className="text-5xl flex-shrink-0">{profile.moonPhase.emoji}</span>
+          <div>
+            <div className="font-bold text-lg text-[var(--accent)] mb-1">
+              {profile.moonPhase.phase}
+              <span className="text-xs text-[var(--muted)] ml-2 font-normal">({profile.moonPhase.illumination} illuminated)</span>
+            </div>
+            <p className="text-sm text-[var(--muted)] leading-relaxed">{profile.moonPhase.meaning}</p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Mayan Dreamspell */}
+      <Section title="Mayan Dreamspell Calendar" icon="🌀">
+        <div className="flex items-start gap-4 mb-3">
+          <div className="text-center flex-shrink-0 stat-card min-w-[64px]">
+            <div className="text-3xl font-bold gradient-text">{profile.mayanProfile.kin}</div>
+            <div className="text-xs text-[var(--muted)] mt-0.5">Kin</div>
+          </div>
+          <div>
+            <div className="font-bold text-lg text-[var(--accent)] mb-1">{profile.mayanProfile.fullName}</div>
+            <div className="text-sm text-[var(--muted)]">
+              Tone {profile.mayanProfile.toneNumber} · {profile.mayanProfile.color} {profile.mayanProfile.daySign}
+            </div>
+            <div className="text-xs text-[var(--muted)] mt-1">
+              Wavespell: <span className="text-[var(--accent2)]">{profile.mayanProfile.wavespell} Wavespell</span>
+            </div>
           </div>
         </div>
       </Section>
@@ -108,7 +129,6 @@ export default function BirthProfile({ dob }: Props) {
         </Section>
         <Section title="Birth Flower" icon="🌸">
           <div className="font-bold text-lg text-[var(--accent)] mb-1">{profile.birthFlower.flower}</div>
-          <div className="text-sm text-[var(--accent2)] mb-1">{profile.birthFlower.flowerJa}</div>
           <p className="text-sm text-[var(--muted)]">{profile.birthFlower.meaning}</p>
         </Section>
       </div>

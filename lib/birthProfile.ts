@@ -3,7 +3,6 @@
 export interface BirthProfile {
   westernZodiac: WesternZodiac;
   chineseZodiac: ChineseZodiac;
-  japaneseEra: JapaneseEra;
   birthstone: { stone: string; meaning: string };
   birthFlower: { flower: string; flowerJa: string; meaning: string };
   lifePathNumber: LifePathNumber;
@@ -11,6 +10,8 @@ export interface BirthProfile {
   generation: Generation;
   spiritualGeneration: SpiritualGeneration;
   famousBirthdays: FamousPerson[];
+  moonPhase: MoonPhase;
+  mayanProfile: MayanProfile;
 }
 
 export interface WesternZodiac {
@@ -310,6 +311,101 @@ export function getSpiritualGeneration(year: number): SpiritualGeneration {
   };
 }
 
+// ─── Moon Phase ───────────────────────────────────────────────────────────────
+
+export interface MoonPhase {
+  phase: string;
+  emoji: string;
+  illumination: string;
+  meaning: string;
+}
+
+const MOON_PHASES: MoonPhase[] = [
+  { phase: "New Moon", emoji: "🌑", illumination: "0%", meaning: "New beginnings, intention-setting, and inner reflection. A powerful time for planting seeds of intention." },
+  { phase: "Waxing Crescent", emoji: "🌒", illumination: "~25%", meaning: "Growth, hope, and gathering energy. You were born with an instinct to move forward and build." },
+  { phase: "First Quarter", emoji: "🌓", illumination: "~50%", meaning: "Action, decisiveness, and overcoming challenges. A dynamic, determined energy at birth." },
+  { phase: "Waxing Gibbous", emoji: "🌔", illumination: "~75%", meaning: "Refinement, perseverance, and focus. An analytical and detail-oriented spirit." },
+  { phase: "Full Moon", emoji: "🌕", illumination: "100%", meaning: "Culmination, heightened emotions, and visibility. Full Moon births are said to be deeply expressive and emotionally intense." },
+  { phase: "Waning Gibbous", emoji: "🌖", illumination: "~75%", meaning: "Gratitude, sharing, and communication. A natural teacher and giver of wisdom." },
+  { phase: "Last Quarter", emoji: "🌗", illumination: "~50%", meaning: "Release, reflection, and transition. Born with the gift of letting go and seeing the bigger picture." },
+  { phase: "Waning Crescent", emoji: "🌘", illumination: "~25%", meaning: "Rest, surrender, and deep intuition. A mystical, introspective energy with strong psychic sensitivity." },
+];
+
+export function getMoonPhase(dob: Date): MoonPhase {
+  // Known new moon: January 6, 2000 18:14 UTC
+  const KNOWN_NEW_MOON = new Date("2000-01-06T18:14:00Z");
+  const SYNODIC = 29.53059;
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const daysSince = (dob.getTime() - KNOWN_NEW_MOON.getTime()) / msPerDay;
+  const phase = ((daysSince % SYNODIC) + SYNODIC) % SYNODIC;
+  const index = Math.floor((phase / SYNODIC) * 8) % 8;
+  return MOON_PHASES[index];
+}
+
+// ─── Mayan Dreamspell Calendar ────────────────────────────────────────────────
+
+export interface MayanProfile {
+  kin: number;
+  daySign: string;
+  color: string;
+  galacticTone: string;
+  toneNumber: number;
+  wavespell: string;
+  fullName: string;
+}
+
+const DAY_SIGNS = [
+  "Dragon", "Wind", "Night", "Seed", "Serpent", "Worldbridger",
+  "Hand", "Star", "Moon", "Dog", "Monkey", "Human",
+  "Skywalker", "Wizard", "Eagle", "Warrior", "Earth", "Mirror", "Storm", "Sun",
+];
+const SEAL_COLORS = ["Red", "White", "Blue", "Yellow"];
+const GALACTIC_TONES = [
+  "", "Magnetic", "Lunar", "Electric", "Self-Existing", "Overtone",
+  "Rhythmic", "Resonant", "Galactic", "Solar", "Planetary", "Spectral", "Crystal", "Cosmic",
+];
+
+function isLeapYear(y: number) {
+  return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+}
+
+function mayanDaysBetween(a: Date, b: Date): number {
+  const msPerDay = 86400000;
+  const calDays = Math.round((b.getTime() - a.getTime()) / msPerDay);
+  const lo = calDays >= 0 ? a : b;
+  const hi = calDays >= 0 ? b : a;
+  let leaps = 0;
+  for (let y = lo.getFullYear(); y <= hi.getFullYear(); y++) {
+    if (isLeapYear(y)) {
+      const feb29 = new Date(y, 1, 29);
+      if (feb29 > lo && feb29 <= hi) leaps++;
+    }
+  }
+  return calDays >= 0 ? calDays - leaps : calDays + leaps;
+}
+
+// Anchor: March 30, 1968 = Kin 1 (verified against known dates)
+const MAYAN_ANCHOR = new Date(1968, 2, 30);
+
+export function getMayanProfile(dob: Date): MayanProfile {
+  const diff = mayanDaysBetween(MAYAN_ANCHOR, dob);
+  const kin = ((diff % 260) + 260) % 260 + 1;
+  const seal = (kin - 1) % 20;
+  const toneNumber = (kin - 1) % 13 + 1;
+  const color = SEAL_COLORS[seal % 4];
+  const wsIndex = Math.floor((kin - 1) / 13);
+  const wsSeal = (wsIndex * 13) % 20;
+  return {
+    kin,
+    daySign: DAY_SIGNS[seal],
+    color,
+    galacticTone: GALACTIC_TONES[toneNumber],
+    toneNumber,
+    wavespell: DAY_SIGNS[wsSeal],
+    fullName: `${GALACTIC_TONES[toneNumber]} ${color} ${DAY_SIGNS[seal]}`,
+  };
+}
+
 // ─── Famous Birthdays ─────────────────────────────────────────────────────────
 
 const FAMOUS_BIRTHDAYS: Record<string, FamousPerson[]> = {
@@ -406,7 +502,6 @@ export function getBirthProfile(dob: Date): BirthProfile {
   return {
     westernZodiac: getWesternZodiac(month, day),
     chineseZodiac: getChineseZodiac(year),
-    japaneseEra: getJapaneseEra(dob),
     birthstone: getBirthstone(month),
     birthFlower: getBirthFlower(month),
     lifePathNumber: getLifePathNumber(dob),
@@ -414,5 +509,7 @@ export function getBirthProfile(dob: Date): BirthProfile {
     generation: getGeneration(year),
     spiritualGeneration: getSpiritualGeneration(year),
     famousBirthdays: getFamousBirthdays(month, day),
+    moonPhase: getMoonPhase(dob),
+    mayanProfile: getMayanProfile(dob),
   };
 }

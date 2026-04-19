@@ -36,11 +36,12 @@ export default function AboutPage() {
             {[
               "Your exact age down to minutes, and a live countdown to your next birthday",
               "Your Western zodiac sign, element, and personality traits",
-              "Your Japanese and Chinese zodiac animal (十二支 / eto) with kanji",
-              "Your Japanese imperial era birth year (元号 — Shōwa, Heisei, or Reiwa)",
+              "Your Chinese zodiac animal and its lucky numbers",
+              "Your moon phase at birth and its spiritual meaning",
+              "Your Mayan Dreamspell profile — Kin number, Day Sign, Galactic Tone, and Wavespell",
               "Your Life Path Number and its numerological meaning",
-              "Your birthstone and birth flower (in English and Japanese)",
-              "The spiritual meaning of the day of the week you were born",
+              "Your birthstone and birth flower",
+              "The planetary and spiritual meaning of the day of the week you were born",
               "Your generational identity — both mainstream (Millennial, Gen Z…) and spiritual (Indigo Child, Crystal Child, Rainbow Child)",
               "Famous people born on your birthday",
               "What was happening in the world the year you were born — world events, tech breakthroughs, music, movies, and pop culture",
@@ -66,9 +67,19 @@ export default function AboutPage() {
           <h2 className="font-semibold text-lg text-[var(--accent)] mb-3">How accurate is it?</h2>
           <p className="text-[var(--muted)] text-sm leading-relaxed">
             Age calculations are precise to the day using your local date. Zodiac, numerology,
-            and cultural data follow widely accepted systems. Historical facts are curated from
-            reliable sources. Japanese imperial era dates follow the official proclamation dates
-            (e.g. Reiwa begins May 1, 2019).
+            and cultural data follow widely accepted systems. The Mayan Dreamspell calendar uses
+            the José Argüelles correlation verified against known Kin dates. Historical facts
+            are curated from reliable sources.
+          </p>
+        </div>
+
+        <div className="card p-6">
+          <h2 className="font-semibold text-lg text-[var(--accent)] mb-3">About the team</h2>
+          <p className="text-[var(--muted)] text-sm leading-relaxed">
+            BirthFacts is operated by{" "}
+            <strong className="text-[var(--text)]">Ascent Leadership Institute Inc</strong>,
+            based in <strong className="text-[var(--text)]">Las Vegas, NV, USA</strong>.
+            Our mission is to make self-discovery accessible, meaningful, and free for everyone.
           </p>
         </div>
 

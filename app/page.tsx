@@ -57,9 +57,9 @@ export default function HomePage() {
         <h2 className="text-xl font-semibold mb-4 text-center">More tools</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { href: "/age-in-months/", label: "Age in Months" },
+            { href: "/dog-age-calculator/", label: "Dog Age Calculator" },
+            { href: "/cat-age-calculator/", label: "Cat Age Calculator" },
             { href: "/days-between/", label: "Days Between Dates" },
-            { href: "/birthday-countdown/", label: "Birthday Countdown" },
             { href: "/faq/", label: "FAQ" },
           ].map(({ href, label }) => (
             <a

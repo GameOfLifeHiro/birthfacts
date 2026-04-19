@@ -35,8 +35,6 @@ export default function ResultDisplay({ result, dob }: Props) {
         </p>
         <p className="text-[var(--muted)] text-sm mt-3">
           Born on a <span className="text-[var(--accent)] font-medium">{result.dayOfWeek}</span>
-          {" "}·{" "}
-          <span className="text-[var(--accent)] font-medium">{result.dayOfWeekJa}</span>
         </p>
       </div>
 
