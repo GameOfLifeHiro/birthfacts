@@ -195,8 +195,8 @@ export default function BirthProfile({ dob }: Props) {
               <div key={person.name} className="flex items-start gap-2">
                 <span className="text-[var(--accent)] mt-0.5">•</span>
                 <div>
-                  <span className="font-medium text-sm">{person.name}</span>
-                  <span className="text-xs text-[var(--muted)] ml-2">{person.description}</span>
+                  <span className="font-medium text-base">{person.name}</span>
+                  <span className="text-sm text-[var(--muted)] ml-2">{person.description}</span>
                 </div>
               </div>
             ))}

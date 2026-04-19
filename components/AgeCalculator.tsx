@@ -38,7 +38,7 @@ function getDobFromUrl(): string {
 }
 
 const SELECT_CLASS =
-  "flex-1 bg-[var(--bg)] border border-[var(--card-border)] rounded-xl px-3 py-3 text-[var(--text)] text-base focus:outline-none focus:border-[var(--accent)] transition-colors appearance-none cursor-pointer";
+  "w-full bg-[var(--bg)] border border-[var(--card-border)] rounded-xl px-3 py-3 text-[var(--text)] text-base focus:outline-none focus:border-[var(--accent)] transition-colors appearance-none cursor-pointer";
 
 export default function AgeCalculator() {
   const currentYear = new Date().getFullYear();
@@ -103,48 +103,42 @@ export default function AgeCalculator() {
       <div className="card p-6 mb-6">
         <h2 className="text-lg font-semibold mb-4 text-[var(--accent)]">Enter your date of birth</h2>
         <div className="flex flex-col gap-3">
-          <div className="grid grid-cols-3 gap-2">
-            {/* Month */}
-            <div className="relative">
-              <select
-                value={month}
-                onChange={(e) => setMonth(e.target.value)}
-                className={SELECT_CLASS}
-              >
-                <option value="">Month</option>
-                {MONTHS.map((m, i) => (
-                  <option key={m} value={String(i + 1)}>{m}</option>
-                ))}
-              </select>
-            </div>
+          <div className="flex gap-2">
+            {/* Month — wider to fit long names */}
+            <select
+              value={month}
+              onChange={(e) => setMonth(e.target.value)}
+              className={`${SELECT_CLASS} basis-5/12`}
+            >
+              <option value="">Month</option>
+              {MONTHS.map((m, i) => (
+                <option key={m} value={String(i + 1)}>{m}</option>
+              ))}
+            </select>
 
             {/* Day */}
-            <div className="relative">
-              <select
-                value={day}
-                onChange={(e) => setDay(e.target.value)}
-                className={SELECT_CLASS}
-              >
-                <option value="">Day</option>
-                {dayOptions.map((d) => (
-                  <option key={d} value={String(d)}>{d}</option>
-                ))}
-              </select>
-            </div>
+            <select
+              value={day}
+              onChange={(e) => setDay(e.target.value)}
+              className={`${SELECT_CLASS} basis-3/12`}
+            >
+              <option value="">Day</option>
+              {dayOptions.map((d) => (
+                <option key={d} value={String(d)}>{d}</option>
+              ))}
+            </select>
 
             {/* Year */}
-            <div className="relative">
-              <select
-                value={year}
-                onChange={(e) => setYear(e.target.value)}
-                className={SELECT_CLASS}
-              >
-                <option value="">Year</option>
-                {yearOptions.map((y) => (
-                  <option key={y} value={String(y)}>{y}</option>
-                ))}
-              </select>
-            </div>
+            <select
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              className={`${SELECT_CLASS} basis-4/12`}
+            >
+              <option value="">Year</option>
+              {yearOptions.map((y) => (
+                <option key={y} value={String(y)}>{y}</option>
+              ))}
+            </select>
           </div>
 
           <button

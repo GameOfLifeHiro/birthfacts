@@ -54,7 +54,7 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
       <h3 className="font-bold text-lg mb-1">
         <span className="gradient-text">Your Life Timeline</span>
       </h3>
-      <p className="text-sm text-[var(--muted)] mb-6">
+      <p className="text-base text-[var(--muted)] mb-6">
         Key moments in your life, and what was happening in the world at each milestone.
       </p>
 
@@ -91,12 +91,12 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
                 <div className="flex-1 pt-2 pb-2">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span
-                      className={`font-semibold text-sm ${
+                      className={`font-semibold text-base ${
                         isCurrent ? "text-[var(--accent2)]" : isPast ? "text-[var(--accent)]" : "text-[var(--muted)]"
                       }`}
                     >
                       {milestone.label}
-                      {isCurrent && <span className="ml-1 text-xs text-[var(--accent2)]">← You are here</span>}
+                      {isCurrent && <span className="ml-1 text-sm text-[var(--accent2)]">← You are here</span>}
                     </span>
                     <span className="text-xs text-[var(--muted)] border border-[var(--card-border)] rounded-full px-2 py-0.5">
                       {milestoneYear}
@@ -105,7 +105,7 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
 
                   {/* World event for this milestone year */}
                   {(worldEvent || topEvent) && milestone.age <= currentAge && (
-                    <p className="text-xs text-[var(--muted)] mt-1 leading-relaxed">
+                    <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">
                       🌍 {worldEvent ?? topEvent}
                     </p>
                   )}
@@ -122,14 +122,14 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
               </div>
               <div className="flex-1 pt-2">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-sm text-[var(--accent2)]">
+                  <span className="font-semibold text-base text-[var(--accent2)]">
                     Age {Math.floor(currentAge)} — Today
                   </span>
                   <span className="text-xs text-[var(--muted)] border border-[var(--card-border)] rounded-full px-2 py-0.5">
                     {new Date().getFullYear()}
                   </span>
                 </div>
-                <p className="text-xs text-[var(--muted)] mt-1">You are here</p>
+                <p className="text-sm text-[var(--muted)] mt-1">You are here</p>
               </div>
             </div>
           )}

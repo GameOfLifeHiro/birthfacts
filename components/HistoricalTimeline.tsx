@@ -37,7 +37,7 @@ export default function HistoricalTimeline({ birthYear }: Props) {
       <h3 className="font-bold text-lg mb-1">
         <span className="gradient-text">The World in {birthYear}</span>
       </h3>
-      <p className="text-sm text-[var(--muted)] mb-4">
+      <p className="text-base text-[var(--muted)] mb-4">
         What was happening when you were born?
       </p>
 
@@ -63,7 +63,7 @@ export default function HistoricalTimeline({ birthYear }: Props) {
         {items.map((item, i) => (
           <li key={i} className="flex items-start gap-3">
             <span className="mt-1.5 w-2 h-2 rounded-full bg-[var(--accent)] flex-shrink-0" />
-            <span className="text-sm text-[var(--text)] leading-relaxed">{item}</span>
+            <span className="text-base text-[var(--text)] leading-relaxed">{item}</span>
           </li>
         ))}
       </ul>
