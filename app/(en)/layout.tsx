@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
 import en from "@/lib/i18n/en";
+import { inter } from "@/lib/fonts";
 import "../globals.css";
 
 const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
@@ -63,18 +64,12 @@ export const metadata: Metadata = {
 
 export default function EnRootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
         <link rel="alternate" hrefLang="en" href="https://birthfacts.net/" />
         <link rel="alternate" hrefLang="es" href="https://birthfacts.net/es/" />
         <link rel="alternate" hrefLang="ja" href="https://birthfacts.net/ja/" />
         <link rel="alternate" hrefLang="x-default" href="https://birthfacts.net/" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -112,8 +107,8 @@ export default function EnRootLayout({ children }: { children: React.ReactNode }
               <a href="/" className="hover:text-[var(--accent)] transition-colors">Calculator</a>
               <a href="/faq/" className="hover:text-[var(--accent)] transition-colors">FAQ</a>
               <a href="/about/" className="hover:text-[var(--accent)] transition-colors">About</a>
-              <a href="/es/" className="hover:text-[var(--accent)] transition-colors text-xs opacity-60">🌐 ES</a>
-              <a href="/ja/" className="hover:text-[var(--accent)] transition-colors text-xs opacity-60">🌐 日本語</a>
+              <a href="/es/" className="hover:text-[var(--accent)] transition-colors text-xs text-[var(--muted)]">🌐 ES</a>
+              <a href="/ja/" className="hover:text-[var(--accent)] transition-colors text-xs text-[var(--muted)]">🌐 日本語</a>
             </nav>
           </header>
           <main>{children}</main>

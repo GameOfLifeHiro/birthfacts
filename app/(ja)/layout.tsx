@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
 import ja from "@/lib/i18n/ja";
+import { inter } from "@/lib/fonts";
 import "../globals.css";
 
 const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
@@ -63,18 +64,12 @@ export const metadata: Metadata = {
 
 export default function JaRootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja">
+    <html lang="ja" className={inter.variable}>
       <head>
         <link rel="alternate" hrefLang="en" href="https://birthfacts.net/" />
         <link rel="alternate" hrefLang="es" href="https://birthfacts.net/es/" />
         <link rel="alternate" hrefLang="ja" href="https://birthfacts.net/ja/" />
         <link rel="alternate" hrefLang="x-default" href="https://birthfacts.net/" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body className="min-h-screen">
         <Script
@@ -96,8 +91,8 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
               <a href="/ja/" className="hover:text-[var(--accent)] transition-colors">計算ツール</a>
               <a href="/ja/faq/" className="hover:text-[var(--accent)] transition-colors">よくある質問</a>
               <a href="/ja/about/" className="hover:text-[var(--accent)] transition-colors">このサイトについて</a>
-              <a href="/es/" className="hover:text-[var(--accent)] transition-colors text-xs opacity-60">🌐 ES</a>
-              <a href="/" className="hover:text-[var(--accent)] transition-colors text-xs opacity-60">🌐 EN</a>
+              <a href="/es/" className="hover:text-[var(--accent)] transition-colors text-xs text-[var(--muted)]">🌐 ES</a>
+              <a href="/" className="hover:text-[var(--accent)] transition-colors text-xs text-[var(--muted)]">🌐 EN</a>
             </nav>
           </header>
 

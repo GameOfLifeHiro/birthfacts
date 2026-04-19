@@ -121,6 +121,7 @@ export default function AgeCalculator({ basePath = "/", showJapanFeatures = fals
             <select
               value={month}
               onChange={(e) => setMonth(e.target.value)}
+              aria-label={t.input.monthPlaceholder}
               className={`${SELECT_CLASS} basis-5/12`}
             >
               <option value="">{t.input.monthPlaceholder}</option>
@@ -132,6 +133,7 @@ export default function AgeCalculator({ basePath = "/", showJapanFeatures = fals
             <select
               value={day}
               onChange={(e) => setDay(e.target.value)}
+              aria-label={t.input.dayPlaceholder}
               className={`${SELECT_CLASS} basis-3/12`}
             >
               <option value="">{t.input.dayPlaceholder}</option>
@@ -143,6 +145,7 @@ export default function AgeCalculator({ basePath = "/", showJapanFeatures = fals
             <select
               value={year}
               onChange={(e) => setYear(e.target.value)}
+              aria-label={t.input.yearPlaceholder}
               className={`${SELECT_CLASS} basis-4/12`}
             >
               <option value="">{t.input.yearPlaceholder}</option>
