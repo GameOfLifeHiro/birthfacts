@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { getYearFacts } from "@/lib/historicalData";
+import { useT } from "@/lib/i18n";
 
 interface Props {
   dob: Date;
@@ -9,20 +10,19 @@ interface Props {
 }
 
 const MILESTONES = [
-  { age: 0, label: "Born", icon: "🐣" },
-  { age: 5, label: "Age 5", icon: "🎒" },
-  { age: 10, label: "Age 10", icon: "📚" },
-  { age: 13, label: "Teen", icon: "🎮" },
-  { age: 18, label: "Adult", icon: "🎓" },
-  { age: 21, label: "Age 21", icon: "🥂" },
-  { age: 30, label: "Age 30", icon: "✨" },
-  { age: 40, label: "Age 40", icon: "💼" },
-  { age: 50, label: "Age 50", icon: "🌟" },
-  { age: 60, label: "Age 60", icon: "🌿" },
-  { age: 70, label: "Age 70", icon: "🏡" },
+  { age: 0, icon: "🐣" },
+  { age: 5, icon: "🎒" },
+  { age: 10, icon: "📚" },
+  { age: 13, icon: "🎮" },
+  { age: 18, icon: "🎓" },
+  { age: 21, icon: "🥂" },
+  { age: 30, icon: "✨" },
+  { age: 40, icon: "💼" },
+  { age: 50, icon: "🌟" },
+  { age: 60, icon: "🌿" },
+  { age: 70, icon: "🏡" },
 ];
 
-// One highlighted world event per milestone year (for annotation)
 const MILESTONE_WORLD_EVENTS: Record<number, string> = {
   1924: "Lenin dies", 1929: "Wall Street Crash", 1933: "Hitler becomes Chancellor",
   1939: "WWII begins", 1945: "WWII ends — Atomic bomb", 1950: "Korean War",
@@ -43,6 +43,7 @@ const MILESTONE_WORLD_EVENTS: Record<number, string> = {
 };
 
 export default function LifeTimeline({ dob, currentAge }: Props) {
+  const t = useT();
   const birthYear = dob.getFullYear();
 
   const visibleMilestones = useMemo(() => {
@@ -52,29 +53,27 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
   return (
     <div className="card p-5">
       <h3 className="font-bold text-lg mb-1">
-        <span className="gradient-text">Your Life Timeline</span>
+        <span className="gradient-text">{t.lifeTimeline.heading}</span>
       </h3>
       <p className="text-base text-[var(--muted)] mb-6">
-        Key moments in your life, and what was happening in the world at each milestone.
+        {t.lifeTimeline.subtitle}
       </p>
 
-      {/* Vertical timeline */}
       <div className="relative">
-        {/* Vertical line */}
         <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-[var(--card-border)]" />
 
         <div className="space-y-6">
-          {visibleMilestones.map((milestone, idx) => {
+          {visibleMilestones.map((milestone) => {
             const milestoneYear = birthYear + milestone.age;
             const isPast = milestone.age < currentAge;
             const isCurrent = milestone.age === Math.floor(currentAge);
             const worldEvent = MILESTONE_WORLD_EVENTS[milestoneYear];
             const yearFacts = getYearFacts(milestoneYear);
             const topEvent = yearFacts?.worldEvents[0];
+            const label = t.milestones[milestone.age as keyof typeof t.milestones] ?? `Age ${milestone.age}`;
 
             return (
               <div key={milestone.age} className="flex items-start gap-4">
-                {/* Icon / dot */}
                 <div
                   className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center text-xl flex-shrink-0 border-2 ${
                     isCurrent
@@ -87,7 +86,6 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
                   {milestone.icon}
                 </div>
 
-                {/* Content */}
                 <div className="flex-1 pt-2 pb-2">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span
@@ -95,15 +93,14 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
                         isCurrent ? "text-[var(--accent2)]" : isPast ? "text-[var(--accent)]" : "text-[var(--muted)]"
                       }`}
                     >
-                      {milestone.label}
-                      {isCurrent && <span className="ml-1 text-sm text-[var(--accent2)]">← You are here</span>}
+                      {label}
+                      {isCurrent && <span className="ml-1 text-sm text-[var(--accent2)]">{t.lifeTimeline.youAreHere}</span>}
                     </span>
                     <span className="text-xs text-[var(--muted)] border border-[var(--card-border)] rounded-full px-2 py-0.5">
                       {milestoneYear}
                     </span>
                   </div>
 
-                  {/* World event for this milestone year */}
                   {(worldEvent || topEvent) && milestone.age <= currentAge && (
                     <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">
                       🌍 {worldEvent ?? topEvent}
@@ -114,7 +111,6 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
             );
           })}
 
-          {/* Current age dot if not on a milestone */}
           {!visibleMilestones.find((m) => m.age === Math.floor(currentAge)) && (
             <div className="flex items-start gap-4">
               <div className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center text-xl flex-shrink-0 border-2 border-[var(--accent2)] bg-[var(--bg)] shadow-lg shadow-[var(--accent2)]/20">
@@ -123,13 +119,13 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
               <div className="flex-1 pt-2">
                 <div className="flex items-center gap-2">
                   <span className="font-semibold text-base text-[var(--accent2)]">
-                    Age {Math.floor(currentAge)} — Today
+                    {t.locale === "ja" ? `${Math.floor(currentAge)}歳` : `Age ${Math.floor(currentAge)}`} — {t.lifeTimeline.today}
                   </span>
                   <span className="text-xs text-[var(--muted)] border border-[var(--card-border)] rounded-full px-2 py-0.5">
                     {new Date().getFullYear()}
                   </span>
                 </div>
-                <p className="text-sm text-[var(--muted)] mt-1">You are here</p>
+                <p className="text-sm text-[var(--muted)] mt-1">{t.lifeTimeline.youAreHere}</p>
               </div>
             </div>
           )}

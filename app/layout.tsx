@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
+import en from "@/lib/i18n/en";
 import "./globals.css";
 
 const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
@@ -51,6 +53,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* hreflang for international SEO */}
+        <link rel="alternate" hrefLang="en" href="https://birthfacts.net/" />
+        <link rel="alternate" hrefLang="ja" href="https://birthfacts.net/ja/" />
+        <link rel="alternate" hrefLang="x-default" href="https://birthfacts.net/" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -75,6 +81,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen">
+        <TranslationsProvider translations={en}>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"
@@ -114,8 +121,11 @@ export default function RootLayout({
             <a href="/dog-age-calculator/" className="hover:text-[var(--accent)]">Dog Age Calculator</a>
             {" · "}
             <a href="/cat-age-calculator/" className="hover:text-[var(--accent)]">Cat Age Calculator</a>
+            {" · "}
+            <a href="/ja/" className="hover:text-[var(--accent)]">日本語</a>
           </p>
         </footer>
+        </TranslationsProvider>
       </body>
     </html>
   );

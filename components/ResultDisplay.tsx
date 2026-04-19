@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { type AgeResult, formatNumber } from "@/lib/ageCalc";
+import { useT } from "@/lib/i18n";
 import BirthdayCountdown from "./BirthdayCountdown";
 
 interface Props {
@@ -10,31 +11,47 @@ interface Props {
 }
 
 export default function ResultDisplay({ result, dob }: Props) {
+  const t = useT();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
   const stats = [
-    { label: "Months", value: formatNumber(result.totalMonths) },
-    { label: "Weeks", value: formatNumber(result.totalWeeks) },
-    { label: "Days", value: formatNumber(result.totalDays) },
-    { label: "Hours", value: formatNumber(result.totalHours) },
-    { label: "Minutes", value: formatNumber(result.totalMinutes) },
+    { label: t.result.months, value: formatNumber(result.totalMonths) },
+    { label: t.result.weeks, value: formatNumber(result.totalWeeks) },
+    { label: t.result.days, value: formatNumber(result.totalDays) },
+    { label: t.result.hours, value: formatNumber(result.totalHours) },
+    { label: t.result.minutes, value: formatNumber(result.totalMinutes) },
   ];
+
+  // Localised day-of-week
+  const dayOfWeek = t.locale === "ja"
+    ? ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"][dob.getDay()]
+    : result.dayOfWeek;
 
   return (
     <div className="space-y-4">
       {/* Hero sentence */}
       <div className="card p-6 text-center">
-        <p className="text-[var(--muted)] text-sm mb-2">Your exact age</p>
-        <p className="text-2xl sm:text-3xl font-bold leading-tight">
-          You are{" "}
-          <span className="gradient-text">
-            {result.years} years, {result.months} months, {result.days} days
-          </span>{" "}
-          old
-        </p>
+        <p className="text-[var(--muted)] text-sm mb-2">{t.result.exactAge}</p>
+        {t.locale === "ja" ? (
+          <p className="text-2xl sm:text-3xl font-bold leading-tight">
+            {t.result.youAre}{" "}
+            <span className="gradient-text">
+              {result.years}年 {result.months}ヶ月 {result.days}日
+            </span>
+            {" "}{t.result.yearsOld}
+          </p>
+        ) : (
+          <p className="text-2xl sm:text-3xl font-bold leading-tight">
+            {t.result.youAre}{" "}
+            <span className="gradient-text">
+              {result.years} years, {result.months} months, {result.days} days
+            </span>{" "}
+            {t.result.yearsOld}
+          </p>
+        )}
         <p className="text-[var(--muted)] text-sm mt-3">
-          Born on a <span className="text-[var(--accent)] font-medium">{result.dayOfWeek}</span>
+          {t.result.bornOn} <span className="text-[var(--accent)] font-medium">{dayOfWeek}</span>
         </p>
       </div>
 

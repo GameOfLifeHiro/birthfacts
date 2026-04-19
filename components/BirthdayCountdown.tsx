@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { NextBirthday } from "@/lib/ageCalc";
+import { useT } from "@/lib/i18n";
 
 interface Props {
   nextBirthday: NextBirthday;
@@ -24,6 +25,7 @@ function getTimeUntil(target: Date) {
 }
 
 export default function BirthdayCountdown({ nextBirthday }: Props) {
+  const t = useT();
   const [timeLeft, setTimeLeft] = useState(() => getTimeUntil(nextBirthday.date));
 
   useEffect(() => {
@@ -37,8 +39,8 @@ export default function BirthdayCountdown({ nextBirthday }: Props) {
     return (
       <div className="card p-6 text-center border-[var(--accent2)] border-2">
         <div className="text-4xl mb-2">🎂</div>
-        <p className="text-2xl font-bold gradient-text">Happy Birthday!</p>
-        <p className="text-[var(--muted)] text-sm mt-1">Today is your special day!</p>
+        <p className="text-2xl font-bold gradient-text">{t.countdown.happyBirthday}</p>
+        <p className="text-[var(--muted)] text-sm mt-1">{t.countdown.todayIsYourDay}</p>
       </div>
     );
   }
@@ -46,15 +48,15 @@ export default function BirthdayCountdown({ nextBirthday }: Props) {
   return (
     <div className="card p-5">
       <p className="text-center text-sm text-[var(--muted)] mb-3">
-        🎂 Next birthday in{" "}
-        <span className="text-[var(--accent)] font-semibold">{nextBirthday.daysUntil} days</span>
+        {t.countdown.nextBirthdayIn}{" "}
+        <span className="text-[var(--accent)] font-semibold">{nextBirthday.daysUntil} {t.countdown.countdownDays}</span>
       </p>
       <div className="grid grid-cols-4 gap-2 text-center">
         {[
-          { label: "Days", value: timeLeft.days },
-          { label: "Hours", value: timeLeft.hours },
-          { label: "Minutes", value: timeLeft.minutes },
-          { label: "Seconds", value: timeLeft.seconds },
+          { label: t.countdown.days, value: timeLeft.days },
+          { label: t.countdown.hours, value: timeLeft.hours },
+          { label: t.countdown.minutes, value: timeLeft.minutes },
+          { label: t.countdown.seconds, value: timeLeft.seconds },
         ].map(({ label, value }) => (
           <div key={label} className="stat-card">
             <div className="text-2xl font-bold font-mono text-[var(--accent2)]">
