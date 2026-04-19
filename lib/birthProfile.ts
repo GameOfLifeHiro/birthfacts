@@ -644,12 +644,289 @@ const FAMOUS_PERSON_DESCRIPTIONS_JA: Record<string, string> = {
 export function getFamousBirthdays(month: number, day: number, locale?: string): FamousPerson[] {
   const key = `${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
   const people = FAMOUS_BIRTHDAYS[key] ?? [];
-  if (locale !== "ja") return people;
-  return people.map((p) => ({
-    ...p,
-    description: FAMOUS_PERSON_DESCRIPTIONS_JA[p.description] ?? p.description,
-  }));
+  if (locale === "ja") {
+    return people.map((p) => ({ ...p, description: FAMOUS_PERSON_DESCRIPTIONS_JA[p.description] ?? p.description }));
+  }
+  if (locale === "es") {
+    return people.map((p) => ({ ...p, description: FAMOUS_PERSON_DESCRIPTIONS_ES[p.description] ?? p.description }));
+  }
+  return people;
 }
+
+// ─── Spanish Locale Overrides ────────────────────────────────────────────────
+
+const WESTERN_ZODIAC_TRAITS_ES: Record<string, string> = {
+  Capricorn: "Disciplinado, ambicioso, práctico y paciente",
+  Aquarius: "Independiente, original, humanitario e intelectual",
+  Pisces: "Intuitivo, compasivo, artístico y gentil",
+  Aries: "Valiente, enérgico, entusiasta y confiado",
+  Taurus: "Confiable, paciente, práctico y devoto",
+  Gemini: "Adaptable, curioso, ingenioso y comunicativo",
+  Cancer: "Intuitivo, emocional, protector y cariñoso",
+  Leo: "Creativo, generoso, cálido y alegre",
+  Virgo: "Analítico, trabajador, práctico y diligente",
+  Libra: "Diplomático, justo, sociable y elegante",
+  Scorpio: "Valiente, apasionado, ingenioso y determinado",
+  Sagittarius: "Generoso, idealista, aventurero y entusiasta",
+};
+
+const CHINESE_ZODIAC_TRAITS_ES: Record<string, string> = {
+  Rat: "Perspicaz, ingenioso y adaptable",
+  Ox: "Diligente, confiable, fuerte y determinado",
+  Tiger: "Valiente, confiado y carismático",
+  Rabbit: "Gentil, tranquilo, elegante y bondadoso",
+  Dragon: "Confiado, inteligente y entusiasta",
+  Snake: "Enigmático, sabio e intuitivo",
+  Horse: "Animado, enérgico y cálido",
+  Goat: "Calmado, gentil y creativo",
+  Monkey: "Inteligente, travieso y curioso",
+  Rooster: "Observador, trabajador y valiente",
+  Dog: "Leal, honesto y bondadoso",
+  Pig: "Compasivo, generoso y diligente",
+};
+
+const LIFE_PATH_MEANINGS_ES: Record<number, { meaning: string; strengths: string }> = {
+  1: { meaning: "El Líder — independiente, ambicioso, un pionero que forja su propio camino", strengths: "Liderazgo, originalidad, valentía" },
+  2: { meaning: "El Diplomático — cooperativo, sensible, un pacificador natural y jugador de equipo", strengths: "Intuición, empatía, paciencia" },
+  3: { meaning: "El Creativo — expresivo, artístico, comunicador alegre", strengths: "Creatividad, optimismo, comunicación" },
+  4: { meaning: "El Constructor — práctico, trabajador, pilar de estabilidad", strengths: "Disciplina, confiabilidad, organización" },
+  5: { meaning: "El Buscador de Libertad — aventurero, adaptable, atraído por el cambio", strengths: "Versatilidad, curiosidad, carisma" },
+  6: { meaning: "El Nutridor — amoroso, responsable, dedicado a la familia y la comunidad", strengths: "Compasión, responsabilidad, sanación" },
+  7: { meaning: "El Buscador — introspectivo, espiritual, pensador profundo y buscador de la verdad", strengths: "Análisis, sabiduría, intuición" },
+  8: { meaning: "El Poderoso — ambicioso, con autoridad, orientado hacia el dominio material y espiritual", strengths: "Determinación, visión, capacidad ejecutiva" },
+  9: { meaning: "El Humanitario — compasivo, altruista, aquí para servir al bien mayor", strengths: "Generosidad, sabiduría, idealismo" },
+  11: { meaning: "Número Maestro 11 — El Visionario — altamente intuitivo, inspiracional, un mensajero espiritual", strengths: "Inspiración, intuición, iluminación" },
+  22: { meaning: "Número Maestro 22 — El Gran Constructor — convierte sueños en realidad a gran escala", strengths: "Visión, practicidad, liderazgo" },
+  33: { meaning: "Número Maestro 33 — El Gran Maestro — encarna energía pura de amor y servicio altruista", strengths: "Compasión, sanación, sabiduría" },
+};
+
+const WEEKDAY_MEANINGS_ES: WeekdayMeaning[] = [
+  { day: "Domingo", planet: "☀️ Sol", meaning: "Naciste el día del Sol — un líder natural con un espíritu radiante y creativo", traits: "Liderazgo, vitalidad, generosidad" },
+  { day: "Lunes", planet: "🌙 Luna", meaning: "Naciste el día de la Luna — altamente intuitivo, emocionalmente rico y profundamente empático", traits: "Intuición, cuidado, sensibilidad" },
+  { day: "Martes", planet: "♂️ Marte", meaning: "Naciste el día de Marte — valiente, decidido y ferozmente determinado", traits: "Energía, ambición, valentía" },
+  { day: "Miércoles", planet: "☿ Mercurio", meaning: "Naciste el día de Mercurio — ágil de mente, comunicativo y dotado intelectualmente", traits: "Inteligencia, adaptabilidad, comunicación" },
+  { day: "Jueves", planet: "♃ Júpiter", meaning: "Naciste el día de Júpiter — optimista, generoso y destinado a la expansión", traits: "Sabiduría, abundancia, optimismo" },
+  { day: "Viernes", planet: "♀️ Venus", meaning: "Naciste el día de Venus — magnético, amoroso y atraído por la belleza y la armonía", traits: "Amor, belleza, creatividad" },
+  { day: "Sábado", planet: "♄ Saturno", meaning: "Naciste el día de Saturno — disciplinado, paciente y preparado para el dominio a largo plazo", traits: "Disciplina, persistencia, sabiduría" },
+];
+
+const BIRTHSTONE_MEANINGS_ES = [
+  "Protección, fortaleza y viajes seguros",
+  "Paz, valentía y fortaleza interior",
+  "Calma, claridad y armonía",
+  "Fortaleza, amor eterno y claridad",
+  "Renacimiento, amor y fertilidad",
+  "Pureza, sabiduría e integridad",
+  "Pasión, protección y prosperidad",
+  "Fortaleza, positividad y buena fortuna",
+  "Lealtad, sabiduría y virtudes nobles",
+  "Inspiración, creatividad y esperanza",
+  "Afecto, fortaleza e inteligencia",
+  "Buena fortuna, éxito y relajación",
+];
+
+const BIRTH_FLOWER_MEANINGS_ES = [
+  "Amor, fascinación y esperanza",
+  "Fidelidad, modestia y amor joven",
+  "Nuevos comienzos, amor propio y creatividad",
+  "Pureza, inocencia y placer dichoso",
+  "Felicidad, suerte y retorno a la alegría",
+  "Amor, belleza y pasión",
+  "Positividad, dignidad e iluminación",
+  "Recuerdo, fortaleza e integridad",
+  "Amor, sabiduría y afecto",
+  "Calidez, creatividad y orden",
+  "Lealtad, honestidad y longevidad",
+  "Esperanza, renovación y felicidad doméstica",
+];
+
+const GENERATION_DESC_ES: Record<string, string> = {
+  "Greatest Generation": "Supervivientes de la Gran Depresión y veteranos de la Primera y Segunda Guerra Mundial, definidos por el sacrificio y el deber cívico.",
+  "The Silent Generation": "Resilientes y disciplinados, moldeados por la Gran Depresión y la Segunda Guerra Mundial. Conocidos por su trabajo duro, lealtad y conformidad.",
+  "Baby Boomer": "La generación de la posguerra que redefinió la cultura en los años 60 y 70. Idealistas, competitivos y orientados al trabajo.",
+  "Generation X": "Independientes, ingeniosos y escépticos — la generación que puente el mundo analógico y digital.",
+  "Millennial (Gen Y)": "Pioneros digitales que crecieron con internet. Colaborativos, orientados a propósito y a valores.",
+  "Generation Z": "Nativos digitales que crecieron con smartphones. Pragmáticos, inclusivos y con mentalidad emprendedora.",
+  "Generation Alpha": "La generación más inmersa tecnológicamente. Moldeada por la IA, las redes sociales desde el nacimiento y la interconexión global.",
+};
+
+const SPIRITUAL_GENERATION_DESC_ES: Record<string, { description: string; traits: string[] }> = {
+  "Indigo Child": {
+    description: "Los Niños Índigo se cree que nacen con una misión especial para desafiar sistemas obsoletos y dar paso a un nuevo paradigma. Poseen una fuerte intuición, un profundo sentido de propósito y a menudo se sienten como foráneos.",
+    traits: ["Altamente intuitivos", "Voluntad fuerte", "Empáticos", "Cuestionan la autoridad", "Sentido de misión especial"],
+  },
+  "Crystal Child": {
+    description: "Los Niños de Cristal irradian amor, paz y armonía. Nacidos como sanadores naturales y empáticos, son almas gentiles que conectan dimensiones espirituales con la vida cotidiana.",
+    traits: ["Profundamente empáticos", "Pacíficos y amorosos", "Altamente sensibles", "Sanador natural", "Fuerte conexión con la naturaleza"],
+  },
+  "Rainbow Child": {
+    description: "Los Niños Arcoíris se dice que nacen sin karma acumulado, llegando en pura alegría y amor divino. Son dadores naturales y están aquí para construir un nuevo mundo de armonía.",
+    traits: ["Alegría y amor puros", "Sin deuda kármica", "Altamente energéticos", "Sin miedo", "Amor incondicional"],
+  },
+  "Star Child": {
+    description: "Muchas tradiciones espirituales sostienen que todas las almas que eligen encarnar en la era moderna llevan una misión de alta vibración, independientemente de si caen en una categoría nombrada.",
+    traits: ["Despertar espiritual", "Misión del alma", "Sensibilidad a la energía"],
+  },
+};
+
+const MOON_PHASE_MEANINGS_ES: Record<string, string> = {
+  "New Moon": "Nuevos comienzos, establecimiento de intenciones e introspección interna. Un tiempo poderoso para sembrar semillas de intención.",
+  "Waxing Crescent": "Crecimiento, esperanza y acumulación de energía. Naciste con el instinto de avanzar y construir.",
+  "First Quarter": "Acción, decisión y superación de desafíos. Una energía dinámica y determinada en el nacimiento.",
+  "Waxing Gibbous": "Refinamiento, perseverancia y enfoque. Un espíritu analítico y orientado al detalle.",
+  "Full Moon": "Culminación, emociones intensificadas y visibilidad. Se dice que los nacidos en luna llena son profundamente expresivos e intensamente emocionales.",
+  "Waning Gibbous": "Gratitud, compartir y comunicación. Un maestro natural y dador de sabiduría.",
+  "Last Quarter": "Liberación, reflexión y transición. Naciste con el don de soltar y ver el panorama más amplio.",
+  "Waning Crescent": "Descanso, rendición e intuición profunda. Una energía mística e introspectiva con fuerte sensibilidad psíquica.",
+};
+
+const DAY_SIGN_MEANINGS_ES: Record<string, string> = {
+  Dragon: "Fuerza vital primordial, nacimiento y nutrición. Cargas la energía de la creación misma — profundamente conectado con los orígenes, los comienzos y el poder sustentador de la existencia.",
+  Wind: "Espíritu, aliento y comunicación. Eres un canal de inspiración divina, dotado para transmitir ideas, verdad y sabiduría superior al mundo.",
+  Night: "El tiempo del sueño, la abundancia y el interior intuitivo. Estás profundamente sintonizado con los reinos invisibles, con una rica vida interior y dones naturales para soñar y visionar.",
+  Seed: "Florecimiento, conciencia y enfoque. Contienes el potencial de la posibilidad pura. Tu vida trata de plantar intenciones y verlas florecer a través de la conciencia enfocada.",
+  Serpent: "Fuerza vital, instinto y kundalini. Cargas energía física y psíquica poderosa, con una conexión innata con la sabiduría del cuerpo y el fuego ascendente de la transformación.",
+  Worldbridger: "Muerte, oportunidad y ecuanimidad. Eres un puente entre mundos — quien completa ciclos, abandona lo viejo y abre la puerta a la transformación.",
+  Hand: "Conocimiento, sanación y logros. Eres un sanador natural y hacedor, con sabiduría práctica y el impulso de llevar el conocimiento a la acción sanadora.",
+  Star: "Arte, elegancia y belleza. Cargas la vibración del artista y la estrella — aquí para expresar belleza, armonía y el pulso creativo del universo.",
+  Moon: "Purificación, flujo y agua universal. Eres profundamente sensible y emocionalmente sintonizado, un recipiente para el flujo sagrado de la vida y la purificación de patrones emocionales.",
+  Dog: "Amor, lealtad y corazón. Cargas la energía del amor incondicional y la compañía devota — un alma centrada en el corazón con vínculos profundos e inquebrantable lealtad.",
+  Monkey: "Juego, magia e ilusión. Eres el sagrado embaucador y artista cósmico, aquí para tejer magia a través de la creatividad, el humor y el poder transformador del juego.",
+  Human: "Libre albedrío, sabiduría y cosecha. Eres el buscador de libre albedrío, acumulando sabiduría a través de la experiencia y usando tu cosecha de conocimiento para guiarte a ti y a otros.",
+  Skywalker: "Espacio, profecía y vigilia. Eres el explorador del espacio interior y exterior — un viajero despierto que tiende puentes entre el cielo y la tierra a través de la conciencia expandida.",
+  Wizard: "Atemporalidad, encantamiento y receptividad. Eres el chamán y el encantador, receptivo al eterno ahora y dotado para alinearte con la magia más profunda de la existencia.",
+  Eagle: "Visión, mente y creatividad. Cargas el don del águila de ver lejos — la capacidad de elevarte sobre lo ordinario y percibir los patrones más amplios de la vida con claridad.",
+  Warrior: "Inteligencia, valentía e integridad. Eres el guerrero espiritual, cuestionando, probando y caminando el camino con integridad, valentía e inteligencia cósmica.",
+  Earth: "Navegación, sincronía y evolución. Estás sintonizado con el latido de la Tierra y la red de sincronía — un navegador natural de los patrones sagrados de la vida.",
+  Mirror: "Reflexión, orden e infinitud. Sostienes el espejo hacia la verdad — un buscador de claridad y orden que refleja la realidad con precisión y conciencia atemporal.",
+  Storm: "Autogeneración, energía y catálisis. Cargas la fuerza catalítica de la transformación — un dínamo autogenerado que trae cambio, renovación y despertar eléctrico.",
+  Sun: "Fuego universal, vida e iluminación. Cargas la llama solar de la conciencia — aquí para iluminar, elevar y encarnar la conciencia iluminada de la pura fuerza vital.",
+};
+
+const TONE_MEANINGS_ES: Record<number, string> = {
+  1: "Magnético (Tono 1) — Atracción y unificación. Tienes una cualidad magnética que atrae a personas y experiencias a tu vida. Tu poder radica en establecer un propósito claro que unifica todo a su alrededor.",
+  2: "Lunar (Tono 2) — Desafío y polaridad. Prosperas navegando los opuestos y encontrando el equilibrio dentro de la dualidad. Tu mayor crecimiento viene de enfrentar desafíos con gracia.",
+  3: "Eléctrico (Tono 3) — Servicio y activación. Cargas una energía eléctrica y activadora que une y sirve. Estás aquí para unir a otros y activar el potencial colectivo.",
+  4: "Auto-Existente (Tono 4) — Forma y definición. Traes las cosas a la forma a través de la definición y medición precisas. Tu don es crear estructuras claras que hacen realidad las ideas.",
+  5: "Armónico (Tono 5) — Radiancia y empoderamiento. Irradias una presencia dominante que empodera a todos a tu alrededor. Eres un centro natural de poder radiante y comando creativo.",
+  6: "Rítmico (Tono 6) — Equilibrio y organización. Tienes un sentido innato del ritmo y la organización, trayendo igualdad dinámica y equilibrio a todas las áreas de la vida.",
+  7: "Resonante (Tono 7) — Sintonía e inspiración. Eres un canal altamente sensible para la inspiración divina, resonando con el centro místico del Tzolk'in. Tu don es la sintonía profunda.",
+  8: "Galáctico (Tono 8) — Integridad y armonización. Armonizas tus acciones con tus principios más elevados, modelando integridad en todo lo que haces. Vivir tu verdad es tu superpoder.",
+  9: "Solar (Tono 9) — Intención y pulso. Pulsas con intención solar, realizando tus visiones a través de acciones claras y decididas. Tus realizaciones inspiran a quienes te rodean.",
+  10: "Planetario (Tono 10) — Manifestación y perfección. Cargas el don de la manifestación — la capacidad de producir, perfeccionar y llevar las intenciones completamente al mundo material.",
+  11: "Espectral (Tono 11) — Liberación y soltar. Cargas el poder de la disolución — liberando lo que ya no se necesita para que la energía pura pueda liberarse y transformarse.",
+  12: "Cristal (Tono 12) — Dedicación y cooperación. Eres el co-creador universal, uniendo a las personas en una cooperación dedicada. Tu poder florece en la comunidad y la visión compartida.",
+  13: "Cósmico (Tono 13) — Trascendencia y presencia. Cargas el tono de mayor vibración — la energía de la resistencia, la trascendencia y el presente eterno que va más allá del tiempo.",
+};
+
+const WAVESPELL_THEMES_ES: Record<string, string> = {
+  Dragon: "nacimiento, nutrición y nuevos comienzos",
+  Wind: "comunicación, aliento y transmisión divina",
+  Night: "sueños, abundancia y sabiduría interior",
+  Seed: "florecimiento, conciencia y enfoque en tus metas",
+  Serpent: "fuerza vital, instinto y vitalidad física",
+  Worldbridger: "liberación, rendición y transformación",
+  Hand: "sanación, conocimiento y logros",
+  Star: "belleza, arte y creatividad elegante",
+  Moon: "flujo emocional, purificación y sentir",
+  Dog: "amor, lealtad y conexión centrada en el corazón",
+  Monkey: "juego, magia e ilusión creativa",
+  Human: "libre albedrío, cosecha y sabiduría acumulada",
+  Skywalker: "exploración, profecía y conciencia expandida",
+  Wizard: "atemporalidad, encantamiento y receptividad",
+  Eagle: "visión, creatividad y ver el panorama general",
+  Warrior: "integridad, valentía e interrogación",
+  Earth: "sincronía, navegación y evolución",
+  Mirror: "reflexión, verdad y orden infinito",
+  Storm: "transformación, autogeneración y catálisis",
+  Sun: "iluminación, fuerza vital y fuego solar",
+};
+
+const FAMOUS_PERSON_DESCRIPTIONS_ES: Record<string, string> = {
+  "Author of The Catcher in the Rye": "Autor de El guardián entre el centeno",
+  "Actor known as Mini-Me": "Actor conocido como Mini-Me",
+  "French military leader and saint": "Líder militar francesa y santa",
+  "Legendary rock musician and icon": "Legendario músico de rock e ícono cultural",
+  "The King of Rock and Roll": "El Rey del Rock and Roll",
+  "Rapper and actor": "Rapero y actor",
+  "Greatest heavyweight boxer of all time": "El mejor boxeador de peso pesado de todos los tiempos",
+  "Former First Lady of the United States": "Ex Primera Dama de los Estados Unidos",
+  "Author of gothic tales and poetry": "Autor de cuentos góticos y poesía",
+  "Grammy-winning singer-songwriter": "Cantautora ganadora del Grammy",
+  "Classical music composer": "Compositor de música clásica",
+  "Colombian pop and Latin music star": "Estrella del pop colombiano y la música latina",
+  "Reggae legend and cultural icon": "Leyenda del reggae e ícono cultural",
+  "Iconic actor of Rebel Without a Cause": "Actor icónico de Rebelde sin causa",
+  "Inventor of the lightbulb and phonograph": "Inventor de la bombilla y el fonógrafo",
+  "16th President of the United States": "16.º Presidente de los Estados Unidos",
+  "Father of evolutionary theory": "Padre de la teoría de la evolución",
+  "Abolitionist and statesman": "Abolicionista y estadista",
+  "Astronomer and father of modern science": "Astrónomo y padre de la ciencia moderna",
+  "Astronomer who proposed heliocentrism": "Astrónomo que propuso el heliocentrismo",
+  "Civil rights leader and sociologist": "Líder de derechos civiles y sociólogo",
+  "Inventor of the telephone": "Inventor del teléfono",
+  "Theoretical physicist, E=mc²": "Físico teórico, E=mc²",
+  "Theoretical physicist and cosmologist": "Físico teórico y cosmólogo",
+  "Comedian and filmmaker": "Comediante y cineasta",
+  "Baroque composer and musician": "Compositor y músico barroco",
+  "Legendary British singer-songwriter": "Legendario cantautor británico",
+  "Actor known for Hugo and Ender's Game": "Actor conocido por Hugo y El juego de Ender",
+  "Author of fairy tales": "Autor de cuentos de hadas",
+  "3rd President of the United States": "3.er Presidente de los Estados Unidos",
+  "Renaissance artist and inventor": "Artista e inventor del Renacimiento",
+  "Philosopher of the Enlightenment": "Filósofo de la Ilustración",
+  "Oscar-winning actor": "Actor ganador del Óscar",
+  "The greatest playwright in the English language": "El más grande dramaturgo de la lengua inglesa",
+  "Acclaimed film director": "Aclamado director de cine",
+  "Founder of psychoanalysis": "Fundador del psicoanálisis",
+  "Founder of modern nursing": "Fundadora de la enfermería moderna",
+  "Co-founder of Facebook/Meta": "Cofundador de Facebook/Meta",
+  "Civil rights activist and leader": "Activista y líder de los derechos civiles",
+  "Philosopher and poet": "Filósofo y poeta",
+  "35th President of the United States": "35.º Presidente de los Estados Unidos",
+  "French nobleman and writer": "Noble y escritor francés",
+  "Musical genius and rock icon": "Genio musical e ícono del rock",
+  "Actor known for Pirates of the Caribbean": "Actor conocido por Piratas del Caribe",
+  "Diarist and Holocaust victim": "Diarista y víctima del Holocausto",
+  "Beatle and legendary musician": "Beatle y legendario músico",
+  "Author of 1984 and Animal Farm": "Autor de 1984 y Rebelión en la granja",
+  "King of Pop": "Rey del Pop",
+  "American novelist": "Novelista estadounidense",
+  "30th US President": "30.º Presidente de los Estados Unidos",
+  "Iconic Mexican painter": "Icónica pintora mexicana",
+  "Tibetan Buddhist spiritual leader": "Líder espiritual del budismo tibetano",
+  "Nobel Prize-winning author": "Autor ganador del Premio Nobel",
+  "Pioneering X-ray crystallographer": "Pionera cristalógrafa de rayos X",
+  "44th President of the United States": "44.º Presidente de los Estados Unidos",
+  "First human to walk on the Moon": "El primer ser humano en caminar sobre la Luna",
+  "Pop art pioneer": "Pionero del arte pop",
+  "Legendary R&B vocalist": "Legendaria vocalista de R&B",
+  "Quantum physics pioneer": "Pionero de la física cuántica",
+  "Humanitarian and Nobel Peace Prize laureate": "Humanitaria y laureada con el Premio Nobel de la Paz",
+  "Lead vocalist of Queen": "Vocalista principal de Queen",
+  "Best-selling mystery novelist": "Novelista de misterio más vendida",
+  "Country music pioneer": "Pionero de la música country",
+  "Modernist poet and Nobel laureate": "Poeta modernista y laureado con el Nobel",
+  "Chinese philosopher and teacher": "Filósofo y maestro chino",
+  "Leader of Indian independence, father of non-violence": "Líder de la independencia india, padre de la no violencia",
+  "Beatle, peace activist, and solo artist": "Beatle, activista por la paz y artista en solitario",
+  "34th US President and WWII general": "34.º Presidente de los Estados Unidos y general de la Segunda Guerra Mundial",
+  "Irish poet and playwright": "Poeta y dramaturgo irlandés",
+  "Virtuoso pianist and composer": "Pianista virtuoso y compositor",
+  "Co-founder of Microsoft": "Cofundador de Microsoft",
+  "Romantic poet": "Poeta romántico",
+  "Author of Dracula": "Autor de Drácula",
+  "Father of the Protestant Reformation": "Padre de la Reforma Protestante",
+  "First female Prime Minister of India": "Primera Ministra femenina de India",
+  "Author of The Chronicles of Narnia": "Autor de Las Crónicas de Narnia",
+  "Creator of Mickey Mouse and Disney empire": "Creador de Mickey Mouse y el imperio Disney",
+  "Beloved American poet": "Amada poeta estadounidense",
+  "Classical composer who composed while deaf": "Compositor clásico que siguió componiendo siendo sordo",
+  "Baptism day of the classical music giant": "Día del bautismo del gigante de la música clásica",
+  "Mathematician and physicist who discovered gravity": "Matemático y físico que descubrió la gravedad",
+  "Hollywood golden age actor": "Actor de la era dorada de Hollywood",
+  "Creator of Marvel Comics superheroes": "Creador de los superhéroes de Marvel Comics",
+};
 
 // ─── Japanese Locale Overrides ────────────────────────────────────────────────
 
@@ -861,6 +1138,31 @@ export function getBirthProfile(dob: Date, locale?: string): BirthProfile {
   const spiritualGeneration = getSpiritualGeneration(year);
   const moonPhase = getMoonPhase(dob);
   const mayanProfile = getMayanProfile(dob);
+
+  if (locale === "es") {
+    westernZodiac.traits = WESTERN_ZODIAC_TRAITS_ES[westernZodiac.sign] ?? westernZodiac.traits;
+    chineseZodiac.traits = CHINESE_ZODIAC_TRAITS_ES[chineseZodiac.animal] ?? chineseZodiac.traits;
+
+    const lpEs = LIFE_PATH_MEANINGS_ES[lifePathNumber.number];
+    if (lpEs) { lifePathNumber.meaning = lpEs.meaning; lifePathNumber.strengths = lpEs.strengths; }
+
+    const wdEs = WEEKDAY_MEANINGS_ES[dayOfWeek];
+    if (wdEs) { weekdayMeaning.day = wdEs.day; weekdayMeaning.planet = wdEs.planet; weekdayMeaning.meaning = wdEs.meaning; weekdayMeaning.traits = wdEs.traits; }
+
+    birthstone.meaning = BIRTHSTONE_MEANINGS_ES[month - 1] ?? birthstone.meaning;
+    birthFlower.meaning = BIRTH_FLOWER_MEANINGS_ES[month - 1] ?? birthFlower.meaning;
+
+    generation.description = GENERATION_DESC_ES[generation.name] ?? generation.description;
+
+    const spEs = SPIRITUAL_GENERATION_DESC_ES[spiritualGeneration.name];
+    if (spEs) { spiritualGeneration.description = spEs.description; spiritualGeneration.traits = spEs.traits; }
+
+    moonPhase.meaning = MOON_PHASE_MEANINGS_ES[moonPhase.phase] ?? moonPhase.meaning;
+
+    mayanProfile.daySignMeaning = DAY_SIGN_MEANINGS_ES[mayanProfile.daySign] ?? mayanProfile.daySignMeaning;
+    mayanProfile.toneMeaning = TONE_MEANINGS_ES[mayanProfile.toneNumber] ?? mayanProfile.toneMeaning;
+    mayanProfile.wavespellTheme = WAVESPELL_THEMES_ES[mayanProfile.wavespell] ?? mayanProfile.wavespellTheme;
+  }
 
   if (isJa) {
     // Overwrite English strings with Japanese equivalents

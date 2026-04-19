@@ -26,6 +26,8 @@ export default function ResultDisplay({ result, dob }: Props) {
   // Localised day-of-week
   const dayOfWeek = t.locale === "ja"
     ? ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"][dob.getDay()]
+    : t.locale === "es"
+    ? ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"][dob.getDay()]
     : result.dayOfWeek;
 
   return (
@@ -40,6 +42,13 @@ export default function ResultDisplay({ result, dob }: Props) {
               {result.years}歳 {result.months}ヶ月 {result.days}日
             </span>
             {" "}{t.result.yearsOld}
+          </p>
+        ) : t.locale === "es" ? (
+          <p className="text-2xl sm:text-3xl font-bold leading-tight">
+            {t.result.youAre}{" "}
+            <span className="gradient-text">
+              {result.years} años, {result.months} meses, {result.days} días
+            </span>
           </p>
         ) : (
           <p className="text-2xl sm:text-3xl font-bold leading-tight">

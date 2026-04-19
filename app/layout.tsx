@@ -48,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <link rel="alternate" hrefLang="en" href="https://birthfacts.net/" />
+        <link rel="alternate" hrefLang="es" href="https://birthfacts.net/es/" />
         <link rel="alternate" hrefLang="ja" href="https://birthfacts.net/ja/" />
         <link rel="alternate" hrefLang="x-default" href="https://birthfacts.net/" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

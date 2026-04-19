@@ -1,0 +1,195 @@
+import type { Translations } from "./types";
+
+const es: Translations = {
+  locale: "es",
+  dir: "ltr",
+
+  meta: {
+    title: "BirthFacts — Calculadora de Edad y Perfil de Cumpleaños",
+    description: "Perfil de cumpleaños gratuito: edad exacta, zodiaco, fase lunar, número Kin maya, número de camino de vida, generación espiritual, hechos históricos, calculadora de edad de perros y gatos.",
+    keywords: ["calculadora de edad", "calculadora de cumpleaños", "signo zodiacal", "fase lunar cumpleaños", "número kin maya", "número de camino de vida", "calculadora edad perro", "calculadora edad gato"],
+  },
+
+  nav: {
+    calculator: "Calculadora",
+    faq: "Preguntas",
+    about: "Acerca de",
+  },
+
+  home: {
+    heading: "Calculadora de Edad",
+    subheading: "Descubre tu edad exacta en años, meses, semanas, días, horas y minutos — más tu signo zodiacal, identidad generacional y mucho más.",
+  },
+
+  input: {
+    sectionTitle: "Ingresa tu fecha de nacimiento",
+    monthPlaceholder: "Mes",
+    dayPlaceholder: "Día",
+    yearPlaceholder: "Año",
+    calculateButton: "Calcular",
+  },
+
+  result: {
+    exactAge: "Tu edad exacta",
+    youAre: "Tienes",
+    yearsOld: "",
+    bornOn: "Naciste un",
+    months: "Meses",
+    weeks: "Semanas",
+    days: "Días",
+    hours: "Horas",
+    minutes: "Minutos",
+  },
+
+  countdown: {
+    happyBirthday: "¡Feliz Cumpleaños!",
+    todayIsYourDay: "¡Hoy es tu día especial!",
+    nextBirthdayIn: "🎂 Próximo cumpleaños en",
+    countdownDays: "días",
+    days: "Días",
+    hours: "Horas",
+    minutes: "Minutos",
+    seconds: "Segundos",
+  },
+
+  profile: {
+    heading: "Tu Perfil de Cumpleaños",
+    westernZodiac: "Zodiaco Occidental",
+    chineseZodiac: "Zodiaco Chino",
+    lifePathNumber: "Número de Camino de Vida",
+    masterNumber: "Maestro",
+    strengths: "Fortalezas",
+    moonPhase: "Fase Lunar al Nacer",
+    illuminated: "iluminado",
+    mayanCalendar: "Calendario Maya Dreamspell",
+    kin: "Kin",
+    daySign: "Signo del Día (Sello Solar)",
+    galacticTone: "Tono Galáctico",
+    wavespell: "Wavespell",
+    wavespellIntro: "Estás en el",
+    wavespellTheme: "Wavespell — un viaje de 13 días guiado por",
+    bornOnA: "Naciste un...",
+    traits: "Rasgos",
+    birthstone: "Piedra de Nacimiento",
+    birthFlower: "Flor de Nacimiento",
+    generation: "Tu Generación",
+    spiritualGeneration: "Generación Espiritual",
+    starChild: "Niño Estrella",
+    famousBirthdays: "Personas Famosas Nacidas en tu Día",
+    luckyNumbers: "Números de suerte",
+  },
+
+  history: {
+    heading: "El Mundo en",
+    subtitle: "¿Qué estaba pasando cuando naciste?",
+    worldEvents: "🌍 Eventos Mundiales",
+    tech: "💡 Tecnología",
+    popCulture: "🎭 Cultura Pop",
+    music: "🎵 Música",
+    movies: "🎬 Películas",
+    noData: "Datos históricos no disponibles para",
+  },
+
+  lifeTimeline: {
+    heading: "Tu Línea de Tiempo de Vida",
+    subtitle: "Momentos clave en tu vida y lo que pasaba en el mundo en cada hito.",
+    youAreHere: "← Estás aquí",
+    today: "Hoy",
+  },
+
+  dogCalc: {
+    heading: "Calculadora de Edad del Perro",
+    subheading: "¿Cuántos años tiene tu perro en años humanos? Ingresa la edad y el tamaño de tu perro para una conversión precisa.",
+    ageLabel: "Edad del perro (en años)",
+    agePlaceholder: "ej. 7",
+    sizeLabel: "Tamaño del perro",
+    small: "Pequeño",
+    smallSub: "< 9 kg",
+    medium: "Mediano",
+    mediumSub: "9–23 kg",
+    large: "Grande",
+    largeSub: "23+ kg",
+    calculateButton: "Calcular Edad Humana",
+    resultPrefix: "Tu perro tiene aproximadamente",
+    resultSuffix: "años en términos humanos",
+    lifeStage: "Etapa de vida",
+    stagesTitle: "Etapas de vida del perro",
+    howTitle: "¿Cómo se calcula la edad del perro?",
+    howText: "La vieja regla de \"1 año de perro = 7 años humanos\" es un mito. La ciencia veterinaria moderna usa un modelo más preciso: el primer año equivale a ~15 años humanos (desarrollo rápido), el segundo año agrega ~9 más (24 en total), y cada año posterior agrega ~4 años humanos. Los perros grandes envejecen más rápido que los pequeños, por lo que aplicamos un modificador de tamaño.",
+    backToCalc: "🎂 Calculadora de Edad por Cumpleaños",
+    toCatCalc: "🐱 Calculadora de Edad del Gato",
+  },
+
+  catCalc: {
+    heading: "Calculadora de Edad del Gato",
+    subheading: "¿Cuántos años tiene tu gato en años humanos? Ingresa la edad de tu gato para una conversión precisa.",
+    ageLabel: "Edad del gato (en años)",
+    agePlaceholder: "ej. 5",
+    calculateButton: "Calcular Edad Humana",
+    resultPrefix: "Tu gato tiene aproximadamente",
+    resultSuffix: "años en términos humanos",
+    stagesTitle: "Etapas de vida del gato",
+    howTitle: "¿Cómo se calcula la edad del gato?",
+    howText1: "Los gatos maduran muy rápido en sus primeros dos años. El año 1 equivale a aproximadamente 15 años humanos, el año 2 agrega 9 más (24 en total), y cada año posterior equivale a unos 4 años humanos.",
+    howText2: "Esta fórmula se basa en las pautas de International Cat Care y es ampliamente utilizada por veterinarios en todo el mundo.",
+    backToCalc: "🎂 Calculadora de Edad por Cumpleaños",
+    toDogCalc: "🐶 Calculadora de Edad del Perro",
+  },
+
+  daysBetween: {
+    heading: "Días Entre Fechas",
+    subheading: "Calcula el número exacto de días, semanas, meses y años entre dos fechas.",
+    startLabel: "Fecha de inicio",
+    endLabel: "Fecha de fin",
+    calculateButton: "Calcular",
+    resultDays: "días",
+    resultWeeks: "semanas",
+    resultMonths: "meses",
+    resultYears: "años",
+  },
+
+  footer: {
+    tagline: "Tu perfil de cumpleaños completo",
+    about: "Acerca de",
+    privacy: "Política de Privacidad",
+    contact: "Contacto",
+    faq: "Preguntas Frecuentes",
+    daysBetween: "Días Entre Fechas",
+    dogCalc: "Calculadora de Edad del Perro",
+    catCalc: "Calculadora de Edad del Gato",
+  },
+
+  milestones: {
+    0: "Nacimiento",
+    5: "5 años",
+    10: "10 años",
+    13: "Adolescente",
+    18: "Adulto",
+    21: "21 años",
+    30: "30 años",
+    40: "40 años",
+    50: "50 años",
+    60: "60 años",
+    70: "70 años",
+  },
+
+  dogStages: {
+    Puppy: "Cachorro",
+    Junior: "Juvenil",
+    Adult: "Adulto",
+    Mature: "Maduro",
+    Senior: "Senior",
+    Geriatric: "Geriátrico",
+  },
+
+  catStages: {
+    Kitten: { label: "Gatito", desc: "Crecimiento y desarrollo rápido" },
+    Junior: { label: "Juvenil", desc: "Alcanzando madurez social y sexual" },
+    Prime: { label: "Primavera", desc: "En el pico de salud y actividad" },
+    Mature: { label: "Maduro", desc: "Equivalente a una persona de 40–50 años" },
+    Senior: { label: "Senior", desc: "Se recomienda monitoreo de salud adicional" },
+    "Super Senior": { label: "Súper Senior", desc: "Cuidados especiales y visitas veterinarias regulares" },
+  },
+};
+
+export default es;

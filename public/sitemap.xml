@@ -6,6 +6,7 @@
   <url>
     <loc>https://birthfacts.net/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://birthfacts.net/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://birthfacts.net/es/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://birthfacts.net/ja/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/"/>
     <changefreq>daily</changefreq>
@@ -47,11 +48,58 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- ── Spanish (/es/) ────────────────────────────────────────────────── -->
+  <url>
+    <loc>https://birthfacts.net/es/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://birthfacts.net/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://birthfacts.net/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://birthfacts.net/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/"/>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/es/dog-age-calculator/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/es/cat-age-calculator/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/es/days-between/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/es/faq/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/es/about/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/es/privacy/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/es/contact/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
   <!-- ── Japanese (/ja/) ────────────────────────────────────────────────── -->
   <url>
     <loc>https://birthfacts.net/ja/</loc>
     <xhtml:link rel="alternate" hreflang="ja" href="https://birthfacts.net/ja/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://birthfacts.net/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://birthfacts.net/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/"/>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>

@@ -36,6 +36,7 @@ export default function JaLayout({ children }: { children: React.ReactNode }) {
           <a href="/ja/" className="hover:text-[var(--accent)] transition-colors">計算ツール</a>
           <a href="/ja/faq/" className="hover:text-[var(--accent)] transition-colors">よくある質問</a>
           <a href="/ja/about/" className="hover:text-[var(--accent)] transition-colors">このサイトについて</a>
+          <a href="/es/" className="hover:text-[var(--accent)] transition-colors text-xs opacity-60">🌐 ES</a>
           <a href="/" className="hover:text-[var(--accent)] transition-colors text-xs opacity-60">🌐 EN</a>
         </nav>
       </header>

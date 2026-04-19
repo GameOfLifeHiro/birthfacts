@@ -14,6 +14,10 @@ const MONTHS_EN = [
   "July", "August", "September", "October", "November", "December",
 ];
 const MONTHS_JA = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+const MONTHS_ES = [
+  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+];
 
 function getDaysInMonth(month: number, year: number): number {
   return new Date(year, month, 0).getDate();
@@ -52,7 +56,7 @@ interface Props {
 export default function AgeCalculator({ basePath = "/", showJapanFeatures = false }: Props) {
   const t = useT();
   const currentYear = new Date().getFullYear();
-  const MONTHS = t.locale === "ja" ? MONTHS_JA : MONTHS_EN;
+  const MONTHS = t.locale === "ja" ? MONTHS_JA : t.locale === "es" ? MONTHS_ES : MONTHS_EN;
 
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
@@ -177,7 +181,10 @@ export default function AgeCalculator({ basePath = "/", showJapanFeatures = fals
               onClick={handleShare}
               className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--card-border)] text-sm text-[var(--muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors"
             >
-              {copied ? "✓" : "🔗"} {copied ? (t.locale === "ja" ? "リンクをコピーしました！" : "Link copied!") : (t.locale === "ja" ? "結果をシェアする" : "Share this result")}
+              {copied ? "✓" : "🔗"}{" "}
+              {copied
+                ? (t.locale === "ja" ? "リンクをコピーしました！" : t.locale === "es" ? "¡Enlace copiado!" : "Link copied!")
+                : (t.locale === "ja" ? "結果をシェアする" : t.locale === "es" ? "Compartir resultado" : "Share this result")}
             </button>
           </div>
         </>
