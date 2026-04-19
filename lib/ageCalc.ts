@@ -8,7 +8,6 @@ export interface AgeResult {
   totalHours: number;
   totalMinutes: number;
   dayOfWeek: string;
-  dayOfWeekJa: string;
   nextBirthday: NextBirthday;
   shareUrl: string;
 }
@@ -21,9 +20,6 @@ export interface NextBirthday {
 
 const DAYS_OF_WEEK = [
   "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
-];
-const DAYS_OF_WEEK_JA = [
-  "日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日",
 ];
 
 export function calculateAge(dob: Date, asOf: Date = new Date()): AgeResult {
@@ -81,7 +77,6 @@ export function calculateAge(dob: Date, asOf: Date = new Date()): AgeResult {
     totalHours,
     totalMinutes,
     dayOfWeek: DAYS_OF_WEEK[dayOfWeekIndex],
-    dayOfWeekJa: DAYS_OF_WEEK_JA[dayOfWeekIndex],
     nextBirthday: { date: nextBirthdayDate, daysUntil, isToday },
     shareUrl,
   };

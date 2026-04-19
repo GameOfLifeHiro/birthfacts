@@ -164,6 +164,18 @@ export default function DogAgeCalculatorPage() {
           faster than small dogs, so we apply a size modifier to reflect this difference.
         </p>
       </div>
+
+      <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/" className="btn-primary text-center">
+          🎂 Birthday Age Calculator
+        </a>
+        <a
+          href="/cat-age-calculator/"
+          className="text-center px-5 py-3 rounded-xl border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors font-semibold"
+        >
+          🐱 Cat Age Calculator
+        </a>
+      </div>
     </div>
   );
 }

@@ -44,7 +44,7 @@ export default function BirthProfile({ dob }: Props) {
               <div className="text-xs text-[var(--muted)]">{profile.westernZodiac.dates} · {profile.westernZodiac.element}</div>
             </div>
           </div>
-          <p className="text-sm text-[var(--muted)]">{profile.westernZodiac.traits}</p>
+          <p className="text-base text-[var(--muted)]">{profile.westernZodiac.traits}</p>
         </Section>
 
         {/* Chinese Zodiac */}
@@ -58,7 +58,7 @@ export default function BirthProfile({ dob }: Props) {
               <div className="text-xs text-[var(--muted)]">Lucky numbers: {profile.chineseZodiac.luckyNumbers}</div>
             </div>
           </div>
-          <p className="text-sm text-[var(--muted)]">{profile.chineseZodiac.traits}</p>
+          <p className="text-base text-[var(--muted)]">{profile.chineseZodiac.traits}</p>
         </Section>
       </div>
 
@@ -70,7 +70,7 @@ export default function BirthProfile({ dob }: Props) {
             {profile.lifePathNumber.isMaster && <span className="text-xs ml-1 text-[var(--accent2)]">Master</span>}
           </div>
           <div>
-            <p className="text-sm font-medium text-[var(--text)] mb-1">{profile.lifePathNumber.meaning}</p>
+            <p className="text-base font-medium text-[var(--text)] mb-1">{profile.lifePathNumber.meaning}</p>
             <p className="text-xs text-[var(--muted)]">Strengths: {profile.lifePathNumber.strengths}</p>
           </div>
         </div>
@@ -85,26 +85,47 @@ export default function BirthProfile({ dob }: Props) {
               {profile.moonPhase.phase}
               <span className="text-xs text-[var(--muted)] ml-2 font-normal">({profile.moonPhase.illumination} illuminated)</span>
             </div>
-            <p className="text-sm text-[var(--muted)] leading-relaxed">{profile.moonPhase.meaning}</p>
+            <p className="text-base text-[var(--muted)] leading-relaxed">{profile.moonPhase.meaning}</p>
           </div>
         </div>
       </Section>
 
       {/* Mayan Dreamspell */}
       <Section title="Mayan Dreamspell Calendar" icon="🌀">
-        <div className="flex items-start gap-4 mb-3">
-          <div className="text-center flex-shrink-0 stat-card min-w-[64px]">
+        {/* Kin + name row */}
+        <div className="flex items-start gap-4 mb-4">
+          <div className="text-center flex-shrink-0 stat-card min-w-[72px]">
             <div className="text-3xl font-bold gradient-text">{profile.mayanProfile.kin}</div>
             <div className="text-xs text-[var(--muted)] mt-0.5">Kin</div>
           </div>
           <div>
             <div className="font-bold text-lg text-[var(--accent)] mb-1">{profile.mayanProfile.fullName}</div>
             <div className="text-sm text-[var(--muted)]">
-              Tone {profile.mayanProfile.toneNumber} · {profile.mayanProfile.color} {profile.mayanProfile.daySign}
+              Galactic Tone {profile.mayanProfile.toneNumber} — {profile.mayanProfile.galacticTone}
             </div>
             <div className="text-xs text-[var(--muted)] mt-1">
               Wavespell: <span className="text-[var(--accent2)]">{profile.mayanProfile.wavespell} Wavespell</span>
             </div>
+          </div>
+        </div>
+
+        {/* Day Sign description */}
+        <div className="border-t border-[var(--card-border)] pt-4 space-y-3">
+          <div>
+            <div className="text-xs text-[var(--muted)] uppercase tracking-wider mb-1">Day Sign (Solar Seal)</div>
+            <p className="text-sm text-[var(--text)] font-medium">{profile.mayanProfile.color} {profile.mayanProfile.daySign}</p>
+            <p className="text-base text-[var(--muted)] mt-1 leading-relaxed">{profile.mayanProfile.daySignMeaning}</p>
+          </div>
+          <div>
+            <div className="text-xs text-[var(--muted)] uppercase tracking-wider mb-1">Galactic Tone</div>
+            <p className="text-base text-[var(--text)] font-medium">Tone {profile.mayanProfile.toneNumber} — {profile.mayanProfile.galacticTone}</p>
+            <p className="text-base text-[var(--muted)] mt-1 leading-relaxed">{profile.mayanProfile.toneMeaning}</p>
+          </div>
+          <div>
+            <div className="text-xs text-[var(--muted)] uppercase tracking-wider mb-1">Wavespell</div>
+            <p className="text-base text-[var(--muted)] leading-relaxed">
+              You are in the <span className="text-[var(--accent2)] font-medium">{profile.mayanProfile.wavespell} Wavespell</span> — a 13-day journey guided by the {profile.mayanProfile.wavespell} energy, supporting themes of {profile.mayanProfile.wavespellTheme}.
+            </p>
           </div>
         </div>
       </Section>
@@ -115,7 +136,7 @@ export default function BirthProfile({ dob }: Props) {
           <span className="text-2xl flex-shrink-0">{profile.weekdayMeaning.planet}</span>
           <div>
             <div className="font-semibold text-[var(--accent)] mb-1">{profile.weekdayMeaning.day} — {profile.weekdayMeaning.planet}</div>
-            <p className="text-sm text-[var(--muted)] mb-2">{profile.weekdayMeaning.meaning}</p>
+            <p className="text-base text-[var(--muted)] mb-2">{profile.weekdayMeaning.meaning}</p>
             <p className="text-xs text-[var(--muted)]">Traits: {profile.weekdayMeaning.traits}</p>
           </div>
         </div>
@@ -125,11 +146,11 @@ export default function BirthProfile({ dob }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Section title="Birthstone" icon="💎">
           <div className="font-bold text-lg text-[var(--accent)] mb-1">{profile.birthstone.stone}</div>
-          <p className="text-sm text-[var(--muted)]">{profile.birthstone.meaning}</p>
+          <p className="text-base text-[var(--muted)]">{profile.birthstone.meaning}</p>
         </Section>
         <Section title="Birth Flower" icon="🌸">
           <div className="font-bold text-lg text-[var(--accent)] mb-1">{profile.birthFlower.flower}</div>
-          <p className="text-sm text-[var(--muted)]">{profile.birthFlower.meaning}</p>
+          <p className="text-base text-[var(--muted)]">{profile.birthFlower.meaning}</p>
         </Section>
       </div>
 
@@ -142,7 +163,7 @@ export default function BirthProfile({ dob }: Props) {
               <span className="font-bold text-[var(--accent)]">{profile.generation.name}</span>
               <span className="text-xs text-[var(--muted)] border border-[var(--card-border)] rounded-full px-2 py-0.5">{profile.generation.years}</span>
             </div>
-            <p className="text-sm text-[var(--muted)]">{profile.generation.description}</p>
+            <p className="text-base text-[var(--muted)]">{profile.generation.description}</p>
           </div>
 
           <div className="border-t border-[var(--card-border)] pt-4">
@@ -156,7 +177,7 @@ export default function BirthProfile({ dob }: Props) {
               </span>
               <span className="text-xs text-[var(--muted)] border border-[var(--card-border)] rounded-full px-2 py-0.5">{profile.spiritualGeneration.years}</span>
             </div>
-            <p className="text-sm text-[var(--muted)] mb-2">{profile.spiritualGeneration.description}</p>
+            <p className="text-base text-[var(--muted)] mb-2">{profile.spiritualGeneration.description}</p>
             <div>
               {profile.spiritualGeneration.traits.map((t) => (
                 <Tag key={t} label={t} />

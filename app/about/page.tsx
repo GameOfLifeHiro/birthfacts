@@ -74,16 +74,6 @@ export default function AboutPage() {
         </div>
 
         <div className="card p-6">
-          <h2 className="font-semibold text-lg text-[var(--accent)] mb-3">About the team</h2>
-          <p className="text-[var(--muted)] text-sm leading-relaxed">
-            BirthFacts is operated by{" "}
-            <strong className="text-[var(--text)]">Ascent Leadership Institute Inc</strong>,
-            based in <strong className="text-[var(--text)]">Las Vegas, NV, USA</strong>.
-            Our mission is to make self-discovery accessible, meaningful, and free for everyone.
-          </p>
-        </div>
-
-        <div className="card p-6">
           <h2 className="font-semibold text-lg text-[var(--accent)] mb-3">Is my data private?</h2>
           <p className="text-[var(--muted)] text-sm leading-relaxed">
             Your birthdate is processed entirely in your browser — it is never sent to our servers
@@ -92,6 +82,16 @@ export default function AboutPage() {
               Privacy Policy
             </a>{" "}
             for full details.
+          </p>
+        </div>
+
+        <div className="card p-6">
+          <h2 className="font-semibold text-lg text-[var(--accent)] mb-3">About the team</h2>
+          <p className="text-[var(--muted)] text-sm leading-relaxed">
+            BirthFacts is operated by{" "}
+            <strong className="text-[var(--text)]">Ascent Leadership Institute Inc</strong>,
+            based in <strong className="text-[var(--text)]">Las Vegas, NV, USA</strong>.
+            Our mission is to make self-discovery accessible, meaningful, and free for everyone.
           </p>
         </div>
       </div>

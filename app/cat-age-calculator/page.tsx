@@ -130,6 +130,18 @@ export default function CatAgeCalculatorPage() {
           is widely used by veterinarians worldwide.
         </p>
       </div>
+
+      <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/" className="btn-primary text-center">
+          🎂 Birthday Age Calculator
+        </a>
+        <a
+          href="/dog-age-calculator/"
+          className="text-center px-5 py-3 rounded-xl border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors font-semibold"
+        >
+          🐶 Dog Age Calculator
+        </a>
+      </div>
     </div>
   );
 }

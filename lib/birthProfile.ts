@@ -351,7 +351,10 @@ export interface MayanProfile {
   galacticTone: string;
   toneNumber: number;
   wavespell: string;
+  wavespellTheme: string;
   fullName: string;
+  daySignMeaning: string;
+  toneMeaning: string;
 }
 
 const DAY_SIGNS = [
@@ -364,6 +367,68 @@ const GALACTIC_TONES = [
   "", "Magnetic", "Lunar", "Electric", "Self-Existing", "Overtone",
   "Rhythmic", "Resonant", "Galactic", "Solar", "Planetary", "Spectral", "Crystal", "Cosmic",
 ];
+
+const DAY_SIGN_MEANINGS: Record<string, string> = {
+  Dragon: "Primordial life force, birth, and nurturing. You carry the energy of creation itself — deeply connected to origins, beginnings, and the sustaining power of existence.",
+  Wind: "Spirit, breath, and communication. You are a channel for divine inspiration, gifted at transmitting ideas, truth, and higher wisdom into the world.",
+  Night: "The dreamtime, abundance, and the intuitive interior. You are deeply attuned to the unseen realms, with a rich inner life and natural gifts for dreaming and visioning.",
+  Seed: "Flowering, awareness, and targeting. You hold the potential of pure possibility. Your life is about planting intentions and watching them blossom through focused awareness.",
+  Serpent: "Life force, instinct, and kundalini. You carry powerful physical and psychic energy, with an innate connection to the body's wisdom and the rising fire of transformation.",
+  Worldbridger: "Death, opportunity, and equalizing. You are a bridge between worlds — the one who completes cycles, surrenders the old, and opens the gateway to transformation.",
+  Hand: "Knowledge, healing, and accomplishment. You are a natural healer and doer, with hands-on wisdom and the drive to bring knowledge into practical, healing action.",
+  Star: "Art, elegance, and beauty. You carry the vibration of the artist and the star — here to express beauty, harmony, and the creative pulse of the universe.",
+  Moon: "Purification, flow, and universal water. You are deeply feeling and emotionally attuned, a vessel for the sacred flow of life and the purification of old emotional patterns.",
+  Dog: "Love, loyalty, and heart. You carry the energy of unconditional love and devoted companionship — a heart-centered soul with deep bonds and unwavering loyalty.",
+  Monkey: "Play, magic, and illusion. You are the sacred trickster and cosmic artist, here to weave magic through creativity, humor, and the transformative power of play.",
+  Human: "Free will, wisdom, and harvest. You are the free-willed seeker, gathering wisdom through experience and using your harvest of knowledge to guide yourself and others.",
+  Skywalker: "Space, prophecy, and wakefulness. You are the explorer of inner and outer space — a wakeful traveler who bridges heaven and earth through expanded awareness.",
+  Wizard: "Timelessness, enchantment, and receptivity. You are the shaman and enchanter, receptive to the eternal now and gifted at aligning with the deeper magic of existence.",
+  Eagle: "Vision, mind, and creativity. You carry the eagle's gift of far-seeing — the ability to rise above the ordinary and perceive the larger patterns of life with clarity.",
+  Warrior: "Intelligence, fearlessness, and integrity. You are the spiritual warrior, questioning, testing, and walking the path with integrity, courage, and cosmic intelligence.",
+  Earth: "Navigation, synchronicity, and evolution. You are attuned to the Earth's heartbeat and the web of synchronicity — a natural navigator of life's sacred patterns.",
+  Mirror: "Reflection, order, and endlessness. You hold up the mirror to truth — a seeker of clarity and order who reflects reality back with precision and timeless awareness.",
+  Storm: "Self-generation, energy, and catalysis. You carry the catalytic force of transformation — a self-generating dynamo who brings change, renewal, and electric awakening.",
+  Sun: "Universal fire, life, and enlightenment. You carry the solar flame of consciousness — here to illuminate, uplift, and embody the enlightened awareness of pure life force.",
+};
+
+const TONE_MEANINGS: Record<number, string> = {
+  1: "Magnetic (Tone 1) — Attraction and unification. You have a magnetic quality that draws people and experiences into your life. Your power lies in setting a clear purpose that unifies all around it.",
+  2: "Lunar (Tone 2) — Challenge and polarity. You thrive through navigating opposites and finding balance within duality. Your greatest growth comes through meeting challenges with grace.",
+  3: "Electric (Tone 3) — Service and activation. You carry an activating, electric energy that bonds and serves. You are here to bond with others and activate collective potential.",
+  4: "Self-Existing (Tone 4) — Form and definition. You bring things into form through precise definition and measurement. Your gift is creating clear structures that make ideas real.",
+  5: "Overtone (Tone 5) — Radiance and empowerment. You radiate a commanding presence that empowers everyone around you. You are a natural center of radiant power and creative command.",
+  6: "Rhythmic (Tone 6) — Balance and organization. You have an innate sense of rhythm and organization, bringing dynamic equality and balance to all areas of life.",
+  7: "Resonant (Tone 7) — Attunement and inspiration. You are a highly sensitive channel for divine inspiration, resonating with the mystic center of the Tzolk'in. Your gift is deep attunement.",
+  8: "Galactic (Tone 8) — Integrity and harmonizing. You harmonize your actions with your highest principles, modeling integrity in everything you do. Living your truth is your superpower.",
+  9: "Solar (Tone 9) — Intention and pulsing. You pulse with solar intention, realizing your visions through clear, purposeful action. Your realizations inspire those around you.",
+  10: "Planetary (Tone 10) — Manifestation and perfection. You carry the gift of manifestation — the ability to produce, perfect, and bring intentions fully into the material world.",
+  11: "Spectral (Tone 11) — Liberation and release. You carry the power of dissolution — freeing what is no longer needed so that pure energy can be liberated and transformed.",
+  12: "Crystal (Tone 12) — Dedication and cooperation. You are the universal co-creator, bringing people into dedicated cooperation. Your power flourishes in community and shared vision.",
+  13: "Cosmic (Tone 13) — Transcendence and presence. You carry the highest vibrational tone — the energy of endurance, transcendence, and the eternal present that goes beyond time.",
+};
+
+const WAVESPELL_THEMES: Record<string, string> = {
+  Dragon: "birth, nurturing, and new beginnings",
+  Wind: "communication, breath, and divine transmission",
+  Night: "dreaming, abundance, and interior wisdom",
+  Seed: "flowering, awareness, and targeting your goals",
+  Serpent: "life force, instinct, and physical vitality",
+  Worldbridger: "release, surrender, and transformation",
+  Hand: "healing, knowledge, and accomplishment",
+  Star: "beauty, art, and elegant creativity",
+  Moon: "emotional flow, purification, and feeling",
+  Dog: "love, loyalty, and heart-centered connection",
+  Monkey: "play, magic, and creative illusion",
+  Human: "free will, harvest, and accumulated wisdom",
+  Skywalker: "exploration, prophecy, and expanded awareness",
+  Wizard: "timelessness, enchantment, and receptivity",
+  Eagle: "vision, creativity, and seeing the big picture",
+  Warrior: "integrity, fearlessness, and questioning",
+  Earth: "synchronicity, navigation, and evolution",
+  Mirror: "reflection, truth, and infinite order",
+  Storm: "transformation, self-generation, and catalysis",
+  Sun: "enlightenment, life force, and solar fire",
+};
 
 function isLeapYear(y: number) {
   return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
@@ -395,14 +460,20 @@ export function getMayanProfile(dob: Date): MayanProfile {
   const color = SEAL_COLORS[seal % 4];
   const wsIndex = Math.floor((kin - 1) / 13);
   const wsSeal = (wsIndex * 13) % 20;
+  const daySign = DAY_SIGNS[seal];
+  const galacticTone = GALACTIC_TONES[toneNumber];
+  const wavespell = DAY_SIGNS[wsSeal];
   return {
     kin,
-    daySign: DAY_SIGNS[seal],
+    daySign,
     color,
-    galacticTone: GALACTIC_TONES[toneNumber],
+    galacticTone,
     toneNumber,
-    wavespell: DAY_SIGNS[wsSeal],
-    fullName: `${GALACTIC_TONES[toneNumber]} ${color} ${DAY_SIGNS[seal]}`,
+    wavespell,
+    wavespellTheme: WAVESPELL_THEMES[wavespell] ?? "transformation and renewal",
+    fullName: `${galacticTone} ${color} ${daySign}`,
+    daySignMeaning: DAY_SIGN_MEANINGS[daySign] ?? "",
+    toneMeaning: TONE_MEANINGS[toneNumber] ?? "",
   };
 }
 
