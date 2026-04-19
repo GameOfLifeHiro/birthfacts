@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
+import LanguageSelect from "@/components/LanguageSelect";
 import ja from "@/lib/i18n/ja";
-import { inter } from "@/lib/fonts";
 import "../globals.css";
 
 const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
 
 export default function JaRootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja" className={inter.variable}>
+    <html lang="ja">
       <head>
         <link rel="alternate" hrefLang="en" href="https://birthfacts.net/" />
         <link rel="alternate" hrefLang="es" href="https://birthfacts.net/es/" />
@@ -74,9 +74,9 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
       <body className="min-h-screen">
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -85,14 +85,21 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
           `}
         </Script>
         <TranslationsProvider translations={ja}>
-          <header className="px-6 py-4 flex items-center justify-between border-b border-[var(--card-border)]">
-            <a href="/ja/" className="text-xl font-bold gradient-text">BirthFacts</a>
-            <nav className="flex gap-5 text-sm text-[var(--muted)]">
-              <a href="/ja/" className="hover:text-[var(--accent)] transition-colors">計算ツール</a>
-              <a href="/ja/faq/" className="hover:text-[var(--accent)] transition-colors">よくある質問</a>
-              <a href="/ja/about/" className="hover:text-[var(--accent)] transition-colors">このサイトについて</a>
-              <a href="/es/" className="hover:text-[var(--accent)] transition-colors text-xs text-[var(--muted)]">🌐 ES</a>
-              <a href="/" className="hover:text-[var(--accent)] transition-colors text-xs text-[var(--muted)]">🌐 EN</a>
+          <header className="px-6 py-4 flex items-center justify-between gap-4 border-b border-[var(--card-border)]">
+            <a href="/ja/" className="text-xl font-bold gradient-text shrink-0">BirthFacts</a>
+            <nav className="flex items-center gap-4 sm:gap-5 text-sm text-[var(--muted)] min-w-0">
+              <div className="hidden sm:flex gap-5">
+                <a href="/ja/" className="hover:text-[var(--accent)] transition-colors">計算ツール</a>
+                <a href="/ja/faq/" className="hover:text-[var(--accent)] transition-colors">よくある質問</a>
+                <a href="/ja/about/" className="hover:text-[var(--accent)] transition-colors">このサイトについて</a>
+              </div>
+              <LanguageSelect
+                current={{ href: "/ja/", label: "🌐 日本語" }}
+                others={[
+                  { href: "/", label: "🌐 EN" },
+                  { href: "/es/", label: "🌐 ES" },
+                ]}
+              />
             </nav>
           </header>
 

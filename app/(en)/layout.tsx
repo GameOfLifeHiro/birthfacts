@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
+import LanguageSelect from "@/components/LanguageSelect";
 import en from "@/lib/i18n/en";
-import { inter } from "@/lib/fonts";
 import "../globals.css";
 
 const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
 
 export default function EnRootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en">
       <head>
         <link rel="alternate" hrefLang="en" href="https://birthfacts.net/" />
         <link rel="alternate" hrefLang="es" href="https://birthfacts.net/es/" />
@@ -90,9 +90,9 @@ export default function EnRootLayout({ children }: { children: React.ReactNode }
       <body className="min-h-screen">
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -101,14 +101,21 @@ export default function EnRootLayout({ children }: { children: React.ReactNode }
           `}
         </Script>
         <TranslationsProvider translations={en}>
-          <header className="border-b border-[var(--card-border)] px-6 py-4 flex items-center justify-between">
-            <a href="/" className="font-bold text-xl gradient-text">BirthFacts</a>
-            <nav className="flex gap-6 text-sm text-[var(--muted)]">
-              <a href="/" className="hover:text-[var(--accent)] transition-colors">Calculator</a>
-              <a href="/faq/" className="hover:text-[var(--accent)] transition-colors">FAQ</a>
-              <a href="/about/" className="hover:text-[var(--accent)] transition-colors">About</a>
-              <a href="/es/" className="hover:text-[var(--accent)] transition-colors text-xs text-[var(--muted)]">🌐 ES</a>
-              <a href="/ja/" className="hover:text-[var(--accent)] transition-colors text-xs text-[var(--muted)]">🌐 日本語</a>
+          <header className="border-b border-[var(--card-border)] px-6 py-4 flex items-center justify-between gap-4">
+            <a href="/" className="font-bold text-xl gradient-text shrink-0">BirthFacts</a>
+            <nav className="flex items-center gap-4 sm:gap-6 text-sm text-[var(--muted)] min-w-0">
+              <div className="hidden sm:flex gap-6">
+                <a href="/" className="hover:text-[var(--accent)] transition-colors">Calculator</a>
+                <a href="/faq/" className="hover:text-[var(--accent)] transition-colors">FAQ</a>
+                <a href="/about/" className="hover:text-[var(--accent)] transition-colors">About</a>
+              </div>
+              <LanguageSelect
+                current={{ href: "/", label: "🌐 EN" }}
+                others={[
+                  { href: "/es/", label: "🌐 ES" },
+                  { href: "/ja/", label: "🌐 日本語" },
+                ]}
+              />
             </nav>
           </header>
           <main>{children}</main>
