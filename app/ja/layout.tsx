@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
 import ja from "@/lib/i18n/ja";
-
-const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
 
 export const metadata: Metadata = {
   title: { default: "BirthFacts — 年齢計算・誕生日プロフィール", template: "%s | BirthFacts" },
@@ -33,15 +30,6 @@ export const metadata: Metadata = {
 export default function JaLayout({ children }: { children: React.ReactNode }) {
   return (
     <TranslationsProvider translations={ja}>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" />
-      <Script id="ga-ja" strategy="afterInteractive">
-        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`}
-      </Script>
-      {/* hreflang links */}
-      <link rel="alternate" hrefLang="en" href="https://birthfacts.net/" />
-      <link rel="alternate" hrefLang="ja" href="https://birthfacts.net/ja/" />
-      <link rel="alternate" hrefLang="x-default" href="https://birthfacts.net/" />
-
       <header className="px-6 py-4 flex items-center justify-between border-b border-[var(--card-border)]">
         <a href="/ja/" className="text-xl font-bold gradient-text">BirthFacts</a>
         <nav className="flex gap-5 text-sm text-[var(--muted)]">

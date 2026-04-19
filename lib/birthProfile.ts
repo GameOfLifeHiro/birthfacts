@@ -560,27 +560,254 @@ export function getFamousBirthdays(month: number, day: number): FamousPerson[] {
   return FAMOUS_BIRTHDAYS[key] ?? [];
 }
 
+// ─── Japanese Locale Overrides ────────────────────────────────────────────────
+
+const WESTERN_ZODIAC_TRAITS_JA: Record<string, string> = {
+  Capricorn: "野心家で現実的、忍耐強く自制心が高い",
+  Aquarius: "独立心が強く、独創的で人道主義的な思想家",
+  Pisces: "直感が鋭く、思いやりがあり、芸術的で優しい",
+  Aries: "勇気があり、活発で情熱的な先駆者",
+  Taurus: "信頼性が高く、忍耐強く、誠実で安定感がある",
+  Gemini: "適応力があり、好奇心旺盛でコミュニケーション上手",
+  Cancer: "直感が鋭く、感情豊かで、愛情深く守護的",
+  Leo: "創造的で寛大、温かく陽気なリーダー",
+  Virgo: "分析力に優れ、勤勉で実用的かつ誠実",
+  Libra: "外交的で公平、社交的で優雅",
+  Scorpio: "勇気があり、情熱的で機知に富み、意志が強い",
+  Sagittarius: "寛大で理想主義的、冒険心あふれる楽観主義者",
+};
+
+const CHINESE_ZODIAC_TRAITS_JA: Record<string, string> = {
+  Rat: "機転が利き、臨機応変で適応力が高い",
+  Ox: "勤勉で信頼できる、芯が強く意志堅固",
+  Tiger: "勇敢で自信に満ち、魅力的なカリスマ",
+  Rabbit: "優しく穏やか、品があり思いやりがある",
+  Dragon: "自信家で知的、情熱にあふれた存在",
+  Snake: "謎めいて賢く、鋭い直感を持つ",
+  Horse: "活発でエネルギッシュ、心が温かい",
+  Goat: "穏やかで優しく、創造性豊か",
+  Monkey: "機知に富み、いたずら好きで好奇心旺盛",
+  Rooster: "観察眼があり、勤勉で勇気がある",
+  Dog: "誠実で正直、思いやりがある",
+  Pig: "思いやりがあり、寛大で勤勉",
+};
+
+const LIFE_PATH_MEANINGS_JA: Record<number, { meaning: string; strengths: string }> = {
+  1: { meaning: "リーダー — 独立心旺盛で野心的、自分だけの道を切り開くパイオニア", strengths: "リーダーシップ、独創性、勇気" },
+  2: { meaning: "外交官 — 協調性が高く感受性豊かな、天性の平和主義者", strengths: "直感、共感力、忍耐" },
+  3: { meaning: "クリエイター — 表現力豊かで芸術的な、喜びのコミュニケーター", strengths: "創造性、楽観主義、コミュニケーション力" },
+  4: { meaning: "ビルダー — 実践的で勤勉、安定の礎となる存在", strengths: "規律、信頼性、組織力" },
+  5: { meaning: "自由探求者 — 冒険的で適応力があり、変化を求める", strengths: "柔軟性、好奇心、カリスマ性" },
+  6: { meaning: "養育者 — 愛情深く責任感が強く、家族と社会に献身的", strengths: "思いやり、責任感、癒しの力" },
+  7: { meaning: "探求者 — 内省的でスピリチュアル、深い思想家と真理の探求者", strengths: "分析力、知恵、直感" },
+  8: { meaning: "パワーハウス — 野心的で権威があり、物質的・精神的な習熟を目指す", strengths: "決断力、ビジョン、実行力" },
+  9: { meaning: "人道主義者 — 思いやりがあり無私で、より大きな善のために奉仕する", strengths: "寛大さ、知恵、理想主義" },
+  11: { meaning: "マスターナンバー11 — ビジョナリー — 高い直感力と霊感を持つ精神的メッセンジャー", strengths: "インスピレーション、直感、悟り" },
+  22: { meaning: "マスターナンバー22 — マスタービルダー — 夢を大規模に現実へと変える存在", strengths: "ビジョン、実用性、リーダーシップ" },
+  33: { meaning: "マスターナンバー33 — マスターティーチャー — 純粋な愛のエネルギーと無私の奉仕を体現", strengths: "思いやり、癒し、知恵" },
+};
+
+const WEEKDAY_MEANINGS_JA: WeekdayMeaning[] = [
+  { day: "日曜日", planet: "☀️ 太陽", meaning: "太陽の日に生まれた — 輝かしく創造的な精神を持つ、天性のリーダー", traits: "リーダーシップ、生命力、寛大さ" },
+  { day: "月曜日", planet: "🌙 月", meaning: "月の日に生まれた — 高い直感力と豊かな感情、深い共感力を持つ", traits: "直感力、養育力、感受性" },
+  { day: "火曜日", planet: "♂️ 火星", meaning: "火星の日に生まれた — 勇敢で行動力があり、不屈の意志を持つ", traits: "エネルギー、野心、勇気" },
+  { day: "水曜日", planet: "☿ 水星", meaning: "水星の日に生まれた — 聡明で表現力豊か、知的な才能に恵まれる", traits: "知性、適応力、コミュニケーション力" },
+  { day: "木曜日", planet: "♃ 木星", meaning: "木星の日に生まれた — 楽観的で寛大、拡大と繁栄へと導かれる", traits: "知恵、豊かさ、楽観主義" },
+  { day: "金曜日", planet: "♀️ 金星", meaning: "金星の日に生まれた — 魅力的で愛情深く、美と調和を引き寄せる", traits: "愛、美、創造性" },
+  { day: "土曜日", planet: "♄ 土星", meaning: "土星の日に生まれた — 規律があり忍耐強く、長期的な習熟のために生まれた", traits: "規律、粘り強さ、知恵" },
+];
+
+const BIRTHSTONE_MEANINGS_JA = [
+  "守護、強さ、旅の安全",
+  "平和、勇気、内なる強さ",
+  "落ち着き、明晰さ、調和",
+  "強さ、永遠の愛、明晰さ",
+  "再生、愛、豊かさ",
+  "純粋さ、知恵、誠実さ",
+  "情熱、守護、繁栄",
+  "強さ、前向きさ、幸運",
+  "誠実さ、知恵、高貴な美徳",
+  "インスピレーション、創造性、希望",
+  "愛情、強さ、知性",
+  "幸運、成功、安らぎ",
+];
+
+const BIRTH_FLOWER_MEANINGS_JA = [
+  "愛、魅力、そして希望",
+  "誠実さ、謙虚さ、若い愛",
+  "新しい始まり、自己愛、創造性",
+  "純粋さ、無垢、至福の喜び",
+  "幸福、幸運、喜びの回帰",
+  "愛、美しさ、情熱",
+  "前向きさ、威厳、悟り",
+  "追憶、強さ、誠実さ",
+  "愛、知恵、深い情愛",
+  "温かさ、創造性、秩序",
+  "忠誠心、誠実さ、長寿",
+  "希望、再生、家庭の幸福",
+];
+
+const GENERATION_DESC_JA: Record<string, string> = {
+  "Greatest Generation": "大恐慌と第一次・第二次世界大戦を生き抜いた世代。犠牲と市民としての義務を美徳とし、強靭な精神を持つ。",
+  "The Silent Generation": "大恐慌と第二次世界大戦によって形成された世代。勤勉、忠誠心、協調性を重んじる。",
+  "Baby Boomer": "戦後世代。60〜70年代の文化革命を担い、理想主義と競争心を持ち、仕事を重視する。",
+  "Generation X": "独立心旺盛で現実的、懐疑的なアナログとデジタルの架け橋世代。",
+  "Millennial (Gen Y)": "インターネットと共に成長したデジタルパイオニア。協調性があり、目的意識と価値観を大切にする。",
+  "Generation Z": "スマートフォン時代に育った真のデジタルネイティブ。現実的で包括的、起業家精神旺盛。",
+  "Generation Alpha": "AI・SNS・グローバルな繋がりの中で育つ、最もテクノロジーに浸った世代。",
+};
+
+const SPIRITUAL_GENERATION_DESC_JA: Record<string, { description: string; traits: string[] }> = {
+  "Indigo Child": {
+    description: "インディゴチルドレンは古い制度に挑戦し、新しいパラダイムをもたらす使命を持って生まれると言われています。強い直感、深い使命感を持ち、しばしば周囲に馴染めないと感じることがあります。",
+    traits: ["高い直感力", "意志が強い", "共感力が高い", "権威に疑問を持つ", "特別な使命感"],
+  },
+  "Crystal Child": {
+    description: "クリスタルチルドレンは愛、平和、調和を放射します。生まれながらのヒーラーや共感者として、日常生活にスピリチュアルな次元を橋渡しする穏やかな魂です。",
+    traits: ["深い共感力", "穏やかで愛情深い", "高い感受性", "天然のヒーラー", "自然との強い繋がり"],
+  },
+  "Rainbow Child": {
+    description: "レインボーチルドレンはカルマの重荷なく、純粋な喜びと神聖な愛で生まれてくると言われています。与えることが自然で、新しい調和の世界を創ることが使命です。",
+    traits: ["純粋な喜びと愛", "カルマの束縛なし", "高いエネルギー", "恐れを知らない", "無条件の愛"],
+  },
+  "Star Child": {
+    description: "多くの霊的伝統では、現代に生まれることを選んだすべての魂は、名称に関わらず高い振動数の使命を帯びていると考えます。",
+    traits: ["スピリチュアルな目覚め", "魂の使命", "エネルギーへの感受性"],
+  },
+};
+
+const MOON_PHASE_MEANINGS_JA: Record<string, string> = {
+  "New Moon": "新たな始まり、意図の設定、内省の時。意図の種を蒔く力強い時期に生まれました。",
+  "Waxing Crescent": "成長、希望、エネルギーの集積。前へ進み、積み上げていく本能を持って生まれました。",
+  "First Quarter": "行動力、決断力、困難の克服。生まれながらのダイナミックで確固たるエネルギーを持ちます。",
+  "Waxing Gibbous": "洗練、忍耐、集中力。分析的で細部にこだわる精神の持ち主。",
+  "Full Moon": "絶頂、高ぶった感情、存在感の発揮。満月生まれは深い表現力と強烈な感受性を持つと言われます。",
+  "Waning Gibbous": "感謝、分かち合い、コミュニケーション。天然の教師であり、知恵を伝える人。",
+  "Last Quarter": "手放し、内省、移行期。手放す才能と大きな視野で物事を見る力を持って生まれました。",
+  "Waning Crescent": "休息、委ねること、深い直感。神秘的で内省的なエネルギーと強い霊的感受性を持ちます。",
+};
+
+const DAY_SIGN_MEANINGS_JA: Record<string, string> = {
+  Dragon: "根源的な生命力、誕生、養育。あなたは創造そのもののエネルギーを宿し、起源・始まり・存在を支える力と深く繋がっています。",
+  Wind: "霊、息吹、コミュニケーション。あなたは神聖なインスピレーションの通り道であり、理念・真実・高次の知恵を世界へ伝える才能を持っています。",
+  Night: "夢の世界、豊かさ、直感的な内面。あなたは目に見えない領域と深く共鳴し、豊かな内面世界と夢見るビジョンの力を持っています。",
+  Seed: "開花、気づき、的を絞ること。あなたは純粋な可能性の塊。意図を蒔き、集中した気づきによってそれを花開かせることが人生のテーマです。",
+  Serpent: "生命力、本能、クンダリーニ。あなたは強力な身体的・サイキック的エネルギーを宿し、身体の知恵と変容の炎の上昇と深く繋がっています。",
+  Worldbridger: "死、機会、均衡化。あなたは世界と世界の橋渡し役。サイクルを完了させ、古きを手放し、変容への扉を開く存在です。",
+  Hand: "知識、癒し、達成。あなたは天然のヒーラーであり行動者。知識を実践的で癒しの行動として結実させる力があります。",
+  Star: "芸術、優雅さ、美。あなたはアーティストとスターの振動を持ち、美・調和・宇宙の創造的鼓動を表現するためにここにいます。",
+  Moon: "浄化、流れ、宇宙の水。あなたは深い感受性と感情的な共鳴を持ち、聖なる生命の流れと古い感情パターンの浄化の器です。",
+  Dog: "愛、忠誠、心。あなたは無条件の愛と献身的な絆のエネルギーを宿す、心中心の魂です。",
+  Monkey: "遊び、魔法、幻想。あなたは神聖なトリックスターと宇宙的なアーティスト。創造性・ユーモア・遊びの変容的な力で魔法を紡ぎます。",
+  Human: "自由意志、知恵、収穫。あなたは自由意志の探求者であり、経験を通じて知恵を集め、その収穫で自分と他者を導きます。",
+  Skywalker: "宇宙、予言、目覚め。あなたは内外の宇宙の探検家。拡大された意識で天と地を繋ぐ、目覚めた旅人です。",
+  Wizard: "時を超えた存在、魔法、受容性。あなたはシャーマンと魔法使い。永遠の今に受容的で、存在の深い魔法に整合する才能を持ちます。",
+  Eagle: "ビジョン、心、創造性。あなたは遠くを見通す鷲の才能を持ち、日常を超えて人生の大きなパターンを明晰に見抜く力があります。",
+  Warrior: "知性、恐れを知らない勇気、誠実さ。あなたは精神的な戦士。誠実さ・勇気・宇宙的な知性で問い、試し、道を歩みます。",
+  Earth: "ナビゲーション、シンクロニシティ、進化。あなたは地球の鼓動と同期のウェブに調和し、人生の神聖なパターンを自然にナビゲートします。",
+  Mirror: "反映、秩序、無限性。あなたは真実の鏡を持ち、明晰さと秩序を求め、永遠の意識で現実を精度高く映し返します。",
+  Storm: "自己生成、エネルギー、触媒。あなたは変容の触媒的な力を宿す自己発電ダイナモ。変化・再生・電気的な目覚めをもたらします。",
+  Sun: "普遍の火、生命、悟り。あなたは意識の太陽の炎を宿し、純粋な生命力の悟った意識を照らし、高め、体現するためにここにいます。",
+};
+
+const TONE_MEANINGS_JA: Record<number, string> = {
+  1: "磁力（音1）— 引き付けと統一。人や体験を引き寄せる磁力的な質を持ちます。明確な目的を定めることがあなたの力の源です。",
+  2: "月光（音2）— 挑戦と二極性。反対を渡り歩き、二元性の中でバランスを見つけることで成長します。",
+  3: "電気（音3）— 奉仕と活性化。人と人を繋ぎ、集合的な可能性を活性化する電気的なエネルギーを持ちます。",
+  4: "自己存在（音4）— 形と定義。精密な定義と測定で物事を形にする力があります。明確な構造を作ることがあなたの才能です。",
+  5: "倍音（音5）— 輝きと力付け。周囲の皆を力付ける輝かしい存在感を放ちます。あなたは放射的な力と創造的な支配の自然な中心です。",
+  6: "リズミック（音6）— バランスと組織化。生まれながらのリズム感と組織力で、生活のあらゆる分野にバランスをもたらします。",
+  7: "共鳴（音7）— 同調とインスピレーション。神聖なインスピレーションへの高感度チャンネル。ツォルキンの神秘的な中心に共鳴します。深い同調があなたの才能です。",
+  8: "銀河（音8）— 誠実さと調和。最高の原則に従って行動を調和させ、あらゆる行動に誠実さを体現します。真実を生きることがあなたの超能力です。",
+  9: "太陽（音9）— 意図とパルシング。明確で意図的な行動で、ビジョンを現実に実現させます。あなたの実現は周囲を鼓舞します。",
+  10: "惑星（音10）— 顕現と完成。意図を物質世界に完全に実現させる顕現の才能を持ちます。",
+  11: "スペクトル（音11）— 解放と手放し。不要なものを溶解させ、純粋なエネルギーを解放・変容させる力を持ちます。",
+  12: "クリスタル（音12）— 献身と協力。人々を献身的な協力へと導く普遍の共同創造者。コミュニティと共有のビジョンで力を発揮します。",
+  13: "コスミック（音13）— 超越と現在。最高振動の音。忍耐・超越・時間を超えた永遠の現在のエネルギーを持ちます。",
+};
+
+const WAVESPELL_THEMES_JA: Record<string, string> = {
+  Dragon: "誕生・養育・新たな始まり",
+  Wind: "コミュニケーション・息吹・神聖な伝達",
+  Night: "夢・豊かさ・内面の知恵",
+  Seed: "開花・気づき・目標を絞る",
+  Serpent: "生命力・本能・身体的活力",
+  Worldbridger: "手放し・委ねること・変容",
+  Hand: "癒し・知識・達成",
+  Star: "美・芸術・優雅な創造性",
+  Moon: "感情の流れ・浄化・感受性",
+  Dog: "愛・忠誠・心中心のつながり",
+  Monkey: "遊び・魔法・創造的な幻想",
+  Human: "自由意志・収穫・積み重ねた知恵",
+  Skywalker: "探求・予言・拡大した意識",
+  Wizard: "時間を超えた存在・魔法・受容性",
+  Eagle: "ビジョン・創造性・大局を見る力",
+  Warrior: "誠実さ・恐れなき勇気・問う力",
+  Earth: "シンクロニシティ・ナビゲーション・進化",
+  Mirror: "反映・真実・無限の秩序",
+  Storm: "変容・自己生成・触媒",
+  Sun: "悟り・生命力・太陽の火",
+};
+
 // ─── Main Profile Builder ─────────────────────────────────────────────────────
 
-export function getBirthProfile(dob: Date): BirthProfile {
+export function getBirthProfile(dob: Date, locale?: string): BirthProfile {
   // Guard against invalid Date objects
   if (isNaN(dob.getTime())) dob = new Date();
   const month = dob.getMonth() + 1;
   const day = dob.getDate();
   const year = dob.getFullYear();
   const dayOfWeek = dob.getDay();
+  const isJa = locale === "ja";
+
+  const westernZodiac = getWesternZodiac(month, day);
+  const chineseZodiac = getChineseZodiac(year);
+  const birthstone = getBirthstone(month);
+  const birthFlower = getBirthFlower(month);
+  const lifePathNumber = getLifePathNumber(dob);
+  const weekdayMeaning = getWeekdayMeaning(dayOfWeek);
+  const generation = getGeneration(year);
+  const spiritualGeneration = getSpiritualGeneration(year);
+  const moonPhase = getMoonPhase(dob);
+  const mayanProfile = getMayanProfile(dob);
+
+  if (isJa) {
+    // Overwrite English strings with Japanese equivalents
+    westernZodiac.traits = WESTERN_ZODIAC_TRAITS_JA[westernZodiac.sign] ?? westernZodiac.traits;
+    chineseZodiac.traits = CHINESE_ZODIAC_TRAITS_JA[chineseZodiac.animal] ?? chineseZodiac.traits;
+
+    const lpJa = LIFE_PATH_MEANINGS_JA[lifePathNumber.number];
+    if (lpJa) { lifePathNumber.meaning = lpJa.meaning; lifePathNumber.strengths = lpJa.strengths; }
+
+    const wdJa = WEEKDAY_MEANINGS_JA[dayOfWeek];
+    if (wdJa) { weekdayMeaning.day = wdJa.day; weekdayMeaning.planet = wdJa.planet; weekdayMeaning.meaning = wdJa.meaning; weekdayMeaning.traits = wdJa.traits; }
+
+    birthstone.meaning = BIRTHSTONE_MEANINGS_JA[month - 1] ?? birthstone.meaning;
+    birthFlower.meaning = BIRTH_FLOWER_MEANINGS_JA[month - 1] ?? birthFlower.meaning;
+
+    generation.description = GENERATION_DESC_JA[generation.name] ?? generation.description;
+
+    const spJa = SPIRITUAL_GENERATION_DESC_JA[spiritualGeneration.name];
+    if (spJa) { spiritualGeneration.description = spJa.description; spiritualGeneration.traits = spJa.traits; }
+
+    moonPhase.meaning = MOON_PHASE_MEANINGS_JA[moonPhase.phase] ?? moonPhase.meaning;
+
+    mayanProfile.daySignMeaning = DAY_SIGN_MEANINGS_JA[mayanProfile.daySign] ?? mayanProfile.daySignMeaning;
+    mayanProfile.toneMeaning = TONE_MEANINGS_JA[mayanProfile.toneNumber] ?? mayanProfile.toneMeaning;
+    mayanProfile.wavespellTheme = WAVESPELL_THEMES_JA[mayanProfile.wavespell] ?? mayanProfile.wavespellTheme;
+  }
 
   return {
-    westernZodiac: getWesternZodiac(month, day),
-    chineseZodiac: getChineseZodiac(year),
-    birthstone: getBirthstone(month),
-    birthFlower: getBirthFlower(month),
-    lifePathNumber: getLifePathNumber(dob),
-    weekdayMeaning: getWeekdayMeaning(dayOfWeek),
-    generation: getGeneration(year),
-    spiritualGeneration: getSpiritualGeneration(year),
+    westernZodiac,
+    chineseZodiac,
+    birthstone,
+    birthFlower,
+    lifePathNumber,
+    weekdayMeaning,
+    generation,
+    spiritualGeneration,
     famousBirthdays: getFamousBirthdays(month, day),
-    moonPhase: getMoonPhase(dob),
-    mayanProfile: getMayanProfile(dob),
+    moonPhase,
+    mayanProfile,
   };
 }

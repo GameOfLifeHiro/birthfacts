@@ -31,8 +31,8 @@ function Tag({ label }: { label: string }) {
 
 export default function BirthProfile({ dob, showJapanFeatures = false }: Props) {
   const t = useT();
-  const profile: BirthProfile = useMemo(() => getBirthProfile(dob), [dob]);
   const isJa = t.locale === "ja";
+  const profile: BirthProfile = useMemo(() => getBirthProfile(dob, t.locale), [dob, t.locale]);
 
   // Localised zodiac names for Japanese
   const JA_ZODIAC_NAMES: Record<string, string> = {

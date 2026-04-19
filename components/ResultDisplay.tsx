@@ -37,7 +37,7 @@ export default function ResultDisplay({ result, dob }: Props) {
           <p className="text-2xl sm:text-3xl font-bold leading-tight">
             {t.result.youAre}{" "}
             <span className="gradient-text">
-              {result.years}年 {result.months}ヶ月 {result.days}日
+              {result.years}歳 {result.months}ヶ月 {result.days}日
             </span>
             {" "}{t.result.yearsOld}
           </p>
