@@ -10,6 +10,7 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
           <a href="/" className="hover:text-[var(--accent)] transition-colors">Calculator</a>
           <a href="/faq/" className="hover:text-[var(--accent)] transition-colors">FAQ</a>
           <a href="/about/" className="hover:text-[var(--accent)] transition-colors">About</a>
+          <a href="/ja/" className="hover:text-[var(--accent)] transition-colors text-xs opacity-60">🌐 日本語</a>
         </nav>
       </header>
       <main>{children}</main>
