@@ -608,13 +608,13 @@ const LIFE_PATH_MEANINGS_JA: Record<number, { meaning: string; strengths: string
 };
 
 const WEEKDAY_MEANINGS_JA: WeekdayMeaning[] = [
-  { day: "日曜日", planet: "☀️ 太陽", meaning: "太陽の日に生まれた — 輝かしく創造的な精神を持つ、天性のリーダー", traits: "リーダーシップ、生命力、寛大さ" },
-  { day: "月曜日", planet: "🌙 月", meaning: "月の日に生まれた — 高い直感力と豊かな感情、深い共感力を持つ", traits: "直感力、養育力、感受性" },
-  { day: "火曜日", planet: "♂️ 火星", meaning: "火星の日に生まれた — 勇敢で行動力があり、不屈の意志を持つ", traits: "エネルギー、野心、勇気" },
-  { day: "水曜日", planet: "☿ 水星", meaning: "水星の日に生まれた — 聡明で表現力豊か、知的な才能に恵まれる", traits: "知性、適応力、コミュニケーション力" },
-  { day: "木曜日", planet: "♃ 木星", meaning: "木星の日に生まれた — 楽観的で寛大、拡大と繁栄へと導かれる", traits: "知恵、豊かさ、楽観主義" },
-  { day: "金曜日", planet: "♀️ 金星", meaning: "金星の日に生まれた — 魅力的で愛情深く、美と調和を引き寄せる", traits: "愛、美、創造性" },
-  { day: "土曜日", planet: "♄ 土星", meaning: "土星の日に生まれた — 規律があり忍耐強く、長期的な習熟のために生まれた", traits: "規律、粘り強さ、知恵" },
+  { day: "日曜日", planet: "☀️ 太陽", meaning: "太陽の日に生まれました。— 輝かしく創造的な精神を持つ、天性のリーダー", traits: "リーダーシップ、生命力、寛大さ" },
+  { day: "月曜日", planet: "🌙 月", meaning: "月の日に生まれました。— 高い直感力と豊かな感情、深い共感力を持つ", traits: "直感力、養育力、感受性" },
+  { day: "火曜日", planet: "♂️ 火星", meaning: "火星の日に生まれました。— 勇敢で行動力があり、不屈の意志を持つ", traits: "エネルギー、野心、勇気" },
+  { day: "水曜日", planet: "☿ 水星", meaning: "水星の日に生まれました。— 聡明で表現力豊か、知的な才能に恵まれる", traits: "知性、適応力、コミュニケーション力" },
+  { day: "木曜日", planet: "♃ 木星", meaning: "木星の日に生まれました。— 楽観的で寛大、拡大と繁栄へと導かれる", traits: "知恵、豊かさ、楽観主義" },
+  { day: "金曜日", planet: "♀️ 金星", meaning: "金星の日に生まれました。— 魅力的で愛情深く、美と調和を引き寄せる", traits: "愛、美、創造性" },
+  { day: "土曜日", planet: "♄ 土星", meaning: "土星の日に生まれました。— 規律があり忍耐強く、長期的な習熟のために生まれました。", traits: "規律、粘り強さ、知恵" },
 ];
 
 const BIRTHSTONE_MEANINGS_JA = [
