@@ -1,12 +1,17 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
+import dynamic from "next/dynamic";
 import { calculateAge, type AgeResult } from "@/lib/ageCalc";
 import { useT } from "@/lib/i18n";
 import ResultDisplay from "./ResultDisplay";
-import BirthProfile from "./BirthProfile";
-import HistoricalTimeline from "./HistoricalTimeline";
-import LifeTimeline from "./LifeTimeline";
+
+// Lazy-load heavy post-calculation components so they don't block initial page render.
+// BirthProfile imports all locale data maps; HistoricalTimeline imports 100 years of facts.
+// Neither is visible until after the user clicks Calculate.
+const BirthProfile = dynamic(() => import("./BirthProfile"));
+const HistoricalTimeline = dynamic(() => import("./HistoricalTimeline"));
+const LifeTimeline = dynamic(() => import("./LifeTimeline"));
 
 // Locale-specific month names
 const MONTHS_EN = [
