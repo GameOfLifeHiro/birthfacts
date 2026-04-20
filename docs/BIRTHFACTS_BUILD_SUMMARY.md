@@ -75,11 +75,12 @@ birthfacts/
 │               └── page.tsx
 ├── components/
 │   ├── AgeCalculator.tsx            # Locale-aware: Month/Day/Year selects, calculate, share, composes sections
+│   ├── LanguageSelect.tsx           # Client component: <select> dropdown for locale switching (mobile-friendly)
 │   ├── ResultDisplay.tsx            # Locale-aware: hero age sentence, stat grid, countdown
 │   ├── BirthdayCountdown.tsx
-│   ├── BirthProfile.tsx             # Passes t.locale to getBirthProfile(); profile cards
-│   ├── HistoricalTimeline.tsx       # Tabbed year facts
-│   └── LifeTimeline.tsx             # Milestones + world events
+│   ├── BirthProfile.tsx             # Passes t.locale to getBirthProfile(); profile cards (lazy-loaded)
+│   ├── HistoricalTimeline.tsx       # Tabbed year facts (lazy-loaded via next/dynamic)
+│   └── LifeTimeline.tsx             # Milestones + world events (lazy-loaded via next/dynamic)
 ├── lib/
 │   ├── ageCalc.ts                   # Age math, day-of-week, next birthday, share URL helper
 │   ├── birthProfile.ts              # Locale-aware: zodiac, moon, Mayan, birthstone/flower,
@@ -93,8 +94,9 @@ birthfacts/
 │       └── es.ts                    # Spanish UI strings
 ├── docs/
 │   └── BIRTHFACTS_BUILD_SUMMARY.md
+├── render.yaml                      # Render.com config: cache headers for /_next/static/**
 └── public/
-    ├── sitemap.xml                  # All routes for all 3 locales, with xhtml:link hreflang
+    ├── sitemap.xml                  # All routes for all 3 locales, with xhtml:link hreflang on every URL
     └── robots.txt
 ```
 
@@ -311,7 +313,7 @@ Verified in built `out/` HTML:
 - `out/es/index.html` → `lang="es"` ✓
 - `out/ja/index.html` → `lang="ja"` ✓
 
-Each root layout is self-contained: it imports `globals.css`, sets up GA4 scripts, font links, hreflang tags, TranslationsProvider, header navigation, and footer — no shared parent needed.
+Each root layout is self-contained: it imports `globals.css`, sets up GA4 scripts, hreflang tags, TranslationsProvider, header navigation (with `LanguageSelect`), and footer — no shared parent needed.
 
 ---
 
@@ -342,6 +344,75 @@ The Spanish site has full feature parity with English:
 - Famous person descriptions translated to Spanish
 - Historical events and life timeline remain English
 - Spanish keywords: calculadora de edad, cuántos años tengo, niños índigo, calendario maya, etc.
+
+---
+
+## Core Web Vitals & performance
+
+### Lighthouse scores (April 2026, production)
+
+| Metric | Desktop | Mobile |
+|--------|---------|--------|
+| Performance | 100 | **99** |
+| Accessibility | 100 | 100 |
+| Best Practices | 100 | 100 |
+| SEO | 100 | 100 |
+| LCP | 0.5s | **1.8s** |
+| CLS | 0 | 0 |
+
+Mobile LCP of 1.8s is within Google's **"Good"** threshold (< 2.5s). Starting score before optimization was 79 / 4.3s LCP.
+
+### Optimizations applied
+
+**Fonts → system font stack**
+`next/font/google` was tried first (self-hosted Inter), but Next.js still serves the font CSS as a linked `<link>` stylesheet that blocks all rendering. On mobile this created a 625ms critical-path latency and 160ms render-blocking delay before any text could paint. The fix: remove `next/font` entirely and use a system font stack in `globals.css`:
+```css
+font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+```
+SF Pro (iOS/macOS), Roboto (Android), and Segoe UI (Windows) are all high-quality system fonts that look nearly identical to Inter. Zero network requests, zero render-blocking.
+
+**Lazy-load post-calculation components**
+`BirthProfile`, `HistoricalTimeline`, and `LifeTimeline` are loaded via `next/dynamic`. These import large locale data maps and 100 years of historical facts — none of it is needed until the user clicks Calculate. Removing them from the initial bundle reduces main-thread parse/execute time on slow mobile CPUs.
+```typescript
+const BirthProfile    = dynamic(() => import("./BirthProfile"));
+const HistoricalTimeline = dynamic(() => import("./HistoricalTimeline"));
+const LifeTimeline    = dynamic(() => import("./LifeTimeline"));
+```
+
+**GA4 deferred to idle time**
+Changed from `strategy="afterInteractive"` to `strategy="lazyOnload"` in all three root layouts. Previously, GA executed at ~3.3–3.4s (during React hydration), causing two ~90ms long tasks that delayed LCP. With `lazyOnload`, GA runs during browser idle time after LCP is already recorded.
+
+**Browserslist for modern browsers**
+Added to `package.json` to stop bundling polyfills for `Array.prototype.at`, `Object.hasOwn`, `String.prototype.trimEnd`, etc. (13.7 KiB wasted on modern phones). Targets last 2 versions of Chrome, Firefox, Safari, Edge.
+
+**Accessibility: select labels + contrast**
+- Added `aria-label` to all three date picker `<select>` elements in `AgeCalculator.tsx` (locale-aware, e.g. "Month" / "月" / "Mes"). Accessibility score went from 89 → 100.
+- Removed `opacity-60` from language switcher links in all nav headers. Opacity on `text-xs` text dropped contrast below WCAG AA's 4.5:1 minimum.
+
+**Mobile nav overflow → `LanguageSelect` dropdown**
+On narrow screens the full nav (3 page links + 2 language links) overflowed the header. Fix:
+- New `components/LanguageSelect.tsx` client component: a styled native `<select>` that navigates to the selected locale on change. Works without JavaScript being loaded (native form element).
+- Main nav links hidden on mobile (`hidden sm:flex`), visible at `sm` breakpoint (640px+). All pages are also linked in the footer so mobile users can still navigate.
+- Language `<select>` always visible, current locale pre-selected, switches locale on change.
+
+**Sitemap: hreflang on all sub-pages**
+Previously only the 3 home pages (`/`, `/es/`, `/ja/`) had `xhtml:link` hreflang cross-references in `sitemap.xml`. All 27 URLs now have complete hreflang entries.
+
+**Cache headers (`render.yaml`)**
+Added `render.yaml` requesting 1-year immutable cache for `/_next/static/**`. Render.com free tier may not support config-file headers — if chunks still show 4h TTL, set manually in Render dashboard → Settings → Headers:
+- Path: `/_next/static/*`
+- Header: `Cache-Control`
+- Value: `public, max-age=31536000, immutable`
+
+### What was NOT fixable (and why it doesn't matter)
+
+| Issue | Why it stays | Impact |
+|-------|-------------|--------|
+| Tailwind CSS chunk render-blocking (10ms) | Next.js always links its output CSS; can't inline without ejecting | Negligible (was 160ms, now 10ms) |
+| Legacy JavaScript 13.7 KiB | Turbopack may not fully respect `browserslist` in `package.json`; polyfills may come from React/Next.js internals | Unscored |
+| GA unused JavaScript 63.7 KiB | Google's own script; cannot be modified | Unscored |
+| DOM depth 9 / 128 children (Year select) | Year dropdown 1900–2026 = 127 options by design | Unscored |
+| LCP element render delay ~1,290ms | Irreducible floor for React + Tailwind: CSS chunk + React init on mobile CPU | LCP 1.8s is already "Good" |
 
 ---
 
@@ -381,19 +452,41 @@ The site exposes **Kin**, **Day Sign names**, **Galactic Tone names/numbers**, a
 2. **Build command:** `npm run build`
 3. **Publish directory:** `out`
 4. **Custom domain:** `birthfacts.net` (+ optional `www`) via DNS CNAME as Render instructs
-5. **Google Search Console:** add property, verify, submit `https://birthfacts.net/sitemap.xml`
+5. **Cache headers** — in Render dashboard → Settings → Headers, add:
+   - Path: `/_next/static/*` | Header: `Cache-Control` | Value: `public, max-age=31536000, immutable`
+6. **Google Search Console:** add property, verify, submit `https://birthfacts.net/sitemap.xml`; request indexing of `/`, `/es/`, `/ja/`
+7. **Email:** configure `hello@birthfacts.net` receiving via Cloudflare Email Routing (free) or Gmail alias
+
+---
+
+## AdSense readiness checklist
+
+| Requirement | Status |
+|-------------|--------|
+| Privacy policy page | ✅ `/privacy/`, `/es/privacy/`, `/ja/privacy/` |
+| About page with company info | ✅ Ascent Leadership Institute Inc, Las Vegas NV |
+| Contact page | ✅ `hello@birthfacts.net` (needs email forwarding configured) |
+| No prohibited content | ✅ Calculator/profile tool |
+| Mobile-friendly | ✅ Responsive, tested on iOS |
+| Core Web Vitals: Good | ✅ Mobile LCP 1.8s, CLS 0 |
+| Sufficient content | ✅ 27 pages across 3 locales |
+| Site indexed by Google | ⏳ Submit sitemap, wait 2–4 weeks |
+| Some organic traffic | ⏳ Needed before applying |
+
+Apply once Search Console shows consistent impressions (any amount).
 
 ---
 
 ## Suggested next steps
 
-- Wire real email for `hello@birthfacts.net` (Gmail business alias or Cloudflare Email Routing)
-- Expand `FAMOUS_BIRTHDAYS` and historical data for 2025+
-- Run Lighthouse on production URL; keep third-party scripts deferred (`afterInteractive` for GA)
-- Translate historical events and life timeline sections into Japanese and/or Spanish (optional, large effort)
-- Apply for Google AdSense once traffic reaches ~100 daily visits
-- Add more languages (French, Portuguese, Korean) — architecture is already set up for it via the route group pattern
+1. **Email** — set up `hello@birthfacts.net` receiving (Cloudflare Email Routing, free, ~10 min)
+2. **Search Console** — submit sitemap, request indexing of the three home pages
+3. **Cache headers** — set in Render dashboard (see deployment checklist above)
+4. **Monitor Search Console weekly** — watch for coverage errors, first impressions, crawl issues
+5. **Apply for AdSense** — once indexed and receiving any organic traffic
+6. **Content expansion** — expand `FAMOUS_BIRTHDAYS` map and extend `historicalData.ts` to 2025
+7. **More languages** — French, Portuguese, Korean all follow the same route group pattern
 
 ---
 
-*Last updated: April 2026 — reflects full i18n architecture (EN/JA/ES), multiple root layout restructure for correct `html lang` per locale, expanded per-locale SEO keywords, locale-aware components and birthProfile data, mobile date picker, typography improvements, Mayan copyright posture, About ordering, and GA4/Render deployment.*
+*Last updated: April 2026 — reflects full i18n architecture (EN/JA/ES), multiple root layout restructure for correct `html lang` per locale, expanded per-locale SEO keywords, locale-aware components and birthProfile data, mobile date picker, typography improvements, Mayan copyright posture, About ordering, GA4/Render deployment, complete Core Web Vitals optimization (Mobile 99/100, LCP 1.8s), system font migration, lazy-loaded heavy components, mobile navigation LanguageSelect dropdown, sitemap hreflang on all 27 sub-pages, and accessibility score raised to 100.*
