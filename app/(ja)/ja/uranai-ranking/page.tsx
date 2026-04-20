@@ -32,7 +32,7 @@ export default function UranaiRankingPage() {
           <span className="gradient-text">今日の占い ランキング</span>
         </h1>
         <p className="text-[var(--muted)] text-base max-w-lg mx-auto">
-          12星座の今日の占いをランキング形式で無料公開。あなたの星座は何位？
+          12星座の今日の占いをランキング形式で無料公開。<br />あなたの星座は何位？
         </p>
       </div>
 
