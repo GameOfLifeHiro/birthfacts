@@ -103,6 +103,7 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
             <nav className="flex items-center gap-4 sm:gap-5 text-sm text-[var(--muted)] min-w-0">
               <div className="hidden sm:flex gap-5">
                 <a href="/ja/" className="hover:text-[var(--accent)] transition-colors">計算ツール</a>
+                <a href="/ja/uranai-ranking/" className="hover:text-[var(--accent)] transition-colors">🏆 運勢ランキング</a>
                 <a href="/ja/faq/" className="hover:text-[var(--accent)] transition-colors">よくある質問</a>
                 <a href="/ja/about/" className="hover:text-[var(--accent)] transition-colors">このサイトについて</a>
               </div>
@@ -126,6 +127,8 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
               <a href="/ja/privacy/" className="hover:text-[var(--accent)]">プライバシーポリシー</a>
               {" · "}
               <a href="/ja/contact/" className="hover:text-[var(--accent)]">お問い合わせ</a>
+              {" · "}
+              <a href="/ja/uranai-ranking/" className="hover:text-[var(--accent)]">運勢ランキング</a>
               {" · "}
               <a href="/ja/faq/" className="hover:text-[var(--accent)]">よくある質問</a>
               {" · "}

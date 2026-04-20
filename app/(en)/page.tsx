@@ -57,6 +57,7 @@ export default function HomePage() {
         <h2 className="text-xl font-semibold mb-4 text-center">More tools</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
+            { href: "/fortune-ranking/", label: "🏆 Fortune Ranking" },
             { href: "/dog-age-calculator/", label: "Dog Age Calculator" },
             { href: "/cat-age-calculator/", label: "Cat Age Calculator" },
             { href: "/days-between/", label: "Days Between Dates" },

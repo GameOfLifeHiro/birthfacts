@@ -1,15 +1,22 @@
 "use client";
 
 import { useT } from "@/lib/i18n";
-import { getDailyFortune } from "@/lib/dailyFortune";
+import { getDailyFortune, getLocalizedSignName } from "@/lib/dailyFortune";
 
 interface Props {
   sign: string; // English sign name, e.g. "Scorpio"
 }
 
+const RANKING_PATHS: Record<string, string> = {
+  en: "/fortune-ranking/",
+  ja: "/ja/uranai-ranking/",
+  es: "/es/horoscopo-ranking/",
+};
+
 export default function DailyFortune({ sign }: Props) {
   const t = useT();
   const fortune = getDailyFortune(sign, t.locale);
+  const localizedSign = getLocalizedSignName(sign, t.locale);
 
   // Format today's date in the current locale
   const today = new Date().toLocaleDateString(
@@ -17,11 +24,13 @@ export default function DailyFortune({ sign }: Props) {
     { year: "numeric", month: "long", day: "numeric" }
   );
 
-  // Build the heading: "Today's Fortune for Scorpio" / "今日の運勢 — 蠍座" / "Tu Horóscopo de Hoy para Escorpio"
+  // Build heading with localized sign name
   const heading =
     t.locale === "ja"
-      ? `${t.fortune.title} — ${sign}`
-      : `${t.fortune.title}${t.fortune.for ? ` ${t.fortune.for}` : ""} ${sign}`;
+      ? `${t.fortune.title} — ${localizedSign}`
+      : `${t.fortune.title}${t.fortune.for ? ` ${t.fortune.for}` : ""} ${localizedSign}`;
+
+  const rankingPath = RANKING_PATHS[t.locale] ?? RANKING_PATHS.en;
 
   return (
     <div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card)] p-5 space-y-3">
@@ -41,11 +50,19 @@ export default function DailyFortune({ sign }: Props) {
         {fortune}
       </p>
 
-      {/* Refreshes note */}
-      <p className="text-xs text-[var(--muted)] flex items-center gap-1">
-        <span>🔄</span>
-        <span>{t.fortune.refreshes}</span>
-      </p>
+      {/* Refreshes note + link to all signs ranking */}
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <p className="text-xs text-[var(--muted)] flex items-center gap-1">
+          <span>🔄</span>
+          <span>{t.fortune.refreshes}</span>
+        </p>
+        <a
+          href={rankingPath}
+          className="text-xs text-[var(--accent)] hover:opacity-80 transition-opacity"
+        >
+          {t.fortune.allSignsLink}
+        </a>
+      </div>
     </div>
   );
 }

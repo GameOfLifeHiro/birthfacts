@@ -182,6 +182,13 @@ const ja: Translations = {
     refreshes: "毎日更新",
     moreStats: "詳細データを見る",
     hideStats: "詳細を閉じる",
+    rankingTitle: "今日の運勢 ランキング",
+    rankingSubtitle: "12星座の今日の運勢をランキング形式でお届け",
+    rankSuffix: "位",
+    updatesNote: "毎日0時に更新 · 同じ日は全員同じランキング",
+    allSignsLink: "12星座の今日の運勢ランキングを見る →",
+    luckiestToday: "今日のラッキー星座",
+    toughDay: "今日は要注意",
   },
 
   milestones: {

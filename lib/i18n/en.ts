@@ -165,6 +165,13 @@ const en: Translations = {
     refreshes: "Refreshes daily",
     moreStats: "More stats",
     hideStats: "Hide stats",
+    rankingTitle: "Today's Fortune Ranking",
+    rankingSubtitle: "All 12 zodiac signs, ranked by luck today",
+    rankSuffix: "",
+    updatesNote: "Updates at midnight · Same day, same ranking for everyone",
+    allSignsLink: "See today's ranking for all 12 signs →",
+    luckiestToday: "Luckiest today",
+    toughDay: "Tough day",
   },
 
   milestones: {

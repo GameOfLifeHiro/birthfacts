@@ -187,11 +187,18 @@ export interface Translations {
 
   // ── Daily fortune ─────────────────────────────────────────────────────────
   fortune: {
-    title: string;        // e.g. "Today's Fortune"
-    for: string;          // e.g. "for" (between title and sign name)
-    refreshes: string;    // e.g. "Refreshes daily"
-    moreStats: string;    // e.g. "More stats"
-    hideStats: string;    // e.g. "Hide stats"
+    title: string;            // e.g. "Today's Fortune"
+    for: string;              // e.g. "for" (between title and sign name)
+    refreshes: string;        // e.g. "Refreshes daily"
+    moreStats: string;        // e.g. "More stats"
+    hideStats: string;        // e.g. "Hide stats"
+    rankingTitle: string;     // e.g. "Today's Fortune Ranking"
+    rankingSubtitle: string;  // e.g. "All 12 signs, ranked by luck today"
+    rankSuffix: string;       // e.g. "" (EN), "位" (JA), "°" (ES)
+    updatesNote: string;      // e.g. "Updates at midnight"
+    allSignsLink: string;     // e.g. "See today's ranking for all signs →"
+    luckiestToday: string;    // e.g. "Luckiest today"
+    toughDay: string;         // e.g. "Tough day"
   };
 
   // ── Milestone labels (life timeline) ─────────────────────────────────────

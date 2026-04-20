@@ -27,6 +27,7 @@ export default function EsHomePage() {
         <h2 className="font-semibold text-lg text-[var(--accent)] mb-4">Más herramientas</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
+            { href: "/es/horoscopo-ranking/", emoji: "🏆", title: "Ranking del Horóscopo", desc: "Los 12 signos clasificados por suerte hoy" },
             { href: "/es/dog-age-calculator/", emoji: "🐶", title: "Edad del Perro", desc: "¿Cuántos años tiene tu perro en humanos?" },
             { href: "/es/cat-age-calculator/", emoji: "🐱", title: "Edad del Gato", desc: "¿Cuántos años tiene tu gato en humanos?" },
             { href: "/es/days-between/", emoji: "📅", title: "Días Entre Fechas", desc: "Calcula días entre dos fechas" },

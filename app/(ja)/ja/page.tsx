@@ -27,6 +27,7 @@ export default function JaHomePage() {
         <h2 className="font-semibold text-lg text-[var(--accent)] mb-4">その他のツール</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
+            { href: "/ja/uranai-ranking/", emoji: "🏆", title: "今日の運勢ランキング", desc: "12星座の今日の運勢を一覧表示" },
             { href: "/ja/dog-age-calculator/", emoji: "🐶", title: "犬の年齢計算", desc: "愛犬の年齢を人間換算" },
             { href: "/ja/cat-age-calculator/", emoji: "🐱", title: "猫の年齢計算", desc: "愛猫の年齢を人間換算" },
             { href: "/ja/days-between/", emoji: "📅", title: "日数計算", desc: "2つの日付の間の日数" },

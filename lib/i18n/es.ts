@@ -165,6 +165,13 @@ const es: Translations = {
     refreshes: "Se actualiza diariamente",
     moreStats: "Más estadísticas",
     hideStats: "Ocultar estadísticas",
+    rankingTitle: "Ranking del Horóscopo de Hoy",
+    rankingSubtitle: "Los 12 signos del zodiaco, clasificados por suerte hoy",
+    rankSuffix: "°",
+    updatesNote: "Se actualiza a medianoche · El mismo día, el mismo ranking para todos",
+    allSignsLink: "Ver el ranking de los 12 signos hoy →",
+    luckiestToday: "El más afortunado hoy",
+    toughDay: "Día difícil",
   },
 
   milestones: {
