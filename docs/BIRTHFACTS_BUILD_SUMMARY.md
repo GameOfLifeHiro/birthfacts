@@ -368,7 +368,7 @@ Each root layout is self-contained: it imports `globals.css`, sets up GA4 script
 The Japanese site has full feature parity with English plus Japanese-specific touches:
 
 - All UI strings in Japanese (via `lib/i18n/ja.ts`)
-- Japanese header navigation: **今日の年齢** (home calculator) / **今日の占い** (ranking) / よくある質問 / このサイトについて
+- Japanese header navigation: **誕生日占い** (home calculator) / **今日の占い** (ranking) / よくある質問 / このサイトについて
 - **Homepage hero:** `<h1>` **誕生日占い 無料** in `app/(ja)/ja/page.tsx` (fortune-first positioning; see **Hero heading & search intent**). Dog/cat calculator back links use **誕生日占い**.
 - Age displayed as `X歳 Yヶ月 Z日`
 - Weekday meanings end with `〜の日に生まれました。` (polite form)
@@ -537,4 +537,4 @@ Apply once Search Console shows consistent impressions (any amount).
 
 ---
 
-*Last updated: April 2026 — adds: **daily fortune ranking pages** (`/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/`) with JA primary headline **今日の占い ランキング** (casual 占い tone); full fortune text per sign + `text-sm`; JA subheading line break; JA `updatesNote` shortened to **毎日0時に更新**; JA header nav **今日の年齢** / **今日の占い**; `getDailyRanking()` seeded Fisher-Yates + `SIGN_NAMES_JA/ES` + `getLocalizedSignName()`; `DailyFortuneRanking.tsx` gold/silver/bronze badges; EN/ES still target `today's horoscope all signs` / `horóscopo de hoy todos los signos`; sitemap 33 URLs + hreflang; extended `t.fortune.*` keys. Earlier: favicon, hero H1 (JA 誕生日占い 無料; ES Lectura de Cumpleaños Gratis; EN Age Calculator), six-wave spiritual generation, CWV mobile ~99, LCP ~1.8s.*
+*Last updated: April 2026 — adds: **daily fortune ranking pages** (`/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/`) with JA primary headline **今日の占い ランキング** (casual 占い tone); full fortune text per sign + `text-sm`; JA subheading line break; JA `updatesNote` shortened to **毎日0時に更新**; JA header nav **誕生日占い** / **今日の占い**; `getDailyRanking()` seeded Fisher-Yates + `SIGN_NAMES_JA/ES` + `getLocalizedSignName()`; `DailyFortuneRanking.tsx` gold/silver/bronze badges; EN/ES still target `today's horoscope all signs` / `horóscopo de hoy todos los signos`; sitemap 33 URLs + hreflang; extended `t.fortune.*` keys. Earlier: favicon, hero H1 (JA 誕生日占い 無料; ES Lectura de Cumpleaños Gratis; EN Age Calculator), six-wave spiritual generation, CWV mobile ~99, LCP ~1.8s.*

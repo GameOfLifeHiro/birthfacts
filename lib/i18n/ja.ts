@@ -186,7 +186,7 @@ const ja: Translations = {
     rankingSubtitle: "12星座の今日の占いをランキング形式でお届け",
     rankSuffix: "位",
     updatesNote: "毎日0時に更新",
-    allSignsLink: "12星座の今日の運勢ランキングを見る →",
+    allSignsLink: "12星座の今日の占いランキングを見る →",
     luckiestToday: "今日のラッキー星座",
     toughDay: "今日は要注意",
   },
