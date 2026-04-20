@@ -52,12 +52,21 @@ export const metadata: Metadata = {
     siteName: "BirthFacts",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "https://birthfacts.net/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "BirthFacts – Your Complete Birthday Profile",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "BirthFacts – Your Complete Birthday Profile",
     description:
       "Age calculator + zodiac, moon phase, Mayan Kin number, Life Path Number, spiritual generation, and historical facts — all from your birthday.",
+    images: ["https://birthfacts.net/og-image.png"],
   },
   robots: { index: true, follow: true },
 };

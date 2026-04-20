@@ -52,12 +52,21 @@ export const metadata: Metadata = {
     siteName: "BirthFacts",
     locale: "ja_JP",
     type: "website",
+    images: [
+      {
+        url: "https://birthfacts.net/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "BirthFacts — 年齢計算・誕生日プロフィール",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "BirthFacts — 年齢計算・誕生日プロフィール",
     description:
       "年齢・干支・マヤ暦・四柱推命・九星気学など、誕生日から読み解くすべてのプロフィールを無料で。",
+    images: ["https://birthfacts.net/og-image.png"],
   },
   robots: { index: true, follow: true },
 };
