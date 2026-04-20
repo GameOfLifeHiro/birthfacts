@@ -8,30 +8,32 @@ import "../globals.css";
 const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
 
 export const metadata: Metadata = {
-  title: { default: "BirthFacts — Calculadora de Edad y Perfil de Cumpleaños", template: "%s | BirthFacts" },
+  title: { default: "BirthFacts — Lectura de Cumpleaños Gratis | Horóscopo, Zodiaco, Luna y Maya", template: "%s | BirthFacts" },
   description:
-    "Calcula tu edad exacta y descubre tu perfil completo de cumpleaños: signo zodiacal, fase lunar, número Kin maya, número de camino de vida, zodiaco chino, flor de nacimiento e identidad generacional. Gratis e instantáneo.",
+    "Lectura de cumpleaños gratis: horóscopo de hoy, signo zodiacal, fase lunar, número Kin maya, numerología, zodiaco chino, flor de nacimiento e identidad generacional. Todo desde tu fecha de nacimiento, gratis e instantáneo.",
   keywords: [
+    "lectura de cumpleaños gratis",
+    "horóscopo gratis",
+    "horóscopo de hoy gratis",
+    "horóscopo natal gratis",
+    "lectura zodiacal gratis",
+    "numerología gratis",
     "calculadora de edad",
     "calculadora de cumpleaños",
     "cuántos años tengo",
-    "calculadora de años",
-    "edad exacta",
     "signo zodiacal",
     "zodiaco chino",
     "fase lunar cumpleaños",
     "número kin maya",
     "calendario maya calculadora",
     "número de camino de vida",
-    "numerología cumpleaños",
     "flor de nacimiento",
     "piedra natal",
-    "generación millennial",
     "niños índigo",
     "niños cristal",
     "calculadora edad perro",
     "calculadora edad gato",
-    "perfil de cumpleaños",
+    "perfil de cumpleaños gratis",
   ],
   metadataBase: new URL("https://birthfacts.net"),
   alternates: {
@@ -43,9 +45,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BirthFacts — Calculadora de Edad y Perfil de Cumpleaños",
+    title: "BirthFacts — Lectura de Cumpleaños Gratis & Horóscopo de Hoy",
     description:
-      "Edad, zodiaco, fase lunar, número Kin maya, generación espiritual y hechos históricos — todo a partir de tu fecha de nacimiento. Gratis.",
+      "Horóscopo gratis, zodiaco, fase lunar, número Kin maya, numerología y generación espiritual — todo desde tu fecha de nacimiento. Gratis.",
     url: "https://birthfacts.net/es/",
     siteName: "BirthFacts",
     locale: "es_ES",
@@ -61,9 +63,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BirthFacts — Calculadora de Edad y Perfil de Cumpleaños",
+    title: "BirthFacts — Lectura de Cumpleaños Gratis & Horóscopo de Hoy",
     description:
-      "Edad, zodiaco, fase lunar, número Kin maya, generación espiritual y hechos históricos — todo a partir de tu fecha de nacimiento.",
+      "Horóscopo gratis, zodiaco, fase lunar, número Kin maya, numerología y generación espiritual — todo desde tu fecha de nacimiento. Gratis.",
     images: ["https://birthfacts.net/og-image.png"],
   },
   robots: { index: true, follow: true },

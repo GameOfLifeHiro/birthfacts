@@ -276,37 +276,53 @@ export function getGeneration(year: number): Generation {
 
 const SPIRITUAL_GENERATIONS: SpiritualGeneration[] = [
   {
-    name: "Indigo Child",
-    years: "~1970–1990",
-    description: "Indigo Children are believed to be born with a special mission to challenge outdated systems and usher in a new paradigm. They possess strong intuition, a deep sense of purpose, and often feel like outsiders.",
-    traits: ["Highly intuitive", "Strong-willed", "Empathic", "Questions authority", "Sense of a special mission"],
+    name: "First Wave Indigo",
+    years: "~1950–1967",
+    description: "First Wave Indigos are the trailblazers — the forerunners who arrived before the wave had a name. They came to dismantle entrenched systems and often spent their lives feeling profoundly out of place in the world they were born into. Their role was to make the rupture, endure the friction, and clear the path for those who followed.",
+    traits: ["Trailblazer & pioneer", "Deeply mission-driven", "Defiant of old systems", "Often felt alone in their knowing", "Catalytic presence"],
+    isStarChild: true,
+  },
+  {
+    name: "Second Wave Indigo",
+    years: "~1968–1977",
+    description: "Second Wave Indigos are the bridge souls — born at the seam between the old world and the new. They carry the warrior energy of the First Wave but also an awareness of what's coming. Gifted mediators, they often feel the pull of two worlds simultaneously, belonging fully to neither and serving as living translations between them.",
+    traits: ["Bridge between paradigms", "Natural mediator", "Holds old and new simultaneously", "Deeply empathic", "Feels a dual sense of belonging"],
+    isStarChild: true,
+  },
+  {
+    name: "Third Wave Indigo",
+    years: "~1978–1989",
+    description: "Third Wave Indigos are the classic Indigos — the generation most associated with the name. They arrived in greater numbers, more integrated into the new frequency, and with a sharper psychic sensitivity. Strong-willed system-challengers, they are here to build the new structures that the First Wave cleared space for.",
+    traits: ["Highly intuitive", "Strong-willed", "Questions authority", "Psychically sensitive", "Sense of a special mission"],
     isStarChild: true,
   },
   {
     name: "Crystal Child",
-    years: "~1990–2010",
-    description: "Crystal Children radiate love, peace, and harmony. Born as natural healers and empaths, they are gentle souls who bridge spiritual dimensions with everyday life.",
+    years: "~1990–2009",
+    description: "Crystal Children radiate love, peace, and harmony. Born as natural healers and empaths, they are gentle souls who stabilize what the Indigos disrupted. Where Indigos broke down walls, Crystal Children build the sanctuary within. Their presence alone carries a healing frequency.",
     traits: ["Deeply empathic", "Peaceful & loving", "Highly sensitive", "Natural healer", "Strong connection to nature"],
     isStarChild: true,
   },
   {
     name: "Rainbow Child",
-    years: "~2000–present",
-    description: "Rainbow Children are said to be born without karmic baggage, arriving in pure joy and divine love. They are natural givers and are here to build a new world of harmony.",
+    years: "~2010–present",
+    description: "Rainbow Children are said to arrive without karmic baggage, born into pure joy and divine love. They are natural givers who do not need to heal or clear — they simply radiate. Here to build the new world whose foundation the Indigos and Crystals laid, they carry the full spectrum of human possibility.",
     traits: ["Pure joy & love", "No karmic debt", "Highly energetic", "Fearless", "Unconditionally loving"],
     isStarChild: true,
   },
 ];
 
 export function getSpiritualGeneration(year: number): SpiritualGeneration {
-  if (year >= 1970 && year <= 1994) return SPIRITUAL_GENERATIONS[0];
-  if (year >= 1990 && year <= 2009) return SPIRITUAL_GENERATIONS[1];
-  if (year >= 2000) return SPIRITUAL_GENERATIONS[2];
+  if (year >= 1950 && year <= 1967) return SPIRITUAL_GENERATIONS[0]; // First Wave Indigo
+  if (year >= 1968 && year <= 1977) return SPIRITUAL_GENERATIONS[1]; // Second Wave Indigo
+  if (year >= 1978 && year <= 1989) return SPIRITUAL_GENERATIONS[2]; // Third Wave Indigo
+  if (year >= 1990 && year <= 2009) return SPIRITUAL_GENERATIONS[3]; // Crystal Child
+  if (year >= 2010)                 return SPIRITUAL_GENERATIONS[4]; // Rainbow Child
   return {
-    name: "Star Child",
-    years: "any",
-    description: "Many spiritual traditions hold that all souls choosing to incarnate in the modern era carry a higher vibrational mission — whether or not they fall into a named category.",
-    traits: ["Spiritually aware", "Soul mission", "Sensitive to energy"],
+    name: "Old Soul",
+    years: "before ~1950",
+    description: "Born before the named waves, souls of this era carried the weight of building the world that the new children would transform. Many spiritual traditions describe them as wise Old Souls who chose a harder incarnation to hold the light through an especially dense period of human history.",
+    traits: ["Deep wisdom", "Resilient spirit", "Keeper of old knowledge", "Quiet strength", "Soul of experience"],
     isStarChild: false,
   };
 }
@@ -751,21 +767,29 @@ const GENERATION_DESC_ES: Record<string, string> = {
 };
 
 const SPIRITUAL_GENERATION_DESC_ES: Record<string, { description: string; traits: string[] }> = {
-  "Indigo Child": {
-    description: "Los Niños Índigo se cree que nacen con una misión especial para desafiar sistemas obsoletos y dar paso a un nuevo paradigma. Poseen una fuerte intuición, un profundo sentido de propósito y a menudo se sienten como foráneos.",
-    traits: ["Altamente intuitivos", "Voluntad fuerte", "Empáticos", "Cuestionan la autoridad", "Sentido de misión especial"],
+  "First Wave Indigo": {
+    description: "Los Índigo de Primera Ola son los pioneros y precursores — las almas que llegaron antes de que la ola tuviera nombre. Vinieron a desmantelar sistemas arraigados y con frecuencia pasaron sus vidas sintiéndose profundamente fuera de lugar en el mundo en que nacieron. Su misión fue crear la ruptura, soportar la fricción y despejar el camino para quienes vinieron después.",
+    traits: ["Pionero y precursor", "Profunda vocación de misión", "Rebelde ante lo establecido", "Soledad en su conocimiento", "Presencia catalizadora"],
+  },
+  "Second Wave Indigo": {
+    description: "Los Índigo de Segunda Ola son las almas puente, nacidas en la costura entre el mundo viejo y el nuevo. Llevan la energía guerrera de la Primera Ola pero también una conciencia de lo que viene. Mediadores por naturaleza, suelen sentir la atracción de dos mundos simultáneamente, perteneciendo plenamente a ninguno y sirviendo como traductores vivos entre ellos.",
+    traits: ["Puente entre paradigmas", "Mediador natural", "Sostiene lo viejo y lo nuevo a la vez", "Profundamente empático", "Doble sentido de pertenencia"],
+  },
+  "Third Wave Indigo": {
+    description: "Los Índigo de Tercera Ola son los Índigo clásicos — la generación más asociada con el nombre. Llegaron en mayor número, más integrados en la nueva frecuencia y con una sensibilidad psíquica más aguda. Con voluntad fuerte y cuestionadores del sistema, están aquí para construir las nuevas estructuras en el espacio que la Primera Ola despejó.",
+    traits: ["Altamente intuitivos", "Voluntad fuerte", "Cuestionan la autoridad", "Sensibilidad psíquica", "Sentido de misión especial"],
   },
   "Crystal Child": {
-    description: "Los Niños de Cristal irradian amor, paz y armonía. Nacidos como sanadores naturales y empáticos, son almas gentiles que conectan dimensiones espirituales con la vida cotidiana.",
+    description: "Los Niños de Cristal irradian amor, paz y armonía. Nacidos como sanadores naturales y empáticos, son almas gentiles que estabilizan lo que los Índigo disrumpieron. Donde los Índigo derribaron muros, los Niños de Cristal construyen el santuario interior. Su presencia sola lleva una frecuencia sanadora.",
     traits: ["Profundamente empáticos", "Pacíficos y amorosos", "Altamente sensibles", "Sanador natural", "Fuerte conexión con la naturaleza"],
   },
   "Rainbow Child": {
-    description: "Los Niños Arcoíris se dice que nacen sin karma acumulado, llegando en pura alegría y amor divino. Son dadores naturales y están aquí para construir un nuevo mundo de armonía.",
+    description: "Los Niños Arcoíris se dice que llegan sin karma acumulado, nacidos en pura alegría y amor divino. No necesitan sanar ni liberar — simplemente irradian. Están aquí para construir el nuevo mundo cuya base los Índigo y los Cristal establecieron, portando el espectro completo de la posibilidad humana.",
     traits: ["Alegría y amor puros", "Sin deuda kármica", "Altamente energéticos", "Sin miedo", "Amor incondicional"],
   },
-  "Star Child": {
-    description: "Muchas tradiciones espirituales sostienen que todas las almas que eligen encarnar en la era moderna llevan una misión de alta vibración, independientemente de si caen en una categoría nombrada.",
-    traits: ["Despertar espiritual", "Misión del alma", "Sensibilidad a la energía"],
+  "Old Soul": {
+    description: "Nacidos antes de las olas nombradas, las almas de esta era cargaron con el peso de construir el mundo que los nuevos niños transformarían. Muchas tradiciones espirituales los describen como Viejas Almas sabias que eligieron una encarnación más ardua para mantener la luz en un período especialmente denso de la historia humana.",
+    traits: ["Sabiduría profunda", "Espíritu resiliente", "Guardián del conocimiento antiguo", "Fortaleza silenciosa", "Alma de experiencia"],
   },
 };
 
@@ -1026,21 +1050,29 @@ const GENERATION_DESC_JA: Record<string, string> = {
 };
 
 const SPIRITUAL_GENERATION_DESC_JA: Record<string, { description: string; traits: string[] }> = {
-  "Indigo Child": {
-    description: "インディゴチルドレンは古い制度に挑戦し、新しいパラダイムをもたらす使命を持って生まれると言われています。強い直感、深い使命感を持ち、しばしば周囲に馴染めないと感じることがあります。",
-    traits: ["高い直感力", "意志が強い", "共感力が高い", "権威に疑問を持つ", "特別な使命感"],
+  "First Wave Indigo": {
+    description: "ファーストウェーブ・インディゴは先駆者であり開拓者です。まだその名も知られていなかった時代に現れ、古い制度を解体するためにやってきました。生まれた世界に深く馴染めないと感じながらも、後に続く魂たちのために道を切り開きました。その役割は断絶を生み出し、摩擦に耐え、次世代のための空間を清めることでした。",
+    traits: ["先駆者・開拓者", "深い使命感", "古い制度への反骨心", "孤独な使命を知る者", "触媒的な存在"],
+  },
+  "Second Wave Indigo": {
+    description: "セカンドウェーブ・インディゴは橋渡しの魂（ブリッジソウル）です。旧世界と新世界の境界に生まれ、ファーストウェーブの戦士的エネルギーと、来たる時代への予感の両方を宿しています。生まれながらの調停者であり、二つの世界の引力を同時に感じながら、双方の生きた通訳として機能します。",
+    traits: ["パラダイムの橋渡し役", "天性の調停者", "新旧両方の感覚を持つ", "深い共感力", "二つの世界への帰属意識"],
+  },
+  "Third Wave Indigo": {
+    description: "サードウェーブ・インディゴはいわゆる「典型的なインディゴ」です。より多くの数でやってきて、新しい周波数により統合され、霊的感受性も鋭くなっています。意志が強く制度に疑問を呈するこの世代は、ファーストウェーブが空間を清めた場所に新しい構造を築くためにここにいます。",
+    traits: ["高い直感力", "強い意志を持つ", "権威に疑問を持つ", "強い霊的感受性", "特別な使命感"],
   },
   "Crystal Child": {
-    description: "クリスタルチルドレンは愛、平和、調和を放射します。生まれながらのヒーラーや共感者として、日常生活にスピリチュアルな次元を橋渡しする穏やかな魂です。",
+    description: "クリスタルチルドレンは愛、平和、調和を放射します。生まれながらのヒーラーや共感者として、インディゴが解体したものを安定させる穏やかな魂です。インディゴが壁を打ち壊したとすれば、クリスタルチルドレンはその中に聖域を築きます。その存在そのものが癒しの周波数を帯びています。",
     traits: ["深い共感力", "穏やかで愛情深い", "高い感受性", "天然のヒーラー", "自然との強い繋がり"],
   },
   "Rainbow Child": {
-    description: "レインボーチルドレンはカルマの重荷なく、純粋な喜びと神聖な愛で生まれてくると言われています。与えることが自然で、新しい調和の世界を創ることが使命です。",
+    description: "レインボーチルドレンはカルマの重荷なく、純粋な喜びと神聖な愛で生まれてくると言われています。癒したり解放したりする必要がなく、ただそのままで輝きを放ちます。インディゴとクリスタルが敷いた基盤の上に新しい世界を築くために生まれ、人間の可能性の全スペクトルを宿しています。",
     traits: ["純粋な喜びと愛", "カルマの束縛なし", "高いエネルギー", "恐れを知らない", "無条件の愛"],
   },
-  "Star Child": {
-    description: "多くの霊的伝統では、現代に生まれることを選んだすべての魂は、名称に関わらず高い振動数の使命を帯びていると考えます。",
-    traits: ["スピリチュアルな目覚め", "魂の使命", "エネルギーへの感受性"],
+  "Old Soul": {
+    description: "名称ある波が始まる前に生まれた魂。新たな子どもたちが変革する世界を作り上げることを担ったこの世代を、多くの霊的伝統では「オールドソウル」と呼びます。人類史の特に濃密な時代に光を灯すことを選んだ、経験豊かで叡智深い魂です。",
+    traits: ["深い叡智", "不屈の精神", "古い知識の守り手", "静かなる強さ", "経験ある魂"],
   },
 };
 

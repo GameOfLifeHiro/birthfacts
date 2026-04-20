@@ -8,32 +8,36 @@ import "../globals.css";
 const GA_MEASUREMENT_ID = "G-4ETJP01VCC";
 
 export const metadata: Metadata = {
-  title: "Age Calculator – Birthday Profile with Zodiac, Moon Phase & Mayan Calendar | BirthFacts",
+  title: "Free Birthday Reading — Age, Daily Horoscope, Zodiac, Moon Phase & Mayan Calendar | BirthFacts",
   description:
-    "Calculate your exact age and discover your complete birthday profile: zodiac sign, moon phase, Mayan Kin number, Life Path Number, Chinese zodiac, birth flower, generational identity, and historical facts. Free and instant.",
+    "Free birthday reading: your exact age, today's zodiac fortune, moon phase at birth, Mayan Kin number, Life Path numerology, Chinese zodiac, birth flower, generational archetype, and 100 years of world history — all from your birth date.",
   keywords: [
+    "free birthday reading",
+    "free horoscope today",
+    "daily horoscope",
+    "birthday horoscope free",
+    "zodiac reading",
+    "numerology reading free",
     "age calculator",
-    "exact age calculator",
     "birthday calculator",
     "how old am I",
-    "birthday facts",
     "moon phase birthday",
     "mayan birthday calculator",
     "kin number calculator",
-    "mayan calendar calculator",
     "life path number",
-    "numerology birthday",
     "chinese zodiac calculator",
     "zodiac sign calculator",
     "birth flower",
     "birthstone by month",
     "dog age calculator",
     "cat age calculator",
-    "indigo child birth year",
+    "indigo child",
     "crystal child",
     "spiritual generation",
     "days between dates",
     "birthday profile",
+    "astrology birthday free",
+    "horoscope by birthday",
   ],
   metadataBase: new URL("https://birthfacts.net"),
   alternates: {
@@ -45,9 +49,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BirthFacts – Your Complete Birthday Profile",
+    title: "BirthFacts – Free Birthday Reading & Daily Horoscope",
     description:
-      "Age calculator + zodiac, moon phase, Mayan Kin number, Life Path Number, spiritual generation, and historical facts — all from your birthday.",
+      "Free birthday reading: zodiac, daily horoscope, moon phase, Mayan Kin, Life Path Number, spiritual generation & 100 years of history — from your birth date.",
     url: "https://birthfacts.net",
     siteName: "BirthFacts",
     locale: "en_US",
@@ -63,9 +67,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BirthFacts – Your Complete Birthday Profile",
+    title: "BirthFacts – Free Birthday Reading & Daily Horoscope",
     description:
-      "Age calculator + zodiac, moon phase, Mayan Kin number, Life Path Number, spiritual generation, and historical facts — all from your birthday.",
+      "Free birthday reading: zodiac, daily horoscope, moon phase, Mayan Kin, Life Path Number, spiritual generation & 100 years of history — from your birth date.",
     images: ["https://birthfacts.net/og-image.png"],
   },
   robots: { index: true, follow: true },
