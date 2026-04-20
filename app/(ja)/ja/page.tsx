@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import AgeCalculator from "@/components/AgeCalculator";
 
 export const metadata: Metadata = {
-  title: "年齢計算・誕生日プロフィール | BirthFacts",
-  description: "生年月日を入力するだけ。正確な年齢に加え、干支・星座・マヤ暦・元号・四柱推命・九星気学・月相など誕生日のすべてを無料で表示します。",
+  title: "誕生日占い 無料 | BirthFacts",
+  description: "生年月日を入力するだけで、今日の運勢・星座占い・マヤ暦・月相・数秘術など、あなただけの誕生日占いを無料で鑑定します。",
   alternates: { canonical: "https://birthfacts.net/ja/" },
 };
 
@@ -12,12 +12,11 @@ export default function JaHomePage() {
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
         <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-          <span className="gradient-text">年齢計算</span>
+          <span className="gradient-text">誕生日占い 無料</span>
         </h1>
         <p className="text-[var(--muted)] text-lg max-w-xl mx-auto leading-relaxed">
-          生年月日を入力すると、正確な年齢（年・月・週・日・時間・分）に加え、
-          干支・星座・月相・マヤ暦・四柱推命・九星気学など、
-          あなたの誕生日にまつわるすべてのプロフィールを表示します。
+          生年月日を入力するだけで、今日の運勢・星座占い・マヤ暦・月相・数秘術など、
+          あなただけの誕生日占いを無料で鑑定します。
         </p>
       </div>
 
