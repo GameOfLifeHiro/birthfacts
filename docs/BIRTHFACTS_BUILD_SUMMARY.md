@@ -517,7 +517,7 @@ The site exposes **Kin**, **Day Sign names**, **Galactic Tone names/numbers**, a
 | No prohibited content | ✅ Calculator/profile tool |
 | Mobile-friendly | ✅ Responsive, tested on iOS |
 | Core Web Vitals: Good | ✅ Mobile LCP 1.8s, CLS 0 |
-| Sufficient content | ✅ 27 pages across 3 locales |
+| Sufficient content | ✅ 27 localized URLs in sitemap (9 per locale, includes fortune-ranking cluster) |
 | Site indexed by Google | ⏳ Submit sitemap, wait 2–4 weeks |
 | Some organic traffic | ⏳ Needed before applying |
 
