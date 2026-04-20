@@ -324,7 +324,7 @@ Every root layout includes full `<link rel="alternate" hreflang="…">` tags in 
 
 ### Static files
 
-`public/sitemap.xml` — 27 URLs total (9 routes × 3 locales), each with hreflang cross-links  
+`public/sitemap.xml` — 27 `<url>` entries (9 routes × 3 locales), each with hreflang cross-links. The set includes the **fortune-ranking cluster**: `/fortune-ranking/`, `/es/horoscopo-ranking/`, and `/ja/uranai-ranking/` (each listed once per locale block, `changefreq` daily, priority 0.9). No extra sitemap edit is needed when only on-page Japanese copy changes.  
 `public/robots.txt` — points to sitemap
 
 ### Social / link previews (Open Graph) & tab icons
@@ -537,4 +537,4 @@ Apply once Search Console shows consistent impressions (any amount).
 
 ---
 
-*Last updated: April 2026 — adds: **daily fortune ranking pages** (`/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/`) with JA primary headline **今日の占い ランキング** (casual 占い tone); full fortune text per sign + `text-sm`; JA subheading line break; JA `updatesNote` shortened to **毎日0時に更新**; JA header nav **誕生日占い** / **今日の占い**; `getDailyRanking()` seeded Fisher-Yates + `SIGN_NAMES_JA/ES` + `getLocalizedSignName()`; `DailyFortuneRanking.tsx` gold/silver/bronze badges; EN/ES still target `today's horoscope all signs` / `horóscopo de hoy todos los signos`; sitemap 33 URLs + hreflang; extended `t.fortune.*` keys. Earlier: favicon, hero H1 (JA 誕生日占い 無料; ES Lectura de Cumpleaños Gratis; EN Age Calculator), six-wave spiritual generation, CWV mobile ~99, LCP ~1.8s.*
+*Last updated: April 2026 — adds: **daily fortune ranking pages** (`/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/`) with JA primary headline **今日の占い ランキング** (casual 占い tone); full fortune text per sign + `text-sm`; JA subheading line break; JA `updatesNote` shortened to **毎日0時に更新**; JA header nav **誕生日占い** / **今日の占い**; `getDailyRanking()` seeded Fisher-Yates + `SIGN_NAMES_JA/ES` + `getLocalizedSignName()`; `DailyFortuneRanking.tsx` gold/silver/bronze badges; EN/ES still target `today's horoscope all signs` / `horóscopo de hoy todos los signos`; sitemap 27 URLs (includes ranking hreflang cluster) + hreflang; extended `t.fortune.*` keys. Earlier: favicon, hero H1 (JA 誕生日占い 無料; ES Lectura de Cumpleaños Gratis; EN Age Calculator), six-wave spiritual generation, CWV mobile ~99, LCP ~1.8s.*

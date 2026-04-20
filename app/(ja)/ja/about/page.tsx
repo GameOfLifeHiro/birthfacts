@@ -95,7 +95,7 @@ export default function JaAboutPage() {
       </div>
 
       <div className="mt-10 text-center">
-        <a href="/ja/" className="btn-primary inline-block">計算ツールを使う</a>
+        <a href="/ja/" className="btn-primary inline-block">誕生日占い 無料</a>
       </div>
     </div>
   );
