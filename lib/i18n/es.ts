@@ -168,7 +168,7 @@ const es: Translations = {
     rankingTitle: "Ranking del Horóscopo de Hoy",
     rankingSubtitle: "Los 12 signos del zodiaco, clasificados por suerte hoy",
     rankSuffix: "°",
-    updatesNote: "Se actualiza a medianoche · El mismo día, el mismo ranking para todos",
+    updatesNote: "Se actualiza a medianoche",
     allSignsLink: "Ver el ranking de los 12 signos hoy →",
     luckiestToday: "El más afortunado hoy",
     toughDay: "Día difícil",
