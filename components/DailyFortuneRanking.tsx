@@ -50,9 +50,7 @@ export default function DailyFortuneRanking() {
           const isTop3 = rank <= 3;
           const isBottom3 = rank >= 10;
 
-          // Truncate fortune to ~110 chars for compact display
-          const excerpt =
-            fortune.length > 110 ? fortune.slice(0, 110).trimEnd() + "…" : fortune;
+          const excerpt = fortune;
 
           return (
             <li
@@ -93,7 +91,7 @@ export default function DailyFortuneRanking() {
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-[var(--muted)] mt-1 leading-relaxed">
+                <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">
                   {excerpt}
                 </p>
               </div>
