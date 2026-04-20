@@ -73,6 +73,10 @@ export const metadata: Metadata = {
     images: ["https://birthfacts.net/og-image.png"],
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function EnRootLayout({ children }: { children: React.ReactNode }) {
