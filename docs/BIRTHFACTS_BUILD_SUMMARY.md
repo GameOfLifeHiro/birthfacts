@@ -75,13 +75,19 @@ birthfacts/
 │               └── page.tsx
 ├── components/
 │   ├── AgeCalculator.tsx            # Locale-aware: Month/Day/Year selects, calculate, share, composes sections
+│   ├── DailyFortune.tsx             # Today's fortune card (Western sign + locale-specific text)
 │   ├── LanguageSelect.tsx           # Client component: <select> dropdown for locale switching (mobile-friendly)
-│   ├── ResultDisplay.tsx            # Locale-aware: hero age sentence, stat grid, countdown
+│   ├── ResultDisplay.tsx            # Hero age sentence; DailyFortune; collapsible stats + countdown
 │   ├── BirthdayCountdown.tsx
 │   ├── BirthProfile.tsx             # Passes t.locale to getBirthProfile(); profile cards (lazy-loaded)
 │   ├── HistoricalTimeline.tsx       # Tabbed year facts (lazy-loaded via next/dynamic)
 │   └── LifeTimeline.tsx             # Milestones + world events (lazy-loaded via next/dynamic)
 ├── lib/
+│   ├── dailyFortune.ts              # getDailyFortune(sign, locale, date?) — day-of-year % 30 index
+│   ├── fortunes/
+│   │   ├── en.ts                    # 360 fortunes (30 × 12 Western signs), English
+│   │   ├── ja.ts                    # Same structure, Japanese
+│   │   └── es.ts                    # Same structure, Spanish
 │   ├── ageCalc.ts                   # Age math, day-of-week, next birthday, share URL helper
 │   ├── birthProfile.ts              # Locale-aware: zodiac, moon, Mayan, birthstone/flower,
 │   │                                # Life Path, generations, famous birthdays (en/ja/es)
@@ -96,6 +102,7 @@ birthfacts/
 │   └── BIRTHFACTS_BUILD_SUMMARY.md
 ├── render.yaml                      # Render.com config: cache headers for /_next/static/**
 └── public/
+    ├── og-image.png                 # 1200×630 Open Graph / Twitter / WhatsApp link preview image
     ├── sitemap.xml                  # All routes for all 3 locales, with xhtml:link hreflang on every URL
     └── robots.txt
 ```
@@ -163,7 +170,7 @@ There is **no shared `app/layout.tsx`**. Each route group's `layout.tsx` is a fu
 
 ### TranslationsProvider + useT()
 
-`lib/i18n/index.ts` defines a `Translations` TypeScript interface and a `useT()` hook that reads from `TranslationsContext`. Each locale root layout wraps its subtree with `<TranslationsProvider translations={en|ja|es}>`. Any component that needs locale-aware strings calls `useT()` rather than hardcoding text.
+`lib/i18n/index.ts` defines a `Translations` TypeScript interface and a `useT()` hook that reads from `TranslationsContext`. Each locale root layout wraps its subtree with `<TranslationsProvider translations={en|ja|es}>`. Any component that needs locale-aware strings calls `useT()` rather than hardcoding text. The interface includes a **`fortune`** block (`title`, `for`, `refreshes`, `moreStats`, `hideStats`) for the daily horoscope card and the stats toggle; Japanese uses an empty `for` string so headings read naturally (e.g. 「今日の運勢 — 蠍座」).
 
 ```
 lib/i18n/
@@ -192,8 +199,9 @@ The function applies the appropriate locale's strings before returning the profi
 
 | Component | Locale-aware change |
 |-----------|---------------------|
-| `AgeCalculator.tsx` | Month names use `MONTHS_ES` or Japanese strings per `t.locale`; share button text localized |
-| `ResultDisplay.tsx` | Age hero sentence formatted per locale ("X años, Y meses, Z días" in ES; "X歳Y ヶ月Z日" in JA) |
+| `AgeCalculator.tsx` | Month names use `MONTHS_ES` or Japanese strings per `t.locale`; share button text localized; passes Western `sign` from `getWesternZodiac()` into `ResultDisplay` |
+| `ResultDisplay.tsx` | Age hero sentence per locale; `DailyFortune`; collapsible "More stats" (total months/weeks/days/hours/minutes + `BirthdayCountdown`) |
+| `DailyFortune.tsx` | `getDailyFortune(sign, t.locale)`; heading and date localized via `t.fortune.*` |
 | `BirthProfile.tsx` | Passes `t.locale` to `getBirthProfile()` so all profile descriptions arrive pre-translated |
 
 ---
@@ -204,9 +212,9 @@ Implemented in `lib/ageCalc.ts` and `components/ResultDisplay.tsx` / `BirthdayCo
 
 - **Date of birth:** three HTML `<select>` controls — **Month**, **Day**, **Year** — instead of `<input type="date">`, so mobile (especially iOS) avoids the two-step native picker (month/year wheel vs day grid). Layout: flex row with proportional widths (`basis-5/12` / `3/12` / `4/12`) so fields sit together cleanly. Month names are locale-specific.
 - Age in years, months, days (calendar-based)
-- Total months, weeks, days, hours, minutes
 - Day of week at birth (locale-specific label)
-- Next birthday countdown (live) or "Happy Birthday"
+- **Today's fortune reading (Western horoscope):** After the hero age card, a `DailyFortune` section shows a short reading for the user's **Western zodiac sign** (derived from birth month/day via `getWesternZodiac` in `lib/birthProfile.ts`). **360 original fortunes** — 30 per sign — in **English, Japanese, and Spanish** (`lib/fortunes/en.ts`, `ja.ts`, `es.ts`). Selection is **deterministic per calendar day:** `getDailyFortune` uses `dayOfYear % 30` so the same sign on the same day always gets the same text (shareable, refreshes daily). No external API; static export friendly.
+- **"More stats" toggle (collapsed by default):** Total months, weeks, days, hours, minutes and the **next birthday countdown** (`BirthdayCountdown`) live behind a disclosure button so the fortune card occupies the prime visual slot. Labels use `t.fortune.moreStats` / `t.fortune.hideStats` in all locales.
 - Shareable URL: `/?dob=YYYY-MM-DD` (history replaced on calculate); locale equivalents at `/es/?dob=…` and `/ja/?dob=…`
 
 ---
@@ -287,6 +295,12 @@ Every root layout includes full `<link rel="alternate" hreflang="…">` tags in 
 
 `public/sitemap.xml` — 27 URLs total (9 routes × 3 locales), each with hreflang cross-links  
 `public/robots.txt` — points to sitemap
+
+### Social / link previews (Open Graph)
+
+- **`public/og-image.png`** — 1200×630 branded image used when the site is shared (WhatsApp, iMessage, X/Twitter, Slack, etc.).
+- Each locale root layout sets **`openGraph.images`** and **`twitter.images`** to `https://birthfacts.net/og-image.png` (with width/height/alt in Open Graph).
+- **Cache refresh:** Meta/Facebook and WhatsApp cache previews aggressively; after deploy, use [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) → "Scrape Again" to invalidate stale thumbnails (e.g. old default favicon).
 
 ---
 
@@ -489,4 +503,4 @@ Apply once Search Console shows consistent impressions (any amount).
 
 ---
 
-*Last updated: April 2026 — reflects full i18n architecture (EN/JA/ES), multiple root layout restructure for correct `html lang` per locale, expanded per-locale SEO keywords, locale-aware components and birthProfile data, mobile date picker, typography improvements, Mayan copyright posture, About ordering, GA4/Render deployment, complete Core Web Vitals optimization (Mobile 99/100, LCP 1.8s), system font migration, lazy-loaded heavy components, mobile navigation LanguageSelect dropdown, sitemap hreflang on all 27 sub-pages, and accessibility score raised to 100.*
+*Last updated: April 2026 — reflects full i18n architecture (EN/JA/ES), multiple root layout restructure for correct `html lang` per locale, expanded per-locale SEO keywords, locale-aware components and birthProfile data, mobile date picker, typography improvements, Mayan copyright posture, About ordering, GA4/Render deployment, complete Core Web Vitals optimization (Mobile 99/100, LCP 1.8s), system font migration, lazy-loaded heavy components, mobile navigation LanguageSelect dropdown, sitemap hreflang on all 27 sub-pages, accessibility score 100, Open Graph image (`og-image.png`) for social previews, deterministic daily fortune readings (360 × 3 locales) with collapsible detailed stats, and `t.fortune` UI strings in `lib/i18n/types.ts`.*
