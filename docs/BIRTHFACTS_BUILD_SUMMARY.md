@@ -29,6 +29,7 @@ This document describes what was built for **BirthFacts** ([birthfacts.net](http
 birthfacts/
 ├── app/
 │   ├── globals.css                  # Theme variables, utility classes
+│   ├── favicon.ico                  # Tab icon: multi-size ICO (RGBA PNGs; Turbopack requires RGBA)
 │   ├── (en)/                        # Route group — English root layout (lang="en")
 │   │   ├── layout.tsx               # ROOT layout: html/body, GA4, OG/Twitter images, hreflang, nav, footer
 │   │   ├── page.tsx                 # / — Main age calculator
@@ -103,9 +104,14 @@ birthfacts/
 ├── render.yaml                      # Render.com config: cache headers for /_next/static/**
 └── public/
     ├── og-image.png                 # 1200×630 Open Graph / Twitter / WhatsApp link preview image
+    ├── icon.png                     # 512×512 PNG — browser icon (from SVG; transparent bg, site gradient)
+    ├── apple-touch-icon.png         # 512×512 — iOS “Add to Home Screen”
+    ├── favicon.ico                  # Same ICO as app/ — direct /favicon.ico fallback for crawlers/browsers
     ├── sitemap.xml                  # All routes for all 3 locales, with xhtml:link hreflang on every URL
     └── robots.txt
 ```
+
+**Favicon implementation:** The visible star matches the site palette (`#a78bfa` → `#f472b6` from `globals.css`), on a **transparent** background (works on light and dark browser chrome). Icons are generated from an inline SVG via **sharp** (Node), exported to PNG and packed into **ICO** with embedded sizes 16 / 32 / 48 / 256 px. **Turbopack** decodes `app/favicon.ico` at build time and requires **RGBA** PNG chunks inside the ICO (plain RGB fails with “Format error decoding Ico”). Each root layout also sets `metadata.icons` for `/icon.png` and `/apple-touch-icon.png`.
 
 **Note:** `sitemap.xml` and `robots.txt` live under `public/` because Next.js static export does not support dynamic `app/sitemap.ts` / `app/robots.ts` route handlers.
 
@@ -132,7 +138,7 @@ All routes use trailing slashes in production (e.g. `/faq/`).
 
 | Path | Purpose |
 |------|---------|
-| `/ja/` | 年齢計算 + 誕生日プロフィール (full feature parity) |
+| `/ja/` | 誕生日占い 無料 — hero + full feature parity (see **Hero heading** below) |
 | `/ja/days-between/` | 日数計算 |
 | `/ja/dog-age-calculator/` | 犬の年齢計算 |
 | `/ja/cat-age-calculator/` | 猫の年齢計算 |
@@ -145,7 +151,7 @@ All routes use trailing slashes in production (e.g. `/faq/`).
 
 | Path | Purpose |
 |------|---------|
-| `/es/` | Calculadora de edad + perfil de cumpleaños (full feature parity) |
+| `/es/` | Lectura de Cumpleaños Gratis — hero + full feature parity (see **Hero heading** below) |
 | `/es/days-between/` | Días entre fechas |
 | `/es/dog-age-calculator/` | Calculadora de edad del perro |
 | `/es/cat-age-calculator/` | Calculadora de edad del gato |
@@ -171,6 +177,8 @@ There is **no shared `app/layout.tsx`**. Each route group's `layout.tsx` is a fu
 ### TranslationsProvider + useT()
 
 `lib/i18n/index.ts` defines a `Translations` TypeScript interface and a `useT()` hook that reads from `TranslationsContext`. Each locale root layout wraps its subtree with `<TranslationsProvider translations={en|ja|es}>`. Any component that needs locale-aware strings calls `useT()` rather than hardcoding text. The interface includes a **`fortune`** block (`title`, `for`, `refreshes`, `moreStats`, `hideStats`) for the daily horoscope card and the stats toggle; Japanese uses an empty `for` string so headings read naturally (e.g. 「今日の運勢 — 蠍座」).
+
+**Important — homepage hero vs i18n files:** Each locale’s **home** route (`app/(en)/page.tsx`, `app/(es)/es/page.tsx`, `app/(ja)/ja/page.tsx`) uses a **static shell** for the hero `<h1>`, lead paragraph, and `export const metadata` (title + description). Those strings are **not** read from `lib/i18n/*.ts`. When you change the public-facing headline or tab title, update **both** the page file and the matching `lib/i18n/{en,ja,es}.ts` (`home.heading`, `home.subheading`, `meta.*` where used) so in-page chrome and shared components stay aligned. **Site-wide** `<title>` defaults and `keywords` for SEO live in each locale’s **root layout** (`app/(en|es|ja)/layout.tsx`) — keep layout metadata, page `metadata`, and i18n strings consistent when pivoting positioning (see **Hero heading & search intent** below).
 
 ```
 lib/i18n/
@@ -206,6 +214,20 @@ The function applies the appropriate locale's strings before returning the profi
 
 ---
 
+## Hero heading & search intent by locale
+
+Homepage `<h1>` and supporting copy were tuned to **match how people actually search** in each language — not identical translations of the same concept.
+
+| Locale | Hero `<h1>` (home `page.tsx`) | Rationale |
+|--------|----------------------------------|-----------|
+| **English (`/`)** | **Age Calculator** | English has very high volume for utility queries (“age calculator”, “how old am I”). Keeping the core keyword in the `<h1>` supports ranking against sites like calculator.net. Readings (horoscope, Mayan, numerology) are emphasized in metadata, subcopy, and features — not by replacing the primary H1. |
+| **Japanese (`/ja/`)** | **誕生日占い 無料** | “年齢計算” and similar terms have **very low** search volume in Japan. Fortune keywords (e.g. 占い 今日, 今日の運勢, 誕生日占い 無料) align with real demand. Implemented in `app/(ja)/ja/page.tsx` + aligned strings in `lib/i18n/ja.ts`; root layout metadata already pivots to 占い/運勢/無料. |
+| **Spanish (`/es/`)** | **Lectura de Cumpleaños Gratis** | “Calculadora de edad” has modest volume in Mexico/LATAM compared with **horóscopo / lectura gratis** style queries. The H1 leads with the reading angle while the calculator remains the same product. Implemented in `app/(es)/es/page.tsx`; layout keywords still include `calculadora de edad` for long-tail capture. |
+
+**Operational note:** If the hero “does not update” after editing only `lib/i18n/*.ts`, check the **page.tsx** shell — that is often the source of the visible `<h1>` and the per-route `<title>` override. Restart `next dev` if Turbopack stops hot-reloading.
+
+---
+
 ## Tier 1 — Core calculator
 
 Implemented in `lib/ageCalc.ts` and `components/ResultDisplay.tsx` / `BirthdayCountdown.tsx`:
@@ -231,7 +253,7 @@ Implemented in `lib/birthProfile.ts` and `components/BirthProfile.tsx`. All feat
 - **Life Path Number:** digit reduction with master numbers 11, 22, 33; locale-specific meaning
 - **Weekday meaning:** planet glyph + locale-specific spiritual/cultural copy
 - **Mainstream generation:** Silent through Gen Alpha; locale-specific descriptions
-- **Spiritual generation:** Indigo / Crystal / Rainbow / Star Child; locale-specific descriptions
+- **Spiritual generation:** Six cohort labels by birth year — **First Wave Indigo**, **Second Wave Indigo**, **Third Wave Indigo**, **Crystal Child**, **Rainbow Child**, plus **Old Soul** for years before ~1950; locale-specific descriptions in EN / JA / ES
 - **Famous birthdays:** curated map keyed by `MM-DD`; descriptions translated to JA and ES
 
 **Not on the English site:** Japanese imperial era (gengō) and Japanese flower/zodiac kanji labels — by product decision (global audience). These are supported in the `/ja/` locale where relevant.
@@ -269,18 +291,20 @@ Each locale's root layout (`app/(en)/layout.tsx`, `app/(es)/layout.tsx`, `app/(j
 | `html lang` | `en` | `es` | `ja` |
 | `title` | English title | Spanish title | Japanese title |
 | `description` | English | Spanish | Japanese |
-| `keywords` | 22 English keywords | 20 Spanish keywords | 22 Japanese keywords |
+| `keywords` | English keyword array | Spanish keyword array | Japanese keyword array |
 | `openGraph.locale` | `en_US` | `es_ES` | `ja_JP` |
+
+**Canonical SEO keywords** live in each locale’s **`app/(en|es|ja)/layout.tsx`** `metadata.keywords` array (not only in `lib/i18n/*.ts` `meta.keywords`, which may lag — align both when editing).
 
 **All keywords are in the local language.** Nobody in Japan searches in English; nobody in Mexico does either.
 
-### Keywords by locale
+### Keywords by locale (as in root layouts)
 
-**English (22 keywords):** age calculator, exact age calculator, birthday calculator, how old am I, birthday facts, moon phase birthday, mayan birthday calculator, kin number calculator, mayan calendar calculator, life path number, numerology birthday, chinese zodiac calculator, zodiac sign calculator, birth flower, birthstone by month, dog age calculator, cat age calculator, indigo child birth year, crystal child, spiritual generation, days between dates, birthday profile
+**English:** age calculator, exact age calculator, birthday calculator, how old am I, birthday facts, moon phase birthday, mayan birthday calculator, kin number calculator, mayan calendar calculator, life path number, numerology birthday, chinese zodiac calculator, zodiac sign calculator, birth flower, birthstone by month, dog age calculator, cat age calculator, indigo child birth year, crystal child, spiritual generation, days between dates, birthday profile — plus **reading / horoscope** terms (e.g. free birthday reading, daily horoscope) as documented in `app/(en)/layout.tsx`.
 
-**Spanish (20 keywords):** calculadora de edad, calculadora de cumpleaños, cuántos años tengo, calculadora de años, edad exacta, signo zodiacal, zodiaco chino, fase lunar cumpleaños, número kin maya, calendario maya calculadora, número de camino de vida, numerología cumpleaños, flor de nacimiento, piedra natal, generación millennial, niños índigo, niños cristal, calculadora edad perro, calculadora edad gato, perfil de cumpleaños
+**Spanish (`app/(es)/layout.tsx`):** `lectura de cumpleaños gratis`, `horóscopo gratis`, `horóscopo de hoy gratis`, `horóscopo natal gratis`, `lectura zodiacal gratis`, `numerología gratis`, then utility terms (`calculadora de edad`, `calculadora de cumpleaños`, `cuántos años tengo`, zodiac, moon, Kin, Maya, Life Path, flowers, stones, indigo/crystal children, dog/cat calculators, `perfil de cumpleaños gratis`).
 
-**Japanese (22 keywords):** 年齢計算, 誕生日計算, 何歳, 年齢計算機, 生年月日 年齢, 干支, 星座, マヤ暦 キン数, マヤ暦 誕生日, 四柱推命, 九星気学, ライフパスナンバー, 数秘術, 誕生石, 誕生花, 月の満ち欠け 誕生日, 誕生日占い, 犬の年齢計算, 猫の年齢計算, インディゴチルドレン, スターチルドレン, 誕生日 有名人
+**Japanese (`app/(ja)/layout.tsx`):** Fortune-first terms — `占い 今日`, `今日の運勢`, `無料占い`, `誕生日占い 無料`, `今日の運勢 無料`, `星座占い`, `星座占い 無料`, `マヤ暦占い`, `マヤ暦 キン数`, `数秘術 無料`, plus Life Path, moon, 誕生日占い, 干支, 星座, birth stone/flower, indigo/star children, famous birthdays, dog/cat age — **not** led by low-volume “年齢計算” style phrases.
 
 ### hreflang
 
@@ -296,11 +320,12 @@ Every root layout includes full `<link rel="alternate" hreflang="…">` tags in 
 `public/sitemap.xml` — 27 URLs total (9 routes × 3 locales), each with hreflang cross-links  
 `public/robots.txt` — points to sitemap
 
-### Social / link previews (Open Graph)
+### Social / link previews (Open Graph) & tab icons
 
 - **`public/og-image.png`** — 1200×630 branded image used when the site is shared (WhatsApp, iMessage, X/Twitter, Slack, etc.).
 - Each locale root layout sets **`openGraph.images`** and **`twitter.images`** to `https://birthfacts.net/og-image.png` (with width/height/alt in Open Graph).
-- **Cache refresh:** Meta/Facebook and WhatsApp cache previews aggressively; after deploy, use [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) → "Scrape Again" to invalidate stale thumbnails (e.g. old default favicon).
+- **`metadata.icons`** in each root layout points at **`/icon.png`** and **`/apple-touch-icon.png`**. **`app/favicon.ico`** (and **`public/favicon.ico`**) supply the classic **`/favicon.ico`** request; Next injects it in `<head>` and browsers load it first.
+- **Cache refresh:** Meta/Facebook and WhatsApp cache previews aggressively; after deploy, use [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) → "Scrape Again" to invalidate stale thumbnails. **Browser tabs** cache favicons separately — use a private window or clear site data if an old icon persists after deploy.
 
 ---
 
@@ -337,12 +362,13 @@ The Japanese site has full feature parity with English plus Japanese-specific to
 
 - All UI strings in Japanese (via `lib/i18n/ja.ts`)
 - Japanese navigation: 計算ツール / よくある質問 / このサイトについて
+- **Homepage hero:** `<h1>` **誕生日占い 無料** in `app/(ja)/ja/page.tsx` (fortune-first positioning; see **Hero heading & search intent**). Dog/cat calculator back links use **誕生日占い**.
 - Age displayed as `X歳 Yヶ月 Z日`
 - Weekday meanings end with `〜の日に生まれました。` (polite form)
 - Zodiac, moon phase, Mayan, birthstone, birth flower — all described in Japanese prose
 - Famous person descriptions translated to Japanese
 - Historical events and life timeline remain English (translation risk; volume too large)
-- Japanese keywords: 年齢計算, 誕生日占い, 干支, 四柱推命, マヤ暦 キン数, etc.
+- **SEO:** Root layout keywords lead with high-intent fortune terms (`占い 今日`, `今日の運勢`, `誕生日占い 無料`, etc.); see **Keywords by locale**.
 
 ---
 
@@ -352,12 +378,13 @@ The Spanish site has full feature parity with English:
 
 - All UI strings in Spanish (via `lib/i18n/es.ts`)
 - Spanish navigation: Calculadora / Preguntas / Acerca de
+- **Homepage hero:** `<h1>` **Lectura de Cumpleaños Gratis** in `app/(es)/es/page.tsx` (reading-first for Mexico/LATAM search behavior; see **Hero heading & search intent**).
 - Age displayed as `X años, Y meses, Z días`
 - Month names localized in the date picker
 - Zodiac, moon phase, Mayan, birthstone, birth flower — all described in Spanish prose
 - Famous person descriptions translated to Spanish
 - Historical events and life timeline remain English
-- Spanish keywords: calculadora de edad, cuántos años tengo, niños índigo, calendario maya, etc.
+- **SEO:** Root layout mixes **gratis / horóscopo** phrases with utility terms (`calculadora de edad`, etc.) for breadth; see **Keywords by locale**.
 
 ---
 
@@ -503,4 +530,4 @@ Apply once Search Console shows consistent impressions (any amount).
 
 ---
 
-*Last updated: April 2026 — reflects full i18n architecture (EN/JA/ES), multiple root layout restructure for correct `html lang` per locale, expanded per-locale SEO keywords, locale-aware components and birthProfile data, mobile date picker, typography improvements, Mayan copyright posture, About ordering, GA4/Render deployment, complete Core Web Vitals optimization (Mobile 99/100, LCP 1.8s), system font migration, lazy-loaded heavy components, mobile navigation LanguageSelect dropdown, sitemap hreflang on all 27 sub-pages, accessibility score 100, Open Graph image (`og-image.png`) for social previews, deterministic daily fortune readings (360 × 3 locales) with collapsible detailed stats, and `t.fortune` UI strings in `lib/i18n/types.ts`.*
+*Last updated: April 2026 — adds: transparent gradient **favicon** (SVG → sharp → ICO with RGBA PNGs for Turbopack; `app/favicon.ico` + `public/` mirrors); **hero & search intent** table (EN keeps “Age Calculator”; JA **誕生日占い 無料**; ES **Lectura de Cumpleaños Gratis**) and doc note that **`page.tsx` hero/metadata** must be edited with `lib/i18n` + layout keywords; layout-aligned **keyword** documentation for JA/ES fortune-first SEO; **six-wave spiritual generation** copy in Tier 2; OG section extended for icons vs share image cache behavior. Earlier baseline: full i18n (EN/JA/ES), multiple root layouts, birthProfile locale maps, mobile date picker, CWV (mobile ~99, LCP ~1.8s), `LanguageSelect`, sitemap hreflang on 27 URLs, daily fortunes (360×3) + collapsible stats, `t.fortune` strings.*
