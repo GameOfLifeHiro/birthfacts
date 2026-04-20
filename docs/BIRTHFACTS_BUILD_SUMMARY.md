@@ -30,7 +30,7 @@ birthfacts/
 ├── app/
 │   ├── globals.css                  # Theme variables, utility classes
 │   ├── (en)/                        # Route group — English root layout (lang="en")
-│   │   ├── layout.tsx               # ROOT layout: html/body, GA4, fonts, hreflang, nav, footer
+│   │   ├── layout.tsx               # ROOT layout: html/body, GA4, OG/Twitter images, hreflang, nav, footer
 │   │   ├── page.tsx                 # / — Main age calculator
 │   │   ├── about/page.tsx
 │   │   ├── privacy/page.tsx
@@ -46,7 +46,7 @@ birthfacts/
 │   │       ├── layout.tsx
 │   │       └── page.tsx
 │   ├── (es)/                        # Route group — Spanish root layout (lang="es")
-│   │   ├── layout.tsx               # ROOT layout: html/body, GA4, fonts, hreflang, nav, footer (Spanish)
+│   │   ├── layout.tsx               # ROOT layout: html/body, GA4, OG/Twitter images, hreflang, nav, footer (Spanish)
 │   │   └── es/                      # URL prefix /es/
 │   │       ├── page.tsx             # /es/ — Spanish calculator
 │   │       ├── about/page.tsx
@@ -57,7 +57,7 @@ birthfacts/
 │   │       ├── dog-age-calculator/page.tsx
 │   │       └── cat-age-calculator/page.tsx
 │   └── (ja)/                        # Route group — Japanese root layout (lang="ja")
-│       ├── layout.tsx               # ROOT layout: html/body, GA4, fonts, hreflang, nav, footer (Japanese)
+│       ├── layout.tsx               # ROOT layout: html/body, GA4, OG/Twitter images, hreflang, nav, footer (Japanese)
 │       └── ja/                      # URL prefix /ja/
 │           ├── page.tsx             # /ja/ — Japanese calculator
 │           ├── about/page.tsx
@@ -166,7 +166,7 @@ No middleware or server-side language detection is needed. Each locale is a self
 - **Spanish:** `app/(es)/es/` → URLs at `/es/`
 - **Japanese:** `app/(ja)/ja/` → URLs at `/ja/`
 
-There is **no shared `app/layout.tsx`**. Each route group's `layout.tsx` is a full **root layout** — it owns `<html>`, `<body>`, GA scripts, fonts, hreflang links, navigation, and footer. This is the Next.js-recommended pattern for multiple root layouts (documented under "Route Groups").
+There is **no shared `app/layout.tsx`**. Each route group's `layout.tsx` is a full **root layout** — it owns `<html>`, `<body>`, GA scripts, system font stack via `globals.css`, Open Graph / Twitter metadata, hreflang links, navigation, and footer. This is the Next.js-recommended pattern for multiple root layouts (documented under "Route Groups").
 
 ### TranslationsProvider + useT()
 
