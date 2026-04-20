@@ -159,6 +159,14 @@ const es: Translations = {
     catCalc: "Calculadora de Edad del Gato",
   },
 
+  fortune: {
+    title: "Tu Horóscopo de Hoy",
+    for: "para",
+    refreshes: "Se actualiza diariamente",
+    moreStats: "Más estadísticas",
+    hideStats: "Ocultar estadísticas",
+  },
+
   milestones: {
     0: "Nacimiento",
     5: "5 años",

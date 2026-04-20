@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { calculateAge, type AgeResult } from "@/lib/ageCalc";
+import { getWesternZodiac } from "@/lib/birthProfile";
 import { useT } from "@/lib/i18n";
 import ResultDisplay from "./ResultDisplay";
 
@@ -173,7 +174,14 @@ export default function AgeCalculator({ basePath = "/", showJapanFeatures = fals
       {/* Results */}
       {result && (
         <>
-          <ResultDisplay result={result} dob={new Date(dob + "T00:00:00")} />
+          <ResultDisplay
+            result={result}
+            dob={new Date(dob + "T00:00:00")}
+            sign={getWesternZodiac(
+              new Date(dob + "T00:00:00").getMonth() + 1,
+              new Date(dob + "T00:00:00").getDate()
+            ).sign}
+          />
           <BirthProfile dob={new Date(dob + "T00:00:00")} showJapanFeatures={showJapanFeatures} />
 
           <div className="space-y-4 mt-2">

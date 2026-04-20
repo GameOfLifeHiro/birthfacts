@@ -4,15 +4,18 @@ import { useEffect, useState } from "react";
 import { type AgeResult, formatNumber } from "@/lib/ageCalc";
 import { useT } from "@/lib/i18n";
 import BirthdayCountdown from "./BirthdayCountdown";
+import DailyFortune from "./DailyFortune";
 
 interface Props {
   result: AgeResult;
   dob: Date;
+  sign?: string; // Western zodiac sign name (English) for the fortune card
 }
 
-export default function ResultDisplay({ result, dob }: Props) {
+export default function ResultDisplay({ result, dob, sign }: Props) {
   const t = useT();
   const [mounted, setMounted] = useState(false);
+  const [showStats, setShowStats] = useState(false);
   useEffect(() => setMounted(true), []);
 
   const stats = [
@@ -64,18 +67,32 @@ export default function ResultDisplay({ result, dob }: Props) {
         </p>
       </div>
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        {mounted && stats.map((s) => (
-          <div key={s.label} className="stat-card">
-            <div className="text-2xl font-bold text-[var(--accent)]">{s.value}</div>
-            <div className="text-xs text-[var(--muted)] mt-1">{s.label}</div>
-          </div>
-        ))}
-      </div>
+      {/* Daily fortune — prime position */}
+      {sign && <DailyFortune sign={sign} />}
 
-      {/* Birthday countdown */}
-      <BirthdayCountdown nextBirthday={result.nextBirthday} />
+      {/* More stats toggle */}
+      <button
+        onClick={() => setShowStats((v) => !v)}
+        className="flex items-center gap-1.5 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
+        aria-expanded={showStats}
+      >
+        <span className="text-xs">{showStats ? "▼" : "▶"}</span>
+        {showStats ? t.fortune.hideStats : t.fortune.moreStats}
+      </button>
+
+      {showStats && mounted && (
+        <>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {stats.map((s) => (
+              <div key={s.label} className="stat-card">
+                <div className="text-2xl font-bold text-[var(--accent)]">{s.value}</div>
+                <div className="text-xs text-[var(--muted)] mt-1">{s.label}</div>
+              </div>
+            ))}
+          </div>
+          <BirthdayCountdown nextBirthday={result.nextBirthday} />
+        </>
+      )}
     </div>
   );
 }

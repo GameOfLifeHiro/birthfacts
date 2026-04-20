@@ -176,6 +176,14 @@ const ja: Translations = {
     catCalc: "猫の年齢計算",
   },
 
+  fortune: {
+    title: "今日の運勢",
+    for: "",
+    refreshes: "毎日更新",
+    moreStats: "詳細データを見る",
+    hideStats: "詳細を閉じる",
+  },
+
   milestones: {
     0: "誕生",
     5: "5歳",

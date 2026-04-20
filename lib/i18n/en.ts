@@ -159,6 +159,14 @@ const en: Translations = {
     catCalc: "Cat Age Calculator",
   },
 
+  fortune: {
+    title: "Today's Fortune",
+    for: "for",
+    refreshes: "Refreshes daily",
+    moreStats: "More stats",
+    hideStats: "Hide stats",
+  },
+
   milestones: {
     0: "Born",
     5: "Age 5",

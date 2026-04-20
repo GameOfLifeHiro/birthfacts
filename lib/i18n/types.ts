@@ -185,6 +185,15 @@ export interface Translations {
     catCalc: string;
   };
 
+  // ── Daily fortune ─────────────────────────────────────────────────────────
+  fortune: {
+    title: string;        // e.g. "Today's Fortune"
+    for: string;          // e.g. "for" (between title and sign name)
+    refreshes: string;    // e.g. "Refreshes daily"
+    moreStats: string;    // e.g. "More stats"
+    hideStats: string;    // e.g. "Hide stats"
+  };
+
   // ── Milestone labels (life timeline) ─────────────────────────────────────
   milestones: Record<number, string>;
 
