@@ -77,7 +77,7 @@ birthfacts/
 ├── components/
 │   ├── AgeCalculator.tsx            # Locale-aware: Month/Day/Year selects, calculate, share, composes sections
 │   ├── DailyFortune.tsx             # Today's fortune card; localized sign name; cross-link to ranking page
-│   ├── DailyFortuneRanking.tsx      # All-12-signs ranking page component (client); gold/silver/bronze badges
+│   ├── DailyFortuneRanking.tsx      # All-12-signs ranking (client); full fortune text; gold/silver/bronze badges
 │   ├── LanguageSelect.tsx           # Client component: <select> dropdown for locale switching (mobile-friendly)
 │   ├── ResultDisplay.tsx            # Hero age sentence; DailyFortune; collapsible stats + countdown
 │   ├── BirthdayCountdown.tsx
@@ -142,7 +142,7 @@ All routes use trailing slashes in production (e.g. `/faq/`).
 | Path | Purpose |
 |------|---------|
 | `/ja/` | 誕生日占い 無料 — hero + full feature parity (see **Hero heading** below) |
-| `/ja/uranai-ranking/` | 今日の運勢 ランキング — 12星座の運勢ランキング (daily horoscope ranking, JA SEO target) |
+| `/ja/uranai-ranking/` | **今日の占い ランキング** — casual morning-read page (占い over 運勢); full fortune text per sign; `app/(ja)/ja/uranai-ranking/page.tsx` |
 | `/ja/days-between/` | 日数計算 |
 | `/ja/dog-age-calculator/` | 犬の年齢計算 |
 | `/ja/cat-age-calculator/` | 猫の年齢計算 |
@@ -181,7 +181,7 @@ There is **no shared `app/layout.tsx`**. Each route group's `layout.tsx` is a fu
 
 ### TranslationsProvider + useT()
 
-`lib/i18n/index.ts` defines a `Translations` TypeScript interface and a `useT()` hook that reads from `TranslationsContext`. Each locale root layout wraps its subtree with `<TranslationsProvider translations={en|ja|es}>`. Any component that needs locale-aware strings calls `useT()` rather than hardcoding text. The interface includes a **`fortune`** block (`title`, `for`, `refreshes`, `moreStats`, `hideStats`) for the daily horoscope card and the stats toggle; Japanese uses an empty `for` string so headings read naturally (e.g. 「今日の運勢 — 蠍座」).
+`lib/i18n/index.ts` defines a `Translations` TypeScript interface and a `useT()` hook that reads from `TranslationsContext`. Each locale root layout wraps its subtree with `<TranslationsProvider translations={en|ja|es}>`. Any component that needs locale-aware strings calls `useT()` rather than hardcoding text. The interface includes a **`fortune`** block (`title`, `for`, `refreshes`, `moreStats`, `hideStats`, `rankingTitle`, `rankingSubtitle`, `rankSuffix`, `updatesNote`, `allSignsLink`, `luckiestToday`, `toughDay`) for the daily horoscope card, stats toggle, and ranking page copy; Japanese uses an empty `for` string so headings read naturally (e.g. 「今日の運勢 — さそり座」).
 
 **Important — homepage hero vs i18n files:** Each locale’s **home** route (`app/(en)/page.tsx`, `app/(es)/es/page.tsx`, `app/(ja)/ja/page.tsx`) uses a **static shell** for the hero `<h1>`, lead paragraph, and `export const metadata` (title + description). Those strings are **not** read from `lib/i18n/*.ts`. When you change the public-facing headline or tab title, update **both** the page file and the matching `lib/i18n/{en,ja,es}.ts` (`home.heading`, `home.subheading`, `meta.*` where used) so in-page chrome and shared components stay aligned. **Site-wide** `<title>` defaults and `keywords` for SEO live in each locale’s **root layout** (`app/(en|es|ja)/layout.tsx`) — keep layout metadata, page `metadata`, and i18n strings consistent when pivoting positioning (see **Hero heading & search intent** below).
 
@@ -243,7 +243,7 @@ Implemented in `lib/ageCalc.ts` and `components/ResultDisplay.tsx` / `BirthdayCo
 - Day of week at birth (locale-specific label)
 - **Today's fortune reading (Western horoscope):** After the hero age card, a `DailyFortune` section shows a short reading for the user's **Western zodiac sign** (derived from birth month/day via `getWesternZodiac` in `lib/birthProfile.ts`). **360 original fortunes** — 30 per sign — in **English, Japanese, and Spanish** (`lib/fortunes/en.ts`, `ja.ts`, `es.ts`). Selection is **deterministic per calendar day:** `getDailyFortune` uses `dayOfYear % 30` so the same sign on the same day always gets the same text (shareable, refreshes daily). Sign name is shown in the correct locale (おひつじ座, Escorpio, etc.) via `getLocalizedSignName()`. A cross-link ("See today's ranking for all 12 signs →") leads to the ranking page. No external API; static export friendly.
 - **"More stats" toggle (collapsed by default):** Total months, weeks, days, hours, minutes and the **next birthday countdown** (`BirthdayCountdown`) live behind a disclosure button so the fortune card occupies the prime visual slot. Labels use `t.fortune.moreStats` / `t.fortune.hideStats` in all locales.
-- **Daily fortune ranking page:** Standalone pages at `/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/` show all 12 signs ranked #1–#12 by luck for the day. Ranking is computed client-side with a seeded Fisher-Yates shuffle (`seededRandom(dayOfYear(date))`) — same calendar day = same ranking for all users globally, refreshes at midnight local time. No server, no API. Gold/silver/bronze badges for top 3; subtle styling for bottom 3. Each entry shows the localized sign name, symbol, and a ~110-char fortune excerpt. These pages are SEO-targeted at `今日の運勢 ランキング` (JA), `today's horoscope all signs` (EN), `horóscopo de hoy todos los signos` (ES). Linked from nav, footer, homepage tool cards, and the `DailyFortune` cross-link.
+- **Daily fortune ranking page:** Standalone pages at `/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/` show all 12 signs ranked #1–#12 by luck for the day. Ranking is computed client-side with a seeded Fisher-Yates shuffle (`seededRandom(dayOfYear(date))`) — same calendar day = same ranking for all users globally, refreshes at midnight local time. No server, no API. Gold/silver/bronze badges for top 3; subtle styling for bottom 3. Each entry shows the localized sign name, symbol, and the **full** daily fortune text (`text-sm` for readability — not truncated). **Japanese positioning:** page `<title>` / `<h1>` use **今日の占い ランキング** (casual 占い tone vs formal 運勢); subheading uses a `<br />` between the two sentences; `t.fortune.updatesNote` in Japanese is short (**毎日0時に更新** only). SEO targets include `今日の占い ランキング` (JA), `today's horoscope all signs` (EN), `horóscopo de hoy todos los signos` (ES). Linked from nav, footer, homepage tool cards, and the `DailyFortune` cross-link.
 - Shareable URL: `/?dob=YYYY-MM-DD` (history replaced on calculate); locale equivalents at `/es/?dob=…` and `/ja/?dob=…`
 
 ---
@@ -311,7 +311,7 @@ Each locale's root layout (`app/(en)/layout.tsx`, `app/(es)/layout.tsx`, `app/(j
 
 **Spanish (`app/(es)/layout.tsx`):** `lectura de cumpleaños gratis`, `horóscopo gratis`, `horóscopo de hoy gratis`, `horóscopo natal gratis`, `lectura zodiacal gratis`, `numerología gratis`, then utility terms (`calculadora de edad`, `calculadora de cumpleaños`, `cuántos años tengo`, zodiac, moon, Kin, Maya, Life Path, flowers, stones, indigo/crystal children, dog/cat calculators, `perfil de cumpleaños gratis`).
 
-**Japanese (`app/(ja)/layout.tsx`):** Fortune-first terms — `占い 今日`, `今日の運勢`, `無料占い`, `誕生日占い 無料`, `今日の運勢 無料`, `星座占い`, `星座占い 無料`, `マヤ暦占い`, `マヤ暦 キン数`, `数秘術 無料`, plus Life Path, moon, 誕生日占い, 干支, 星座, birth stone/flower, indigo/star children, famous birthdays, dog/cat age — **not** led by low-volume “年齢計算” style phrases. The `/ja/uranai-ranking/` page additionally targets `今日の運勢 ランキング`, `12星座 今日の運勢`, `星座占い 今日 ランキング`, and includes `めざまし 占い` in `<meta keywords>` only (Google ignores meta keywords — no trademark risk).
+**Japanese (`app/(ja)/layout.tsx`):** Fortune-first terms — `占い 今日`, `今日の運勢`, `無料占い`, `誕生日占い 無料`, `今日の運勢 無料`, `星座占い`, `星座占い 無料`, `マヤ暦占い`, `マヤ暦 キン数`, `数秘術 無料`, plus Life Path, moon, 誕生日占い, 干支, 星座, birth stone/flower, indigo/star children, famous birthdays, dog/cat age — **not** led by low-volume “年齢計算” style phrases. The `/ja/uranai-ranking/` page metadata leads with **今日の占い ランキング** (casual); keywords still include `今日の運勢 ランキング`, `12星座 今日の運勢`, `星座占い 今日 ランキング`, and `めざまし 占い` in `<meta keywords>` only (Google ignores meta keywords — no trademark risk).
 
 ### hreflang
 
@@ -368,7 +368,7 @@ Each root layout is self-contained: it imports `globals.css`, sets up GA4 script
 The Japanese site has full feature parity with English plus Japanese-specific touches:
 
 - All UI strings in Japanese (via `lib/i18n/ja.ts`)
-- Japanese navigation: 計算ツール / よくある質問 / このサイトについて
+- Japanese header navigation: **今日の年齢** (home calculator) / **今日の占い** (ranking) / よくある質問 / このサイトについて
 - **Homepage hero:** `<h1>` **誕生日占い 無料** in `app/(ja)/ja/page.tsx` (fortune-first positioning; see **Hero heading & search intent**). Dog/cat calculator back links use **誕生日占い**.
 - Age displayed as `X歳 Yヶ月 Z日`
 - Weekday meanings end with `〜の日に生まれました。` (polite form)
@@ -537,4 +537,4 @@ Apply once Search Console shows consistent impressions (any amount).
 
 ---
 
-*Last updated: April 2026 — adds: **daily fortune ranking pages** (`/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/`) targeting `今日の運勢 ランキング` (JA), `today's horoscope all signs` (EN), `horóscopo de hoy todos los signos` (ES); `getDailyRanking()` seeded Fisher-Yates shuffle + `SIGN_NAMES_JA/ES` + `getLocalizedSignName()`; `DailyFortuneRanking.tsx` with gold/silver/bronze badges; ranking nav links + footer links + homepage tool cards in all 3 locales; `DailyFortune.tsx` cross-link to ranking + Japanese sign name display fix; 6 new i18n keys (`rankingTitle`, `rankingSubtitle`, `rankSuffix`, `updatesNote`, `allSignsLink`, `luckiestToday`, `toughDay`); sitemap updated to 33 URLs with hreflang. Earlier: favicon (transparent gradient star ICO/PNG), hero H1 strategy (JA: 誕生日占い 無料; ES: Lectura de Cumpleaños Gratis; EN: Age Calculator), six-wave spiritual generation, full i18n (EN/JA/ES), CWV mobile ~99, LCP ~1.8s.*
+*Last updated: April 2026 — adds: **daily fortune ranking pages** (`/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/`) with JA primary headline **今日の占い ランキング** (casual 占い tone); full fortune text per sign + `text-sm`; JA subheading line break; JA `updatesNote` shortened to **毎日0時に更新**; JA header nav **今日の年齢** / **今日の占い**; `getDailyRanking()` seeded Fisher-Yates + `SIGN_NAMES_JA/ES` + `getLocalizedSignName()`; `DailyFortuneRanking.tsx` gold/silver/bronze badges; EN/ES still target `today's horoscope all signs` / `horóscopo de hoy todos los signos`; sitemap 33 URLs + hreflang; extended `t.fortune.*` keys. Earlier: favicon, hero H1 (JA 誕生日占い 無料; ES Lectura de Cumpleaños Gratis; EN Age Calculator), six-wave spiritual generation, CWV mobile ~99, LCP ~1.8s.*
