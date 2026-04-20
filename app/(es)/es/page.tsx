@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import AgeCalculator from "@/components/AgeCalculator";
 
 export const metadata: Metadata = {
-  title: "Calculadora de Edad y Perfil de Cumpleaños | BirthFacts",
-  description: "Ingresa tu fecha de nacimiento y descubre tu edad exacta, signo zodiacal, fase lunar, número Kin maya, número de camino de vida, zodiaco chino y mucho más. Gratis.",
+  title: "Lectura de Cumpleaños Gratis | BirthFacts",
+  description: "Descubre tu horóscopo de hoy, signo zodiacal, fase lunar, número Kin maya, numerología y más — todo desde tu fecha de nacimiento. Gratis e instantáneo.",
   alternates: { canonical: "https://birthfacts.net/es/" },
 };
 
@@ -12,11 +12,11 @@ export default function EsHomePage() {
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
         <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-          <span className="gradient-text">Calculadora de Edad</span>
+          <span className="gradient-text">Lectura de Cumpleaños Gratis</span>
         </h1>
         <p className="text-[var(--muted)] text-lg max-w-xl mx-auto leading-relaxed">
-          Ingresa tu fecha de nacimiento para obtener tu edad exacta en años, meses, semanas, días,
-          horas y minutos, más tu zodiaco, fase lunar, calendario maya y mucho más.
+          Ingresa tu fecha de nacimiento y descubre tu horóscopo de hoy, signo zodiacal,
+          fase lunar, calendario maya, numerología y mucho más. Gratis e instantáneo.
         </p>
       </div>
 
