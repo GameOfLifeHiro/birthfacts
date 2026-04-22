@@ -4,14 +4,14 @@ import { GAJU_EVENTS } from "@/lib/japaneseLifeEvents";
 const CURRENT_YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: `賀寿 一覧 | 還暦・古希・喜寿・米寿の年齢と風習 | BirthFacts`,
+  title: `賀寿 早見表 | 還暦・古希・喜寿・米寿の年齢と象徴色 | BirthFacts`,
   description:
-    "還暦（60歳）・古希（70歳）・喜寿（77歳）・傘寿（80歳）・米寿（88歳）・卒寿（90歳）・白寿（99歳）・百寿（100歳）の年齢と象徴色、お祝いの風習を一覧で解説。",
+    "賀寿早見表。還暦（60歳）・古希（70歳）・喜寿（77歳）・傘寿（80歳）・米寿（88歳）・卒寿（90歳）・白寿（99歳）・百寿（100歳）の年齢・象徴色・お祝いの風習を一覧で解説。",
   keywords: [
-    "賀寿", "賀寿 一覧", "長寿 お祝い", "還暦 何歳", "古希 何歳",
-    "喜寿 何歳", "米寿 何歳", "白寿 何歳", "百寿",
-    "還暦 プレゼント", "還暦 赤", "古希 紫", "喜寿 祝い",
-    "長寿祝い 年齢", "賀寿 種類",
+    "賀寿 早見表", "賀寿 一覧", "長寿 お祝い 年齢", "還暦 何歳",
+    "古希 何歳", "喜寿 何歳", "米寿 何歳", "白寿 何歳", "百寿",
+    "還暦 プレゼント 色", "還暦 赤 意味", "古希 紫", "喜寿 お祝い",
+    "長寿祝い 年齢 一覧", "賀寿 種類",
   ],
   alternates: { canonical: "https://birthfacts.net/ja/gaju/" },
 };
@@ -33,10 +33,10 @@ export default function GajuPage() {
       {/* Hero */}
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-3">
-          <span className="gradient-text">賀寿 一覧</span>
+          <span className="gradient-text">賀寿 早見表</span>
         </h1>
         <p className="text-[var(--muted)] text-lg leading-relaxed max-w-xl mx-auto">
-          還暦・古希・喜寿など、日本の伝統的な長寿のお祝い節目の年齢・象徴色・風習を一覧でご紹介。
+          還暦・古希・喜寿など、日本の伝統的な長寿のお祝い節目の年齢・象徴色・風習を一覧でご確認いただけます。
         </p>
       </div>
 
@@ -109,6 +109,26 @@ export default function GajuPage() {
             </div>
           );
         })}
+      </div>
+
+      {/* Related 早見表 */}
+      <div className="card p-5 mb-8">
+        <h2 className="text-lg font-bold text-[var(--accent)] mb-3">関連する早見表</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {[
+            { href: "/ja/yakudoshi/", emoji: "⚠️", title: "厄年 早見表", desc: "前厄・本厄・後厄の年齢一覧" },
+            { href: "/ja/nenrei-hayamihyo/", emoji: "📅", title: "年齢 早見表", desc: "生まれ年から満年齢・数え年・和暦" },
+            { href: "/ja/seiza-hayamihyo/", emoji: "♈", title: "星座 早見表", desc: "12星座の誕生日と特徴" },
+          ].map(({ href, emoji, title, desc }) => (
+            <a key={href} href={href} className="flex items-center gap-3 p-3 rounded-xl border border-[var(--card-border)] hover:border-[var(--accent)] transition-colors">
+              <span className="text-2xl">{emoji}</span>
+              <div>
+                <div className="font-medium text-sm text-[var(--text)]">{title}</div>
+                <div className="text-xs text-[var(--muted)]">{desc}</div>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* CTA */}

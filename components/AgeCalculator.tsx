@@ -11,6 +11,7 @@ import ResultDisplay from "./ResultDisplay";
 // BirthProfile imports all locale data maps; HistoricalTimeline imports 100 years of facts.
 // Neither is visible until after the user clicks Calculate.
 const BirthProfile = dynamic(() => import("./BirthProfile"));
+const JapaneseProfile = dynamic(() => import("./JapaneseProfile"));
 const HistoricalTimeline = dynamic(() => import("./HistoricalTimeline"));
 const LifeTimeline = dynamic(() => import("./LifeTimeline"));
 
@@ -181,8 +182,14 @@ export default function AgeCalculator({ basePath = "/", showJapanFeatures = fals
               new Date(dob + "T00:00:00").getMonth() + 1,
               new Date(dob + "T00:00:00").getDate()
             ).sign}
+            japanSlot={showJapanFeatures ? (
+              <JapaneseProfile
+                dob={new Date(dob + "T00:00:00")}
+                currentAge={result.years + result.months / 12}
+              />
+            ) : undefined}
           />
-          <BirthProfile dob={new Date(dob + "T00:00:00")} showJapanFeatures={showJapanFeatures} currentAge={result.years + result.months / 12} />
+          <BirthProfile dob={new Date(dob + "T00:00:00")} showJapanFeatures={false} currentAge={result.years + result.months / 12} />
 
           <div className="space-y-4 mt-2">
             <h2 className="text-center text-xl font-bold gradient-text pt-2">

@@ -281,6 +281,35 @@ export function getVisibleChildhoodEvents(gender: "male" | "female" | null): Chi
   );
 }
 
+/** Next childhood (age ≤ 18) or gaju (age ≥ 55) event — excludes yakudoshi */
+export function getNextGeneralEvent(
+  currentAge: number,
+  gender: "male" | "female" | null,
+  dobYear: number
+): (LifeEvent & { year: number }) | null {
+  const pool: LifeEvent[] = [
+    ...(currentAge <= 18 ? getVisibleChildhoodEvents(gender) : []),
+    ...(currentAge >= 55 ? GAJU_EVENTS : []),
+  ];
+  const next = pool.filter((e) => e.age > currentAge).sort((a, b) => a.age - b.age)[0];
+  if (!next) return null;
+  return { ...next, year: dobYear + next.age };
+}
+
+/** Next yakudoshi event for the given gender */
+export function getNextYakudoshiEvent(
+  currentAge: number,
+  gender: "male" | "female" | null,
+  dobYear: number
+): (LifeEvent & { year: number }) | null {
+  if (!gender) return null;
+  const pool = gender === "male" ? YAKUDOSHI_MALE : YAKUDOSHI_FEMALE;
+  const next = pool.filter((e) => e.age > currentAge).sort((a, b) => a.age - b.age)[0];
+  if (!next) return null;
+  return { ...next, year: dobYear + next.age };
+}
+
+/** Legacy: next event from all pools combined */
 export function getNextEvent(
   currentAge: number,
   gender: "male" | "female" | null,

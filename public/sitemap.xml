@@ -264,5 +264,19 @@
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://birthfacts.net/ja/nenrei-hayamihyo/</loc>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://birthfacts.net/ja/nenrei-hayamihyo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/ja/nenrei-hayamihyo/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/ja/seiza-hayamihyo/</loc>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://birthfacts.net/ja/seiza-hayamihyo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/ja/seiza-hayamihyo/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
 </urlset>

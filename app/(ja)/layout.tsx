@@ -142,9 +142,13 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
               {" · "}
               <a href="/ja/uranai-ranking/" className="hover:text-[var(--accent)]">運勢ランキング</a>
               {" · "}
-              <a href="/ja/yakudoshi/" className="hover:text-[var(--accent)]">厄年早見表</a>
+              <a href="/ja/yakudoshi/" className="hover:text-[var(--accent)]">厄年 早見表</a>
               {" · "}
-              <a href="/ja/gaju/" className="hover:text-[var(--accent)]">賀寿一覧</a>
+              <a href="/ja/gaju/" className="hover:text-[var(--accent)]">賀寿 早見表</a>
+              {" · "}
+              <a href="/ja/seiza-hayamihyo/" className="hover:text-[var(--accent)]">星座 早見表</a>
+              {" · "}
+              <a href="/ja/nenrei-hayamihyo/" className="hover:text-[var(--accent)]">年齢 早見表</a>
               {" · "}
               <a href="/ja/faq/" className="hover:text-[var(--accent)]">よくある質問</a>
               {" · "}

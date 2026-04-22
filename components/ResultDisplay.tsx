@@ -9,10 +9,11 @@ import DailyFortune from "./DailyFortune";
 interface Props {
   result: AgeResult;
   dob: Date;
-  sign?: string; // Western zodiac sign name (English) for the fortune card
+  sign?: string;
+  japanSlot?: React.ReactNode;
 }
 
-export default function ResultDisplay({ result, dob, sign }: Props) {
+export default function ResultDisplay({ result, dob, sign, japanSlot }: Props) {
   const t = useT();
   const [mounted, setMounted] = useState(false);
   const [showStats, setShowStats] = useState(false);
@@ -69,6 +70,9 @@ export default function ResultDisplay({ result, dob, sign }: Props) {
 
       {/* Daily fortune — prime position */}
       {sign && <DailyFortune sign={sign} />}
+
+      {/* Japan-exclusive sections (次の節目, 元号, 九星気学…) */}
+      {japanSlot}
 
       {/* More stats toggle */}
       <button
