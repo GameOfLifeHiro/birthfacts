@@ -182,7 +182,7 @@ export default function AgeCalculator({ basePath = "/", showJapanFeatures = fals
               new Date(dob + "T00:00:00").getDate()
             ).sign}
           />
-          <BirthProfile dob={new Date(dob + "T00:00:00")} showJapanFeatures={showJapanFeatures} />
+          <BirthProfile dob={new Date(dob + "T00:00:00")} showJapanFeatures={showJapanFeatures} currentAge={result.years + result.months / 12} />
 
           <div className="space-y-4 mt-2">
             <h2 className="text-center text-xl font-bold gradient-text pt-2">

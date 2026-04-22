@@ -28,10 +28,12 @@ export default function JaHomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
             { href: "/ja/uranai-ranking/", emoji: "🏆", title: "今日の占いランキング", desc: "12星座の今日の占いを一覧表示" },
+            { href: "/ja/yakudoshi/", emoji: "⚠️", title: "厄年 早見表", desc: "男性・女性の前厄・本厄・後厄" },
+            { href: "/ja/gaju/", emoji: "🎊", title: "賀寿 一覧", desc: "還暦・古希・喜寿・米寿の年齢" },
             { href: "/ja/dog-age-calculator/", emoji: "🐶", title: "犬の年齢計算", desc: "愛犬の年齢を人間換算" },
             { href: "/ja/cat-age-calculator/", emoji: "🐱", title: "猫の年齢計算", desc: "愛猫の年齢を人間換算" },
             { href: "/ja/days-between/", emoji: "📅", title: "日数計算", desc: "2つの日付の間の日数" },
-            { href: "/ja/faq/", emoji: "❓", title: "よくある質問", desc: "計算方法について" },
+            { href: "/ja/faq/", emoji: "❓", title: "よくある質問", desc: "厄年・賀寿・七五三・占いの疑問" },
           ].map(({ href, emoji, title, desc }) => (
             <a
               key={href}

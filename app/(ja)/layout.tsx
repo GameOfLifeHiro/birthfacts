@@ -34,6 +34,18 @@ export const metadata: Metadata = {
     "誕生日 有名人",
     "犬の年齢計算",
     "猫の年齢計算",
+    "厄年",
+    "厄年 早見表",
+    "前厄 本厄 後厄",
+    "大厄",
+    "厄年 お祓い",
+    "賀寿",
+    "還暦 何歳",
+    "古希 喜寿 米寿",
+    "七五三 いつ",
+    "お宮参り",
+    "十三参り",
+    "ハーフ成人式",
   ],
   metadataBase: new URL("https://birthfacts.net"),
   alternates: {
@@ -129,6 +141,10 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
               <a href="/ja/contact/" className="hover:text-[var(--accent)]">お問い合わせ</a>
               {" · "}
               <a href="/ja/uranai-ranking/" className="hover:text-[var(--accent)]">運勢ランキング</a>
+              {" · "}
+              <a href="/ja/yakudoshi/" className="hover:text-[var(--accent)]">厄年早見表</a>
+              {" · "}
+              <a href="/ja/gaju/" className="hover:text-[var(--accent)]">賀寿一覧</a>
               {" · "}
               <a href="/ja/faq/" className="hover:text-[var(--accent)]">よくある質問</a>
               {" · "}

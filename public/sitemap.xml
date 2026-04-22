@@ -250,5 +250,19 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://birthfacts.net/ja/yakudoshi/</loc>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://birthfacts.net/ja/yakudoshi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/ja/yakudoshi/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/ja/gaju/</loc>
+    <xhtml:link rel="alternate" hreflang="ja"        href="https://birthfacts.net/ja/gaju/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/ja/gaju/"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
 </urlset>

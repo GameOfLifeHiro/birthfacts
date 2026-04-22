@@ -102,7 +102,7 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
                   </div>
 
                   {(worldEvent || topEvent) && milestone.age <= currentAge && (
-                    <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">
+                    <p className="text-base text-[var(--muted)] mt-1 leading-relaxed">
                       🌍 {worldEvent ?? topEvent}
                     </p>
                   )}
@@ -125,7 +125,7 @@ export default function LifeTimeline({ dob, currentAge }: Props) {
                     {new Date().getFullYear()}
                   </span>
                 </div>
-                <p className="text-sm text-[var(--muted)] mt-1">{t.lifeTimeline.youAreHere}</p>
+                <p className="text-base text-[var(--muted)] mt-1">{t.lifeTimeline.youAreHere}</p>
               </div>
             </div>
           )}

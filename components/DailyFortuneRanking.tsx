@@ -77,7 +77,7 @@ export default function DailyFortuneRanking() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-lg" aria-hidden="true">{symbol}</span>
-                  <span className="font-semibold text-sm text-[var(--foreground)]">
+                  <span className="font-semibold text-base text-[var(--foreground)]">
                     {localizedName}
                   </span>
                   {rank === 1 && (
@@ -91,7 +91,7 @@ export default function DailyFortuneRanking() {
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">
+                <p className="text-base text-[var(--muted)] mt-1 leading-relaxed">
                   {excerpt}
                 </p>
               </div>

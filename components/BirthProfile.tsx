@@ -8,6 +8,7 @@ import JapaneseProfile from "./JapaneseProfile";
 interface Props {
   dob: Date;
   showJapanFeatures?: boolean;
+  currentAge?: number;
 }
 
 function Section({ title, icon, children }: { title: string; icon: string; children: React.ReactNode }) {
@@ -29,7 +30,7 @@ function Tag({ label }: { label: string }) {
   );
 }
 
-export default function BirthProfile({ dob, showJapanFeatures = false }: Props) {
+export default function BirthProfile({ dob, showJapanFeatures = false, currentAge = 0 }: Props) {
   const t = useT();
   const isJa = t.locale === "ja";
   const profile: BirthProfile = useMemo(() => getBirthProfile(dob, t.locale), [dob, t.locale]);
@@ -290,7 +291,7 @@ export default function BirthProfile({ dob, showJapanFeatures = false }: Props) 
       )}
 
       {/* Japan-exclusive features */}
-      {showJapanFeatures && <JapaneseProfile dob={dob} />}
+      {showJapanFeatures && <JapaneseProfile dob={dob} currentAge={currentAge} />}
     </div>
   );
 }
