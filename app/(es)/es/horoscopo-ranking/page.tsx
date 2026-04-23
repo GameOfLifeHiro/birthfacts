@@ -42,7 +42,7 @@ export default function HoroscopoRankingPage() {
       <div className="mt-10 text-center">
         <a
           href="/es/"
-          className="text-sm text-[var(--accent)] hover:opacity-80 transition-opacity"
+          className="text-base text-[var(--accent)] hover:opacity-80 transition-opacity"
         >
           ← Ingresa tu fecha de nacimiento para tu lectura personal
         </a>

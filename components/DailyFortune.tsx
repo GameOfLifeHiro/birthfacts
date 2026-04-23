@@ -42,7 +42,7 @@ export default function DailyFortune({ sign }: Props) {
             {heading}
           </h3>
         </div>
-        <span className="text-xs text-[var(--muted)]">{today}</span>
+        <span className="text-sm text-[var(--muted)]">{today}</span>
       </div>
 
       {/* Fortune text */}
@@ -52,13 +52,13 @@ export default function DailyFortune({ sign }: Props) {
 
       {/* Refreshes note + link to all signs ranking */}
       <div className="flex items-center justify-between gap-2 flex-wrap">
-        <p className="text-xs text-[var(--muted)] flex items-center gap-1">
+        <p className="text-sm text-[var(--muted)] flex items-center gap-1">
           <span>🔄</span>
           <span>{t.fortune.refreshes}</span>
         </p>
         <a
           href={rankingPath}
-          className="text-xs text-[var(--accent)] hover:opacity-80 transition-opacity"
+          className="text-sm text-[var(--accent)] hover:opacity-80 transition-opacity"
         >
           {t.fortune.allSignsLink}
         </a>

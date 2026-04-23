@@ -42,7 +42,7 @@ export default function FortuneRankingPage() {
       <div className="mt-10 text-center">
         <a
           href="/"
-          className="text-sm text-[var(--accent)] hover:opacity-80 transition-opacity"
+          className="text-base text-[var(--accent)] hover:opacity-80 transition-opacity"
         >
           ← Enter your birthday for your personal reading
         </a>

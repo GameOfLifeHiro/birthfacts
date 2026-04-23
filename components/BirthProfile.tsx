@@ -154,7 +154,7 @@ export default function BirthProfile({ dob, showJapanFeatures = false, currentAg
           </div>
           <div>
             <p className="text-base font-medium text-[var(--text)] mb-1">{profile.lifePathNumber.meaning}</p>
-            <p className="text-xs text-[var(--muted)]">{t.profile.strengths}: {profile.lifePathNumber.strengths}</p>
+            <p className="text-sm text-[var(--muted)]">{t.profile.strengths}: {profile.lifePathNumber.strengths}</p>
           </div>
         </div>
       </Section>
@@ -186,7 +186,7 @@ export default function BirthProfile({ dob, showJapanFeatures = false, currentAg
                 ? `音${profile.mayanProfile.toneNumber}・${profile.mayanProfile.color} ${daySignDisplay}`
                 : profile.mayanProfile.fullName}
             </div>
-            <div className="text-sm text-[var(--muted)]">
+            <div className="text-base text-[var(--muted)]">
               {t.profile.galacticTone} {profile.mayanProfile.toneNumber} — {toneDisplay}
             </div>
             <div className="text-xs text-[var(--muted)] mt-1">
@@ -198,7 +198,7 @@ export default function BirthProfile({ dob, showJapanFeatures = false, currentAg
         <div className="border-t border-[var(--card-border)] pt-4 space-y-3">
           <div>
             <div className="text-xs text-[var(--muted)] uppercase tracking-wider mb-1">{t.profile.daySign}</div>
-            <p className="text-sm text-[var(--text)] font-medium">{profile.mayanProfile.color} {daySignDisplay}</p>
+            <p className="text-base text-[var(--text)] font-medium">{profile.mayanProfile.color} {daySignDisplay}</p>
             <p className="text-base text-[var(--muted)] mt-1 leading-relaxed">{profile.mayanProfile.daySignMeaning}</p>
           </div>
           <div>
@@ -225,7 +225,7 @@ export default function BirthProfile({ dob, showJapanFeatures = false, currentAg
           <div>
             <div className="font-semibold text-[var(--accent)] mb-1">{weekdayDisplay} — {profile.weekdayMeaning.planet}</div>
             <p className="text-base text-[var(--muted)] mb-2">{profile.weekdayMeaning.meaning}</p>
-            <p className="text-xs text-[var(--muted)]">{t.profile.traits}: {profile.weekdayMeaning.traits}</p>
+            <p className="text-sm text-[var(--muted)]">{t.profile.traits}: {profile.weekdayMeaning.traits}</p>
           </div>
         </div>
       </Section>
@@ -282,7 +282,7 @@ export default function BirthProfile({ dob, showJapanFeatures = false, currentAg
                 <span className="text-[var(--accent)] mt-0.5">•</span>
                 <div>
                   <span className="font-medium text-base">{person.name}</span>
-                  <span className="text-sm text-[var(--muted)] ml-2">{person.description}</span>
+                  <span className="text-base text-[var(--muted)] ml-2">{person.description}</span>
                 </div>
               </div>
             ))}

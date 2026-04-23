@@ -32,8 +32,8 @@ export default function DailyFortuneRanking() {
     <div className="space-y-4">
       {/* Header */}
       <div className="text-center mb-6">
-        <p className="text-sm text-[var(--muted)]">{today}</p>
-        <p className="text-xs text-[var(--muted)] mt-1 flex items-center justify-center gap-1">
+        <p className="text-base text-[var(--muted)]">{today}</p>
+        <p className="text-sm text-[var(--muted)] mt-1 flex items-center justify-center gap-1">
           <span>🔄</span>
           <span>{t.fortune.updatesNote}</span>
         </p>
@@ -81,12 +81,12 @@ export default function DailyFortuneRanking() {
                     {localizedName}
                   </span>
                   {rank === 1 && (
-                    <span className="text-xs px-1.5 py-0.5 rounded-full bg-yellow-400/20 text-yellow-300 font-medium">
+                    <span className="text-sm px-1.5 py-0.5 rounded-full bg-yellow-400/20 text-yellow-300 font-medium">
                       {t.fortune.luckiestToday}
                     </span>
                   )}
                   {rank === 12 && (
-                    <span className="text-xs px-1.5 py-0.5 rounded-full bg-[var(--card-border)] text-[var(--muted)]">
+                    <span className="text-sm px-1.5 py-0.5 rounded-full bg-[var(--card-border)] text-[var(--muted)]">
                       {t.fortune.toughDay}
                     </span>
                   )}
