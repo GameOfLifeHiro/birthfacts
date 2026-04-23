@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is the **BirthFacts** static site for [birthfacts.net](https://birthfacts.net) — a Next.js App Router + static export build.
+
+- **Project summary (SEO, i18n, structured data, deploy):** see [`docs/BIRTHFACTS_BUILD_SUMMARY.md`](./docs/BIRTHFACTS_BUILD_SUMMARY.md).
 
 ## Getting Started
 
