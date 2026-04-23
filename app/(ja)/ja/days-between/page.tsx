@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 function getTodayString() {
   return new Date().toISOString().split("T")[0];
@@ -24,6 +25,7 @@ export default function JaDaysBetweenPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "ホーム", href: "/ja/" }, { name: "日数計算", href: "/ja/days-between/" }]} />
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">
           <span className="gradient-text">日数計算</span>

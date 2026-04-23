@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const SIZE_MODIFIERS: Record<string, number> = { small: 0.85, medium: 1.0, large: 1.2 };
 
@@ -49,6 +50,7 @@ export default function EsDogAgeCalculatorPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "Inicio", href: "/es/" }, { name: "Calculadora de Edad del Perro", href: "/es/dog-age-calculator/" }]} />
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">
           <span className="gradient-text">Calculadora de Edad del Perro</span>

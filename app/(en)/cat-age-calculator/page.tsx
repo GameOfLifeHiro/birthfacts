@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 // Cat age formula:
 // Year 1 = 15 human years, Year 2 = +9 (24 total), Year 3+ = +4/yr
@@ -47,6 +48,7 @@ export default function CatAgeCalculatorPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Cat Age Calculator", href: "/cat-age-calculator/" }]} />
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">
           <span className="gradient-text">Cat Age Calculator</span>

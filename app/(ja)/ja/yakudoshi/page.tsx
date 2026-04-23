@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { YAKUDOSHI_MALE, YAKUDOSHI_FEMALE } from "@/lib/japaneseLifeEvents";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -33,6 +34,7 @@ export default function YakudoshiPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "ホーム", href: "/ja/" }, { name: "厄年 早見表", href: "/ja/yakudoshi/" }]} />
       {/* Hero */}
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-3">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const CAT_STAGES = [
   { max: 1, label: "子猫", emoji: "🐱", desc: "急速な成長・発達期" },
@@ -43,6 +44,7 @@ export default function JaCatAgeCalculatorPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "ホーム", href: "/ja/" }, { name: "猫の年齢計算", href: "/ja/cat-age-calculator/" }]} />
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">
           <span className="gradient-text">猫の年齢計算</span>

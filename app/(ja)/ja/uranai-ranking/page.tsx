@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import DailyFortuneRanking from "@/components/DailyFortuneRanking";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "今日の占い ランキング｜12星座 無料｜BirthFacts",
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
 export default function UranaiRankingPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "ホーム", href: "/ja/" }, { name: "今日の占い ランキング", href: "/ja/uranai-ranking/" }]} />
       <div className="text-center mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">
           <span className="gradient-text">今日の占い ランキング</span>

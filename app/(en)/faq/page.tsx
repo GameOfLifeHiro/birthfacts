@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "Age Calculator FAQ – Common Questions Answered | BirthFacts",
@@ -71,6 +72,7 @@ export default function FaqPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "FAQ", href: "/faq/" }]} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFaq) }}

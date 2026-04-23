@@ -8,9 +8,26 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://birthfacts.net/" },
 };
 
+const WEB_APP_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "BirthFacts — Age Calculator & Birthday Reading",
+  url: "https://birthfacts.net/",
+  description: "Free age calculator with zodiac sign, daily fortune, birth flower, Life Path Number, Mayan calendar, generational identity, and more.",
+  applicationCategory: "LifestyleApplication",
+  operatingSystem: "Web Browser",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  featureList: [
+    "Exact age calculator", "Daily horoscope fortune", "Western zodiac sign",
+    "Chinese zodiac", "Life Path Number", "Moon phase", "Mayan calendar Kin",
+    "Historical timeline", "Dog age calculator", "Cat age calculator",
+  ],
+};
+
 export default function HomePage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
       {/* Hero */}
       <div className="text-center mb-10">
         <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">

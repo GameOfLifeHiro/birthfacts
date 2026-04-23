@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | BirthFacts",
@@ -11,6 +12,7 @@ const LAST_UPDATED = "April 18, 2025";
 export default function PrivacyPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Privacy Policy", href: "/privacy/" }]} />
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">
           <span className="gradient-text">Privacy Policy</span>

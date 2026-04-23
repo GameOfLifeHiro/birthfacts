@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Metadata } from "next";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 // Dog age formula (AVMA-based):
 // Year 1 = 15 human years, Year 2 = +9 (24 total), Year 3+ = +4/yr
@@ -57,6 +58,7 @@ export default function DogAgeCalculatorPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Dog Age Calculator", href: "/dog-age-calculator/" }]} />
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">
           <span className="gradient-text">Dog Age Calculator</span>

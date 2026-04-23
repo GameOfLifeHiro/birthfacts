@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { GAJU_EVENTS } from "@/lib/japaneseLifeEvents";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -30,6 +31,7 @@ const GAJU_COLORS: Record<string, { color: string; label: string }> = {
 export default function GajuPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "ホーム", href: "/ja/" }, { name: "賀寿 早見表", href: "/ja/gaju/" }]} />
       {/* Hero */}
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-3">

@@ -7,9 +7,27 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://birthfacts.net/es/" },
 };
 
+const WEB_APP_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "BirthFacts — Lectura de Cumpleaños Gratis",
+  url: "https://birthfacts.net/es/",
+  description: "Descubre tu horóscopo de hoy, signo zodiacal, fase lunar, número Kin maya, numerología y más desde tu fecha de nacimiento. Gratis.",
+  applicationCategory: "LifestyleApplication",
+  operatingSystem: "Web Browser",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "MXN" },
+  featureList: [
+    "Lectura de cumpleaños", "Horóscopo diario", "Signo zodiacal",
+    "Zodiaco chino", "Número de Sendero de Vida", "Fase lunar",
+    "Calendario maya Kin", "Edad del perro", "Edad del gato",
+  ],
+  inLanguage: "es",
+};
+
 export default function EsHomePage() {
   return (
     <div className="max-w-2xl mx-auto">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(WEB_APP_SCHEMA) }} />
       <div className="text-center mb-8">
         <h1 className="text-4xl sm:text-5xl font-bold mb-4">
           <span className="gradient-text">Lectura de Cumpleaños Gratis</span>

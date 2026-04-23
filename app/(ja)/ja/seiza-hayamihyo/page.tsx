@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "星座 早見表 | 12星座の誕生日・特徴・性格 | BirthFacts",
@@ -209,6 +210,7 @@ const ELEMENT_COLOR: Record<string, string> = {
 export default function SeizaHayamihyoPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "ホーム", href: "/ja/" }, { name: "星座 早見表", href: "/ja/seiza-hayamihyo/" }]} />
       {/* Hero */}
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-3">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "Acerca de BirthFacts",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function EsAboutPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "Inicio", href: "/es/" }, { name: "Acerca de BirthFacts", href: "/es/about/" }]} />
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">
           <span className="gradient-text">Acerca de BirthFacts</span>

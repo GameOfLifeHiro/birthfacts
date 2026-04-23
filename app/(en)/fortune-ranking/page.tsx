@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import DailyFortuneRanking from "@/components/DailyFortuneRanking";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 
 export const metadata: Metadata = {
   title: "Today's Horoscope Ranking — All 12 Zodiac Signs | BirthFacts",
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
 export default function FortuneRankingPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
+      <BreadcrumbSchema items={[{ name: "Home", href: "/" }, { name: "Fortune Ranking", href: "/fortune-ranking/" }]} />
       <div className="text-center mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">
           <span className="gradient-text">Today&apos;s Fortune Ranking</span>
