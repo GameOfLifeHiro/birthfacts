@@ -38,6 +38,9 @@ birthfacts/
 │   │   ├── contact/page.tsx
 │   │   ├── faq/page.tsx
 │   │   ├── fortune-ranking/page.tsx
+│   │   ├── compatibility/
+│   │   │   ├── layout.tsx           # Metadata
+│   │   │   └── page.tsx             # /compatibility/ — zodiac pair UI; FAQPage + BreadcrumbSchema
 │   │   ├── days-between/
 │   │   │   ├── layout.tsx           # Metadata (needed because page.tsx is a client component)
 │   │   │   └── page.tsx
@@ -56,6 +59,9 @@ birthfacts/
 │   │       ├── contact/page.tsx
 │   │       ├── faq/page.tsx
 │   │       ├── horoscopo-ranking/page.tsx
+│   │       ├── compatibilidad/
+│   │       │   ├── layout.tsx
+│   │       │   └── page.tsx         # /es/compatibilidad/ — Spanish zodiac compatibility
 │   │       ├── days-between/page.tsx
 │   │       ├── dog-age-calculator/page.tsx
 │   │       └── cat-age-calculator/page.tsx
@@ -74,6 +80,9 @@ birthfacts/
 │           │   ├── layout.tsx
 │           │   └── page.tsx
 │           ├── uranai-ranking/page.tsx
+│           ├── aisho/
+│           │   ├── layout.tsx
+│           │   └── page.tsx         # /ja/aisho/ — 星座・血液型 相性占い (zodiac + blood-type tabs)
 │           ├── yakudoshi/page.tsx
 │           ├── gaju/page.tsx
 │           ├── nenrei-hayamihyo/page.tsx
@@ -85,18 +94,23 @@ birthfacts/
 │   ├── AgeCalculator.tsx            # Locale-aware: Month/Day/Year selects, calculate, share, composes sections
 │   ├── DailyFortune.tsx             # Today's fortune card; localized sign name; cross-link to ranking page
 │   ├── DailyFortuneRanking.tsx      # All-12-signs ranking (client); full fortune text; gold/silver/bronze badges
+│   ├── CompatibilityTeaser.tsx      # Zodiac pair preview on result (partner sign select, score bar, link to full page)
 │   ├── BreadcrumbSchema.tsx         # Visual breadcrumb (Home › page) + BreadcrumbList JSON-LD; used on all sub-pages
 │   ├── LanguageSelect.tsx           # Client component: <select> dropdown for locale switching (mobile-friendly)
-│   ├── ResultDisplay.tsx            # Hero age sentence; DailyFortune; collapsible stats + countdown; optional japanSlot
+│   ├── ResultDisplay.tsx            # Hero age; DailyFortune; optional compatSlot; optional japanSlot; collapsible stats + countdown
 │   ├── BirthdayCountdown.tsx
 │   ├── BirthProfile.tsx             # Passes t.locale to getBirthProfile(); profile cards (lazy-loaded)
 │   ├── HistoricalTimeline.tsx       # Tabbed year facts (lazy-loaded via next/dynamic)
-│   └── LifeTimeline.tsx             # Milestones + world events (lazy-loaded via next/dynamic)
+│   ├── LifeTimeline.tsx             # Milestones + world events (lazy-loaded via next/dynamic)
 │   ├── JapaneseNextEvent.tsx        # "次の節目" (yakudoshi / 賀寿 / 子どもの節目); only on `/ja/` result via `japanSlot`
-│   ├── JapaneseProfile.tsx          # 元号, 九星, 四柱, 血液型; full yakudoshi/賀寿 timelines on standalone pages only
+│   └── JapaneseProfile.tsx          # 元号, 九星, 四柱, 血液型; full yakudoshi/賀寿 timelines on standalone pages only
 ├── lib/
 │   ├── dailyFortune.ts              # getDailyFortune(); getDailyRanking(); getLocalizedSignName();
 │   │                                # SIGN_NAMES_JA / SIGN_NAMES_ES maps; seeded Fisher-Yates shuffle
+│   ├── compatibility.ts             # 78 canonical Western zodiac pairs (EN score + summary + description); getCompatibility(); pairKey()
+│   ├── compatibility-ja.ts          # Japanese descriptions for each pair (keys match compatibility.ts)
+│   ├── compatibility-es.ts          # Spanish descriptions for each pair
+│   ├── bloodTypeCompat.ts           # Japanese blood-type pairs (A/B/O/AB); 10 unique pair keys; getBloodTypeCompat()
 │   ├── fortunes/
 │   │   ├── en.ts                    # 360 fortunes (30 × 12 Western signs), English
 │   │   ├── ja.ts                    # Same structure, Japanese
@@ -136,10 +150,13 @@ All routes use trailing slashes in production (e.g. `/faq/`).
 
 ### English (`/`)
 
+Header nav (desktop): Calculator / **🏆 Ranking** / **💞 Compatibility** / FAQ / About. Footer includes **Compatibility** alongside other tools.
+
 | Path | Purpose |
 |------|---------|
 | `/` | Primary age calculator + full profile + timelines |
 | `/fortune-ranking/` | All 12 zodiac signs ranked by luck today (daily horoscope ranking) |
+| `/compatibility/` | **Zodiac compatibility** — any two Western signs; score 1–10, EN copy, FAQPage + BreadcrumbSchema |
 | `/days-between/` | Days between two dates |
 | `/dog-age-calculator/` | Dog age in human years (size selector) |
 | `/cat-age-calculator/` | Cat age in human years |
@@ -154,6 +171,7 @@ All routes use trailing slashes in production (e.g. `/faq/`).
 |------|---------|
 | `/ja/` | 誕生日占い 無料 — hero + full feature parity (see **Hero heading** below) |
 | `/ja/uranai-ranking/` | **今日の占い ランキング** — casual morning-read page (占い over 運勢); full fortune text per sign; `app/(ja)/ja/uranai-ranking/page.tsx` |
+| `/ja/aisho/` | **星座・血液型 相性占い** — two tabs: **星座相性** (78 canonical zodiac pairs, JA descriptions) + **血液型相性** (10 canonical A/B/O/AB pairs, JA only); FAQPage + BreadcrumbSchema |
 | `/ja/days-between/` | 日数計算 |
 | `/ja/dog-age-calculator/` | 犬の年齢計算 |
 | `/ja/cat-age-calculator/` | 猫の年齢計算 |
@@ -172,6 +190,7 @@ All routes use trailing slashes in production (e.g. `/faq/`).
 |------|---------|
 | `/es/` | Lectura de Cumpleaños Gratis — hero + full feature parity (see **Hero heading** below) |
 | `/es/horoscopo-ranking/` | Ranking del Horóscopo de Hoy — los 12 signos clasificados por suerte hoy |
+| `/es/compatibilidad/` | **Compatibilidad del zodiaco** — mismas 78 parejas que EN; textos en español; FAQPage + BreadcrumbSchema |
 | `/es/days-between/` | Días entre fechas |
 | `/es/dog-age-calculator/` | Calculadora de edad del perro |
 | `/es/cat-age-calculator/` | Calculadora de edad del gato |
@@ -196,7 +215,7 @@ There is **no shared `app/layout.tsx`**. Each route group's `layout.tsx` is a fu
 
 ### TranslationsProvider + useT()
 
-`lib/i18n/index.ts` defines a `Translations` TypeScript interface and a `useT()` hook that reads from `TranslationsContext`. Each locale root layout wraps its subtree with `<TranslationsProvider translations={en|ja|es}>`. Any component that needs locale-aware strings calls `useT()` rather than hardcoding text. The interface includes a **`fortune`** block (`title`, `for`, `refreshes`, `moreStats`, `hideStats`, `rankingTitle`, `rankingSubtitle`, `rankSuffix`, `updatesNote`, `allSignsLink`, `luckiestToday`, `toughDay`) for the daily horoscope card, stats toggle, and ranking page copy; Japanese uses an empty `for` string so headings read naturally (e.g. 「今日の運勢 — さそり座」).
+`lib/i18n/index.ts` defines a `Translations` TypeScript interface and a `useT()` hook that reads from `TranslationsContext`. Each locale root layout wraps its subtree with `<TranslationsProvider translations={en|ja|es}>`. Any component that needs locale-aware strings calls `useT()` rather than hardcoding text. The interface includes a **`fortune`** block (`title`, `for`, `refreshes`, `moreStats`, `hideStats`, `rankingTitle`, `rankingSubtitle`, `rankSuffix`, `updatesNote`, `allSignsLink`, `luckiestToday`, `toughDay`) for the daily horoscope card, stats toggle, and ranking page copy; Japanese uses an empty `for` string so headings read naturally (e.g. 「今日の運勢 — さそり座」). An optional **`compatibility`** block holds labels for the compatibility teaser and standalone pages (`heading`, `yourSign`, `partnerSign`, `fullReadingLink`, FAQ strings, etc.); **Japanese** adds `zodiacTab`, `bloodTypeTab`, `yourBloodType`, `partnerBloodType`, `bloodTypeHeading` for the `/ja/aisho/` dual-tab UI.
 
 **Important — homepage hero vs i18n files:** Each locale’s **home** route (`app/(en)/page.tsx`, `app/(es)/es/page.tsx`, `app/(ja)/ja/page.tsx`) uses a **static shell** for the hero `<h1>`, lead paragraph, and `export const metadata` (title + description). Those strings are **not** read from `lib/i18n/*.ts`. When you change the public-facing headline or tab title, update **both** the page file and the matching `lib/i18n/{en,ja,es}.ts` (`home.heading`, `home.subheading`, `meta.*` where used) so in-page chrome and shared components stay aligned. **Site-wide** `<title>` defaults and `keywords` for SEO live in each locale’s **root layout** (`app/(en|es|ja)/layout.tsx`) — keep layout metadata, page `metadata`, and i18n strings consistent when pivoting positioning (see **Hero heading & search intent** below).
 
@@ -227,8 +246,9 @@ The function applies the appropriate locale's strings before returning the profi
 
 | Component | Locale-aware change |
 |-----------|---------------------|
-| `AgeCalculator.tsx` | Month names use `MONTHS_ES` or Japanese strings per `t.locale`; share button text localized; passes Western `sign` from `getWesternZodiac()` into `ResultDisplay` |
-| `ResultDisplay.tsx` | Age hero sentence per locale; `DailyFortune`; collapsible "More stats" (total months/weeks/days/hours/minutes + `BirthdayCountdown`) |
+| `AgeCalculator.tsx` | Month names use `MONTHS_ES` or Japanese strings per `t.locale`; share button text localized; passes Western `sign` into `ResultDisplay`; lazy-loads `CompatibilityTeaser` into `compatSlot` |
+| `ResultDisplay.tsx` | Age hero sentence per locale; `DailyFortune`; optional `compatSlot` (compatibility teaser); optional `japanSlot`; collapsible "More stats" + `BirthdayCountdown` |
+| `CompatibilityTeaser.tsx` | `getCompatibility(userSign, partnerSign)`; partner sign `<select>`; score bar + summary; link to locale full page with `?a=&b=` query params |
 | `DailyFortune.tsx` | `getDailyFortune(sign, t.locale)`; localized sign name via `getLocalizedSignName()`; cross-link to ranking page (`t.fortune.allSignsLink`) |
 | `DailyFortuneRanking.tsx` | `getDailyRanking()` + `getDailyFortune()` × 12; `getLocalizedSignName()`; gold/silver/bronze rank badges; `t.fortune.luckiestToday/toughDay/updatesNote` |
 | `BirthProfile.tsx` | Passes `t.locale` to `getBirthProfile()` so all profile descriptions arrive pre-translated |
@@ -259,6 +279,7 @@ Implemented in `lib/ageCalc.ts` and `components/ResultDisplay.tsx` / `BirthdayCo
 - **Today's fortune reading (Western horoscope):** After the hero age card, a `DailyFortune` section shows a short reading for the user's **Western zodiac sign** (derived from birth month/day via `getWesternZodiac` in `lib/birthProfile.ts`). **360 original fortunes** — 30 per sign — in **English, Japanese, and Spanish** (`lib/fortunes/en.ts`, `ja.ts`, `es.ts`). Selection is **deterministic per calendar day:** `getDailyFortune` uses `dayOfYear % 30` so the same sign on the same day always gets the same text (shareable, refreshes daily). Sign name is shown in the correct locale (おひつじ座, Escorpio, etc.) via `getLocalizedSignName()`. A cross-link ("See today's ranking for all 12 signs →") leads to the ranking page. No external API; static export friendly.
 - **"More stats" toggle (collapsed by default):** Total months, weeks, days, hours, minutes and the **next birthday countdown** (`BirthdayCountdown`) live behind a disclosure button so the fortune card occupies the prime visual slot. Labels use `t.fortune.moreStats` / `t.fortune.hideStats` in all locales.
 - **Daily fortune ranking page:** Standalone pages at `/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/` show all 12 signs ranked #1–#12 by luck for the day. Ranking is computed client-side with a seeded Fisher-Yates shuffle (`seededRandom(dayOfYear(date))`) — same calendar day = same ranking for all users globally, refreshes at midnight local time. No server, no API. Gold/silver/bronze badges for top 3; subtle styling for bottom 3. Each entry shows the localized sign name, symbol, and the **full** daily fortune text (`text-base` for readability — not truncated). **Japanese positioning:** page `<title>` / `<h1>` use **今日の占い ランキング** (casual 占い tone vs formal 運勢); subheading uses a `<br />` between the two sentences. **`t.fortune.updatesNote`** is kept short in all locales (no “same ranking for everyone” copy on the page): JA **毎日0時に更新**, EN **Updates at midnight**, ES **Se actualiza a medianoche**. SEO targets include `今日の占い ランキング` (JA), `today's horoscope all signs` (EN), `horóscopo de hoy todos los signos` (ES). Linked from nav, footer, homepage tool cards, and the `DailyFortune` cross-link.
+- **Zodiac & blood-type compatibility reading:** After the daily fortune card, a lazy-loaded **`CompatibilityTeaser`** lets users pick a partner’s Western sign and see a **1–10 score**, one-line summary, and teaser text (EN source in `lib/compatibility.ts`; JA/ES full descriptions in `lib/compatibility-ja.ts` and `lib/compatibility-es.ts`). **78 unique canonical pairs** (order-independent: Aries–Taurus == Taurus–Aries). Standalone pages: **`/compatibility/`** (EN), **`/es/compatibilidad/`** (ES copy from `compatibility-es.ts`), **`/ja/aisho/`** (JA: **星座相性** tab + **血液型相性** tab using `lib/bloodTypeCompat.ts` — 10 canonical blood-type pairs, culturally popular in Japan). Each page includes **FAQPage** JSON-LD and **`BreadcrumbSchema`**. Query params **`?a=Scorpio&b=Taurus`** (English sign names) pre-fill selectors from the teaser link. Nav/footer: **💞 Compatibility** / **💞 Compatibilidad** / **💞 相性占い** in all three locales.
 - Shareable URL: `/?dob=YYYY-MM-DD` (history replaced on calculate); locale equivalents at `/es/?dob=…` and `/ja/?dob=…`
 
 ---
@@ -322,11 +343,11 @@ Each locale's root layout (`app/(en)/layout.tsx`, `app/(es)/layout.tsx`, `app/(j
 
 ### Keywords by locale (as in root layouts)
 
-**English:** age calculator, exact age calculator, birthday calculator, how old am I, birthday facts, moon phase birthday, mayan birthday calculator, kin number calculator, mayan calendar calculator, life path number, numerology birthday, chinese zodiac calculator, zodiac sign calculator, birth flower, birthstone by month, dog age calculator, cat age calculator, indigo child birth year, crystal child, spiritual generation, days between dates, birthday profile — plus **reading / horoscope** terms (e.g. free birthday reading, daily horoscope) as documented in `app/(en)/layout.tsx`.
+**English:** age calculator, exact age calculator, birthday calculator, how old am I, birthday facts, moon phase birthday, mayan birthday calculator, kin number calculator, mayan calendar calculator, life path number, numerology birthday, chinese zodiac calculator, zodiac sign calculator, birth flower, birthstone by month, dog age calculator, cat age calculator, indigo child birth year, crystal child, spiritual generation, days between dates, birthday profile — plus **reading / horoscope** terms (e.g. free birthday reading, daily horoscope) and **zodiac compatibility** terms (`zodiac compatibility`, `astrology compatibility`, `zodiac compatibility calculator`) as documented in `app/(en)/layout.tsx`.
 
-**Spanish (`app/(es)/layout.tsx`):** `lectura de cumpleaños gratis`, `horóscopo gratis`, `horóscopo de hoy gratis`, `horóscopo natal gratis`, `lectura zodiacal gratis`, `numerología gratis`, then utility terms (`calculadora de edad`, `calculadora de cumpleaños`, `cuántos años tengo`, zodiac, moon, Kin, Maya, Life Path, flowers, stones, indigo/crystal children, dog/cat calculators, `perfil de cumpleaños gratis`).
+**Spanish (`app/(es)/layout.tsx`):** `lectura de cumpleaños gratis`, `horóscopo gratis`, `horóscopo de hoy gratis`, `horóscopo natal gratis`, `lectura zodiacal gratis`, `numerología gratis`, then utility terms (`calculadora de edad`, `calculadora de cumpleaños`, `cuántos años tengo`, zodiac, moon, Kin, Maya, Life Path, flowers, stones, indigo/crystal children, dog/cat calculators, `perfil de cumpleaños gratis`), plus **compatibilidad** terms: `compatibilidad zodiaco`, `compatibilidad astrológica`, `compatibilidad signos zodiacales`.
 
-**Japanese (`app/(ja)/layout.tsx`):** Fortune-first terms — `占い 今日`, `今日の運勢`, `無料占い`, `誕生日占い 無料`, `今日の運勢 無料`, `星座占い`, `星座占い 無料`, `マヤ暦占い`, `マヤ暦 キン数`, `数秘術 無料`, plus Life Path, moon, 誕生日占い, 干支, 星座, birth stone/flower, indigo/star children, famous birthdays, dog/cat age — **not** led by low-volume “年齢計算” style phrases. The `/ja/uranai-ranking/` page metadata leads with **今日の占い ランキング** (casual); keywords still include `今日の運勢 ランキング`, `12星座 今日の運勢`, `星座占い 今日 ランキング`, and `めざまし 占い` in `<meta keywords>` only (Google ignores meta keywords — no trademark risk).
+**Japanese (`app/(ja)/layout.tsx`):** Fortune-first terms — `占い 今日`, `今日の運勢`, `無料占い`, `誕生日占い 無料`, `今日の運勢 無料`, `星座占い`, `星座占い 無料`, `マヤ暦占い`, `マヤ暦 キン数`, `数秘術 無料`, plus Life Path, moon, 誕生日占い, 干支, 星座, birth stone/flower, indigo/star children, famous birthdays, dog/cat age — **not** led by low-volume “年齢計算” style phrases. **Compatibility** keywords: `星座 相性`, `血液型 相性`, `相性占い 無料`, `星座 相性占い`, `血液型 相性診断`. The `/ja/uranai-ranking/` page metadata leads with **今日の占い ランキング** (casual); keywords still include `今日の運勢 ランキング`, `12星座 今日の運勢`, `星座占い 今日 ランキング`, and `めざまし 占い` in `<meta keywords>` only (Google ignores meta keywords — no trademark risk).
 
 ### hreflang
 
@@ -339,13 +360,13 @@ Every root layout includes full `<link rel="alternate" hreflang="…">` tags in 
 | **WebApplication** | `app/(en)/layout.tsx` (`<head>`) | Simpler global block for the English site (`UtilityApplication`, `birthfacts.net` URL, free `Offer`). |
 | **WebApplication** | `app/(en)/page.tsx`, `app/(ja)/ja/page.tsx`, `app/(es)/es/page.tsx` | **Locale-tuned** calculator homepages: `LifestyleApplication`, `featureList` (readings, zodiac, tools), `offers` price 0, `inLanguage` on JA/ES. Each homepage embeds its own JSON-LD so `/`, `/ja/`, `/es/` each declare the app in the right language. **English** `/` therefore has two `WebApplication` blocks (layout + page); they can be deduplicated in a future cleanup if desired. |
 | **FAQPage** | `/faq/`, `/es/faq/`, `/ja/faq/`, and **Japanese 早見表** pages | Question/answer rich results where `mainEntity` is built from page content. |
-| **BreadcrumbList** | All **sub-pages** (not homepages) via `components/BreadcrumbSchema.tsx` | Renders a **visual** breadcrumb (`nav` with `aria-label="breadcrumb"`) and a **`BreadcrumbList`** script with absolute `https://birthfacts.net…` `item` URLs. **28 pages** — EN 8, JA 12, ES 8 (FAQ, about, privacy, contact, ranking, dog/cat age, days-between, plus JA-only 早見表). Helps eligible breadcrumb display in Google Search. |
+| **BreadcrumbList** | All **sub-pages** (not homepages) via `components/BreadcrumbSchema.tsx` | Renders a **visual** breadcrumb (`nav` with `aria-label="breadcrumb"`) and a **`BreadcrumbList`** script with absolute `https://birthfacts.net…` `item` URLs. **31 sub-pages** — EN 9, JA 13, ES 9 (adds **compatibility** routes: `/compatibility/`, `/ja/aisho/`, `/es/compatibilidad/`). Helps eligible breadcrumb display in Google Search. |
 
 `BreadcrumbSchema` **props:** `items: { name, href }[]` — `href` is the site-relative path (e.g. `/ja/faq/`), including a trailing slash to match production URLs.
 
 ### Static files
 
-`public/sitemap.xml` — **31** `<url>` entries (as of 2026), each with `xhtml:link` hreflang to all three locales + `x-default` where applicable. Includes calculator tools, static pages, **fortune-ranking** URLs (`/fortune-ranking/`, `/es/horoscopo-ranking/`, `/ja/uranai-ranking/`), and **Japanese 早見表** routes. Regenerate or extend the file when adding new public routes.  
+`public/sitemap.xml` — **34** `<url>` entries (as of 2026), each with `xhtml:link` hreflang to all three locales + `x-default` where applicable. Includes calculator tools, static pages, **fortune-ranking** URLs, **compatibility** URLs (`/compatibility/`, `/es/compatibilidad/`, `/ja/aisho/` — each triplet cross-linked with hreflang), and **Japanese 早見表** routes. Regenerate or extend the file when adding new public routes.  
 `public/robots.txt` — points to sitemap
 
 ### Social / link previews (Open Graph) & tab icons
@@ -389,7 +410,7 @@ Each root layout is self-contained: it imports `globals.css`, sets up GA4 script
 The Japanese site has full feature parity with English plus Japanese-specific touches:
 
 - All UI strings in Japanese (via `lib/i18n/ja.ts`)
-- Japanese header navigation: **誕生日占い** (home calculator) / **今日の占い** (ranking) / よくある質問 / このサイトについて
+- Japanese header navigation: **誕生日占い** (home) / **今日の占い** (ranking) / **💞 相性占い** (`/ja/aisho/`) / よくある質問 / このサイトについて; footer also links **相性占い**
 - **Homepage hero:** `<h1>` **誕生日占い 無料** in `app/(ja)/ja/page.tsx` (fortune-first positioning; see **Hero heading & search intent**). Dog/cat calculator back links use **誕生日占い**.
 - Age displayed as `X歳 Yヶ月 Z日`
 - Weekday meanings end with `〜の日に生まれました。` (polite form)
@@ -405,7 +426,7 @@ The Japanese site has full feature parity with English plus Japanese-specific to
 The Spanish site has full feature parity with English:
 
 - All UI strings in Spanish (via `lib/i18n/es.ts`)
-- Spanish navigation: Calculadora / Preguntas / Acerca de
+- Spanish navigation: Calculadora / Ranking / **💞 Compatibilidad** (`/es/compatibilidad/`) / Preguntas / Acerca de; footer links **Compatibilidad**
 - **Homepage hero:** `<h1>` **Lectura de Cumpleaños Gratis** in `app/(es)/es/page.tsx` (reading-first for Mexico/LATAM search behavior; see **Hero heading & search intent**).
 - Age displayed as `X años, Y meses, Z días`
 - Month names localized in the date picker
@@ -441,11 +462,12 @@ font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, s
 SF Pro (iOS/macOS), Roboto (Android), and Segoe UI (Windows) are all high-quality system fonts that look nearly identical to Inter. Zero network requests, zero render-blocking.
 
 **Lazy-load post-calculation components**
-`BirthProfile`, `HistoricalTimeline`, and `LifeTimeline` are loaded via `next/dynamic`. These import large locale data maps and 100 years of historical facts — none of it is needed until the user clicks Calculate. Removing them from the initial bundle reduces main-thread parse/execute time on slow mobile CPUs.
+`BirthProfile`, `CompatibilityTeaser`, `HistoricalTimeline`, and `LifeTimeline` are loaded via `next/dynamic`. `BirthProfile` and timelines import large maps; the compatibility block imports pair data only after Calculate. None of that is needed until the user runs the calculator, which reduces main-thread parse/execute time on slow mobile CPUs.
 ```typescript
-const BirthProfile    = dynamic(() => import("./BirthProfile"));
-const HistoricalTimeline = dynamic(() => import("./HistoricalTimeline"));
-const LifeTimeline    = dynamic(() => import("./LifeTimeline"));
+const BirthProfile         = dynamic(() => import("./BirthProfile"));
+const CompatibilityTeaser  = dynamic(() => import("./CompatibilityTeaser"));
+const HistoricalTimeline   = dynamic(() => import("./HistoricalTimeline"));
+const LifeTimeline         = dynamic(() => import("./LifeTimeline"));
 ```
 
 **GA4 deferred to idle time**
@@ -538,7 +560,7 @@ The site exposes **Kin**, **Day Sign names**, **Galactic Tone names/numbers**, a
 | No prohibited content | ✅ Calculator/profile tool |
 | Mobile-friendly | ✅ Responsive, tested on iOS |
 | Core Web Vitals: Good | ✅ Mobile LCP 1.8s, CLS 0 |
-| Sufficient content | ✅ 31+ localized URLs in sitemap (includes fortune-ranking + Japanese 早見表 pages) |
+| Sufficient content | ✅ 34 localized URLs in sitemap (includes fortune-ranking, compatibility pages, Japanese 早見表) |
 | Site indexed by Google | ⏳ Submit sitemap, wait 2–4 weeks |
 | Some organic traffic | ⏳ Needed before applying |
 
@@ -558,4 +580,4 @@ Apply once Search Console shows consistent impressions (any amount).
 
 ---
 
-*Last updated: April 2026 — **Structured data:** `WebApplication` JSON-LD on all three **home** `page.tsx` files (EN/JA/ES) plus existing EN layout block; **`BreadcrumbList`** (and visual breadcrumbs) via `components/BreadcrumbSchema.tsx` on all **28** sub-pages across locales. Project tree and tables updated for Japanese **早見表** (厄年, 賀寿, 年齢, 星座), `japaneseLifeEvents.ts`, `JapaneseNextEvent` / `JapaneseProfile`, ranking routes in `(en)` / `(es)` / `(ja)`. Sitemap count **31** URLs. Earlier: **daily fortune ranking** (`/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/`), JA **今日の占い ランキング**, `getDailyRanking()`, `DailyFortuneRanking` badges, favicon, hero H1s by locale, CWV mobile ~99, LCP ~1.8s.*
+*Last updated: April 2026 — **Zodiac & blood-type compatibility:** `lib/compatibility.ts` (+ `compatibility-ja.ts`, `compatibility-es.ts`), `lib/bloodTypeCompat.ts` (JA), `components/CompatibilityTeaser.tsx`, `ResultDisplay` `compatSlot`, routes `/compatibility/`, `/es/compatibilidad/`, `/ja/aisho/` (title **星座・血液型 相性占い**), FAQPage + BreadcrumbSchema, nav/footer + layout keywords, sitemap **34** URLs. **Structured data:** `WebApplication` JSON-LD on all three **home** `page.tsx` files (EN/JA/ES) plus existing EN layout block; **`BreadcrumbList`** on **31** sub-pages. Project tree includes **早見表** (厄年, 賀寿, 年齢, 星座), `japaneseLifeEvents.ts`, `JapaneseNextEvent` / `JapaneseProfile`, ranking routes. Earlier: **daily fortune ranking**, favicon, hero H1s by locale, CWV mobile ~99, LCP ~1.8s.*

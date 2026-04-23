@@ -1,38 +1,28 @@
-This is the **BirthFacts** static site for [birthfacts.net](https://birthfacts.net) — a Next.js App Router + static export build.
+# BirthFacts
 
-- **Project summary (SEO, i18n, structured data, deploy):** see [`docs/BIRTHFACTS_BUILD_SUMMARY.md`](./docs/BIRTHFACTS_BUILD_SUMMARY.md).
+Static site for **[birthfacts.net](https://birthfacts.net)** — age calculator, daily horoscope fortune, zodiac compatibility (EN/ES; JA adds blood-type compatibility), Mayan / numerology / moon profile, fortune ranking, Japanese life-event tools (厄年, 賀寿, 早見表), and more. Built with **Next.js** (App Router) and **static export** for hosting on Render.
 
-## Getting Started
+- **Full build summary** (routes, i18n, SEO, structured data, performance, deploy): [`docs/BIRTHFACTS_BUILD_SUMMARY.md`](./docs/BIRTHFACTS_BUILD_SUMMARY.md)
 
-First, run the development server:
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). The app uses a **system font stack** (no `next/font` webfonts) for LCP; see the build summary for Lighthouse notes.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # outputs to `out/` (static export)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Locales
 
-## Learn More
+| URL prefix | Language |
+|------------|----------|
+| `/` | English |
+| `/es/` | Spanish |
+| `/ja/` | Japanese |
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Compatibility standalone pages: `/compatibility/`, `/es/compatibilidad/`, `/ja/aisho/` (星座・血液型 相性占い).
