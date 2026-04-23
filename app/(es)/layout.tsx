@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
 import LanguageSelect from "@/components/LanguageSelect";
+import MobileMenu from "@/components/MobileMenu";
 import es from "@/lib/i18n/es";
 import "../globals.css";
 
@@ -103,7 +104,7 @@ export default function EsRootLayout({ children }: { children: React.ReactNode }
         <TranslationsProvider translations={es}>
           <header className="px-6 py-4 flex items-center justify-between gap-4 border-b border-[var(--card-border)]">
             <a href="/es/" className="text-xl font-bold gradient-text shrink-0">BirthFacts</a>
-            <nav className="flex items-center gap-4 sm:gap-5 text-sm text-[var(--muted)] min-w-0">
+            <nav className="flex items-center gap-3 sm:gap-5 text-sm text-[var(--muted)] min-w-0">
               <div className="hidden sm:flex gap-5">
                 <a href="/es/" className="hover:text-[var(--accent)] transition-colors">Calculadora</a>
                 <a href="/es/horoscopo-ranking/" className="hover:text-[var(--accent)] transition-colors">🏆 Ranking</a>
@@ -111,6 +112,16 @@ export default function EsRootLayout({ children }: { children: React.ReactNode }
                 <a href="/es/faq/" className="hover:text-[var(--accent)] transition-colors">Preguntas</a>
                 <a href="/es/about/" className="hover:text-[var(--accent)] transition-colors">Acerca de</a>
               </div>
+              <MobileMenu links={[
+                { href: "/es/", label: "Calculadora" },
+                { href: "/es/horoscopo-ranking/", label: "🏆 Ranking Horóscopo" },
+                { href: "/es/compatibilidad/", label: "💞 Compatibilidad" },
+                { href: "/es/dog-age-calculator/", label: "🐶 Edad del Perro" },
+                { href: "/es/cat-age-calculator/", label: "🐱 Edad del Gato" },
+                { href: "/es/days-between/", label: "📅 Días Entre Fechas" },
+                { href: "/es/faq/", label: "❓ Preguntas" },
+                { href: "/es/about/", label: "Acerca de" },
+              ]} />
               <LanguageSelect
                 current={{ href: "/es/", label: "🌐 ES" }}
                 others={[

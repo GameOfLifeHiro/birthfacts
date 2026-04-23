@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
 import LanguageSelect from "@/components/LanguageSelect";
+import MobileMenu from "@/components/MobileMenu";
 import ja from "@/lib/i18n/ja";
 import "../globals.css";
 
@@ -117,7 +118,7 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
         <TranslationsProvider translations={ja}>
           <header className="px-6 py-4 flex items-center justify-between gap-4 border-b border-[var(--card-border)]">
             <a href="/ja/" className="text-xl font-bold gradient-text shrink-0">BirthFacts</a>
-            <nav className="flex items-center gap-4 sm:gap-5 text-sm text-[var(--muted)] min-w-0">
+            <nav className="flex items-center gap-3 sm:gap-5 text-sm text-[var(--muted)] min-w-0">
               <div className="hidden sm:flex gap-5">
                 <a href="/ja/" className="hover:text-[var(--accent)] transition-colors">誕生日占い</a>
                 <a href="/ja/uranai-ranking/" className="hover:text-[var(--accent)] transition-colors">🏆 今日の占い</a>
@@ -125,6 +126,18 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
                 <a href="/ja/faq/" className="hover:text-[var(--accent)] transition-colors">よくある質問</a>
                 <a href="/ja/about/" className="hover:text-[var(--accent)] transition-colors">このサイトについて</a>
               </div>
+              <MobileMenu links={[
+                { href: "/ja/", label: "誕生日占い" },
+                { href: "/ja/uranai-ranking/", label: "🏆 今日の占いランキング" },
+                { href: "/ja/aisho/", label: "💞 相性占い" },
+                { href: "/ja/seiza-hayamihyo/", label: "♈ 星座 早見表" },
+                { href: "/ja/gaju/", label: "🎊 賀寿 早見表" },
+                { href: "/ja/yakudoshi/", label: "⚠️ 厄年 早見表" },
+                { href: "/ja/dog-age-calculator/", label: "🐶 犬の年齢計算" },
+                { href: "/ja/cat-age-calculator/", label: "🐱 猫の年齢計算" },
+                { href: "/ja/days-between/", label: "📅 日数計算" },
+                { href: "/ja/faq/", label: "❓ よくある質問" },
+              ]} />
               <LanguageSelect
                 current={{ href: "/ja/", label: "🌐 日本語" }}
                 others={[

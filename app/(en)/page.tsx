@@ -70,22 +70,26 @@ export default function HomePage() {
       </div>
 
       {/* Related tools */}
-      <div className="mt-12">
-        <h2 className="text-xl font-semibold mb-4 text-center">More tools</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="mt-12 card p-6">
+        <h2 className="font-semibold text-lg text-[var(--accent)] mb-4">More tools</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
-            { href: "/fortune-ranking/", label: "🏆 Fortune Ranking" },
-            { href: "/dog-age-calculator/", label: "Dog Age Calculator" },
-            { href: "/cat-age-calculator/", label: "Cat Age Calculator" },
-            { href: "/days-between/", label: "Days Between Dates" },
-            { href: "/faq/", label: "FAQ" },
-          ].map(({ href, label }) => (
+            { href: "/fortune-ranking/",      emoji: "🏆", title: "Fortune Ranking",     desc: "All 12 signs ranked by luck today" },
+            { href: "/compatibility/",         emoji: "💞", title: "Compatibility",        desc: "See how your sign connects with any other" },
+            { href: "/dog-age-calculator/",    emoji: "🐶", title: "Dog Age Calculator",   desc: "How old is your dog in human years?" },
+            { href: "/cat-age-calculator/",    emoji: "🐱", title: "Cat Age Calculator",   desc: "How old is your cat in human years?" },
+            { href: "/days-between/",          emoji: "📅", title: "Days Between Dates",   desc: "Calculate days, weeks, months between dates" },
+          ].map(({ href, emoji, title, desc }) => (
             <a
               key={href}
               href={href}
-              className="card p-3 text-center text-sm text-[var(--muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors"
+              className="flex items-center gap-3 p-3 rounded-xl border border-[var(--card-border)] hover:border-[var(--accent)] transition-colors"
             >
-              {label}
+              <span className="text-2xl">{emoji}</span>
+              <div>
+                <div className="font-medium text-sm text-[var(--text)]">{title}</div>
+                <div className="text-xs text-[var(--muted)]">{desc}</div>
+              </div>
             </a>
           ))}
         </div>

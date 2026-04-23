@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
 import LanguageSelect from "@/components/LanguageSelect";
+import MobileMenu from "@/components/MobileMenu";
 import en from "@/lib/i18n/en";
 import "../globals.css";
 
@@ -123,7 +124,7 @@ export default function EnRootLayout({ children }: { children: React.ReactNode }
         <TranslationsProvider translations={en}>
           <header className="border-b border-[var(--card-border)] px-6 py-4 flex items-center justify-between gap-4">
             <a href="/" className="font-bold text-xl gradient-text shrink-0">BirthFacts</a>
-            <nav className="flex items-center gap-4 sm:gap-6 text-sm text-[var(--muted)] min-w-0">
+            <nav className="flex items-center gap-3 sm:gap-6 text-sm text-[var(--muted)] min-w-0">
               <div className="hidden sm:flex gap-6">
                 <a href="/" className="hover:text-[var(--accent)] transition-colors">Calculator</a>
                 <a href="/fortune-ranking/" className="hover:text-[var(--accent)] transition-colors">🏆 Ranking</a>
@@ -131,6 +132,16 @@ export default function EnRootLayout({ children }: { children: React.ReactNode }
                 <a href="/faq/" className="hover:text-[var(--accent)] transition-colors">FAQ</a>
                 <a href="/about/" className="hover:text-[var(--accent)] transition-colors">About</a>
               </div>
+              <MobileMenu links={[
+                { href: "/", label: "Calculator" },
+                { href: "/fortune-ranking/", label: "🏆 Fortune Ranking" },
+                { href: "/compatibility/", label: "💞 Compatibility" },
+                { href: "/dog-age-calculator/", label: "🐶 Dog Age Calculator" },
+                { href: "/cat-age-calculator/", label: "🐱 Cat Age Calculator" },
+                { href: "/days-between/", label: "📅 Days Between Dates" },
+                { href: "/faq/", label: "❓ FAQ" },
+                { href: "/about/", label: "About" },
+              ]} />
               <LanguageSelect
                 current={{ href: "/", label: "🌐 EN" }}
                 others={[

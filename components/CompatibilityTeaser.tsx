@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useT } from "@/lib/i18n";
 import { ALL_SIGNS, SIGN_NAMES_JA, SIGN_NAMES_ES } from "@/lib/dailyFortune";
-import { getCompatibility } from "@/lib/compatibility";
+import { getCompatibility, pairKey } from "@/lib/compatibility";
+import COMPAT_JA from "@/lib/compatibility-ja";
+import COMPAT_ES from "@/lib/compatibility-es";
 
 const COMPAT_PATHS: Record<string, string> = {
   en: "/compatibility/",
@@ -47,6 +49,13 @@ export default function CompatibilityTeaser({ userSign }: Props) {
   if (!c) return null;
 
   const pair = partnerSign ? getCompatibility(userSign, partnerSign) : null;
+  const key = partnerSign ? pairKey(userSign, partnerSign) : "";
+  const localDesc =
+    t.locale === "ja" ? (COMPAT_JA[key] ?? pair?.description) :
+    t.locale === "es" ? (COMPAT_ES[key] ?? pair?.description) :
+    pair?.description;
+  const showEnSummary = t.locale === "en";
+
   const fullPath = COMPAT_PATHS[t.locale] ?? COMPAT_PATHS.en;
   const fullReadingHref = partnerSign
     ? `${fullPath}?a=${encodeURIComponent(userSign)}&b=${encodeURIComponent(partnerSign)}`
@@ -86,8 +95,10 @@ export default function CompatibilityTeaser({ userSign }: Props) {
       {pair && (
         <div className="space-y-2 pt-1">
           <ScoreBar score={pair.score} />
-          <p className="text-sm font-medium text-[var(--accent)]">{pair.summary}</p>
-          <p className="text-sm text-[var(--muted)] line-clamp-2">{pair.description}</p>
+          {showEnSummary && (
+            <p className="text-sm font-medium text-[var(--accent)]">{pair.summary}</p>
+          )}
+          <p className="text-sm text-[var(--muted)] line-clamp-3">{localDesc}</p>
         </div>
       )}
 
