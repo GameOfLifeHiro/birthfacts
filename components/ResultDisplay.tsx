@@ -11,9 +11,10 @@ interface Props {
   dob: Date;
   sign?: string;
   japanSlot?: React.ReactNode;
+  compatSlot?: React.ReactNode;
 }
 
-export default function ResultDisplay({ result, dob, sign, japanSlot }: Props) {
+export default function ResultDisplay({ result, dob, sign, japanSlot, compatSlot }: Props) {
   const t = useT();
   const [mounted, setMounted] = useState(false);
   const [showStats, setShowStats] = useState(false);
@@ -70,6 +71,9 @@ export default function ResultDisplay({ result, dob, sign, japanSlot }: Props) {
 
       {/* Daily fortune — prime position */}
       {sign && <DailyFortune sign={sign} />}
+
+      {/* Compatibility teaser */}
+      {compatSlot}
 
       {/* Japan-exclusive sections (次の節目, 元号, 九星気学…) */}
       {japanSlot}

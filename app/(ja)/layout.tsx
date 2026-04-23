@@ -46,6 +46,11 @@ export const metadata: Metadata = {
     "お宮参り",
     "十三参り",
     "ハーフ成人式",
+    "星座 相性",
+    "血液型 相性",
+    "相性占い 無料",
+    "星座 相性占い",
+    "血液型 相性診断",
   ],
   metadataBase: new URL("https://birthfacts.net"),
   alternates: {
@@ -116,6 +121,7 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
               <div className="hidden sm:flex gap-5">
                 <a href="/ja/" className="hover:text-[var(--accent)] transition-colors">誕生日占い</a>
                 <a href="/ja/uranai-ranking/" className="hover:text-[var(--accent)] transition-colors">🏆 今日の占い</a>
+                <a href="/ja/aisho/" className="hover:text-[var(--accent)] transition-colors">💞 相性占い</a>
                 <a href="/ja/faq/" className="hover:text-[var(--accent)] transition-colors">よくある質問</a>
                 <a href="/ja/about/" className="hover:text-[var(--accent)] transition-colors">このサイトについて</a>
               </div>
@@ -141,6 +147,8 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
               <a href="/ja/contact/" className="hover:text-[var(--accent)]">お問い合わせ</a>
               {" · "}
               <a href="/ja/uranai-ranking/" className="hover:text-[var(--accent)]">運勢ランキング</a>
+              {" · "}
+              <a href="/ja/aisho/" className="hover:text-[var(--accent)]">相性占い</a>
               {" · "}
               <a href="/ja/yakudoshi/" className="hover:text-[var(--accent)]">厄年 早見表</a>
               {" · "}

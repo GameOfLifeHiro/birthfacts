@@ -14,6 +14,7 @@ const BirthProfile = dynamic(() => import("./BirthProfile"));
 const JapaneseNextEvent = dynamic(() => import("./JapaneseNextEvent"));
 const HistoricalTimeline = dynamic(() => import("./HistoricalTimeline"));
 const LifeTimeline = dynamic(() => import("./LifeTimeline"));
+const CompatibilityTeaser = dynamic(() => import("./CompatibilityTeaser"));
 
 // Locale-specific month names
 const MONTHS_EN = [
@@ -182,6 +183,14 @@ export default function AgeCalculator({ basePath = "/", showJapanFeatures = fals
               new Date(dob + "T00:00:00").getMonth() + 1,
               new Date(dob + "T00:00:00").getDate()
             ).sign}
+            compatSlot={
+              <CompatibilityTeaser
+                userSign={getWesternZodiac(
+                  new Date(dob + "T00:00:00").getMonth() + 1,
+                  new Date(dob + "T00:00:00").getDate()
+                ).sign}
+              />
+            }
             japanSlot={showJapanFeatures ? (
               <JapaneseNextEvent
                 dob={new Date(dob + "T00:00:00")}

@@ -205,6 +205,26 @@ const en: Translations = {
     Senior: { label: "Senior", desc: "Extra health monitoring recommended" },
     "Super Senior": { label: "Super Senior", desc: "Special care and regular vet visits" },
   },
+
+  compatibility: {
+    heading: "Zodiac Compatibility",
+    subheading: "Discover how your sign connects with any other — personality, love, and energy.",
+    yourSign: "Your Sign",
+    partnerSign: "Their Sign",
+    checkButton: "Check Compatibility",
+    scoreLabel: "Compatibility Score",
+    outOf: "/ 10",
+    fullReadingLink: "See full reading →",
+    teaserTitle: "✨ Check Your Compatibility",
+    teaserPlaceholder: "Choose their sign…",
+    backToCalc: "← Back to Birthday Calculator",
+    faqQ1: "How is zodiac compatibility calculated?",
+    faqA1: "Compatibility is based on classical Western astrology: elemental affinity (Fire, Earth, Air, Water), modality pairing (Cardinal, Fixed, Mutable), and historical interpretations of each sign combination. Opposite signs often have strong attraction; same-element signs share natural understanding.",
+    faqQ2: "Does zodiac compatibility determine relationship success?",
+    faqA2: "Astrology offers one lens for self-reflection, not a deterministic verdict. Many long-term couples have so-called incompatible signs. Use these readings as conversation starters and prompts for self-awareness, not as final judgments.",
+    faqQ3: "What does the compatibility score mean?",
+    faqA3: "The score (1–10) reflects the general ease and natural resonance between two signs based on astrological tradition. A high score suggests natural harmony and complementary energies; a lower score often means more conscious effort is needed — which can itself deepen a relationship.",
+  },
 };
 
 export default en;

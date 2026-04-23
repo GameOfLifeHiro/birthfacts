@@ -34,6 +34,9 @@ export const metadata: Metadata = {
     "calculadora edad perro",
     "calculadora edad gato",
     "perfil de cumpleaños gratis",
+    "compatibilidad zodiaco",
+    "compatibilidad astrológica",
+    "compatibilidad signos zodiacales",
   ],
   metadataBase: new URL("https://birthfacts.net"),
   alternates: {
@@ -104,6 +107,7 @@ export default function EsRootLayout({ children }: { children: React.ReactNode }
               <div className="hidden sm:flex gap-5">
                 <a href="/es/" className="hover:text-[var(--accent)] transition-colors">Calculadora</a>
                 <a href="/es/horoscopo-ranking/" className="hover:text-[var(--accent)] transition-colors">🏆 Ranking</a>
+                <a href="/es/compatibilidad/" className="hover:text-[var(--accent)] transition-colors">💞 Compatibilidad</a>
                 <a href="/es/faq/" className="hover:text-[var(--accent)] transition-colors">Preguntas</a>
                 <a href="/es/about/" className="hover:text-[var(--accent)] transition-colors">Acerca de</a>
               </div>
@@ -129,6 +133,8 @@ export default function EsRootLayout({ children }: { children: React.ReactNode }
               <a href="/es/contact/" className="hover:text-[var(--accent)]">Contacto</a>
               {" · "}
               <a href="/es/horoscopo-ranking/" className="hover:text-[var(--accent)]">Ranking Horóscopo</a>
+              {" · "}
+              <a href="/es/compatibilidad/" className="hover:text-[var(--accent)]">Compatibilidad</a>
               {" · "}
               <a href="/es/faq/" className="hover:text-[var(--accent)]">Preguntas</a>
               {" · "}

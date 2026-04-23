@@ -36,6 +36,9 @@ export const metadata: Metadata = {
     "spiritual generation",
     "days between dates",
     "birthday profile",
+    "zodiac compatibility",
+    "astrology compatibility",
+    "zodiac compatibility calculator",
     "astrology birthday free",
     "horoscope by birthday",
   ],
@@ -124,6 +127,7 @@ export default function EnRootLayout({ children }: { children: React.ReactNode }
               <div className="hidden sm:flex gap-6">
                 <a href="/" className="hover:text-[var(--accent)] transition-colors">Calculator</a>
                 <a href="/fortune-ranking/" className="hover:text-[var(--accent)] transition-colors">🏆 Ranking</a>
+                <a href="/compatibility/" className="hover:text-[var(--accent)] transition-colors">💞 Compatibility</a>
                 <a href="/faq/" className="hover:text-[var(--accent)] transition-colors">FAQ</a>
                 <a href="/about/" className="hover:text-[var(--accent)] transition-colors">About</a>
               </div>
@@ -147,6 +151,8 @@ export default function EnRootLayout({ children }: { children: React.ReactNode }
               <a href="/contact/" className="hover:text-[var(--accent)]">Contact</a>
               {" · "}
               <a href="/fortune-ranking/" className="hover:text-[var(--accent)]">Fortune Ranking</a>
+              {" · "}
+              <a href="/compatibility/" className="hover:text-[var(--accent)]">Compatibility</a>
               {" · "}
               <a href="/faq/" className="hover:text-[var(--accent)]">FAQ</a>
               {" · "}

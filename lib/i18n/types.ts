@@ -209,4 +209,31 @@ export interface Translations {
 
   // ── Cat life stages ───────────────────────────────────────────────────────
   catStages: Record<string, { label: string; desc: string }>;
+
+  // ── Compatibility reading ─────────────────────────────────────────────────
+  compatibility?: {
+    heading: string;           // e.g. "Zodiac Compatibility"
+    subheading: string;        // short description
+    yourSign: string;          // "Your Sign"
+    partnerSign: string;       // "Their Sign"
+    checkButton: string;       // "Check Compatibility"
+    scoreLabel: string;        // "Compatibility Score"
+    outOf: string;             // "/ 10"
+    fullReadingLink: string;   // "See full reading →"
+    teaserTitle: string;       // "✨ Check Your Compatibility"
+    teaserPlaceholder: string; // "Choose their sign..."
+    backToCalc: string;
+    faqQ1: string;
+    faqA1: string;
+    faqQ2: string;
+    faqA2: string;
+    faqQ3: string;
+    faqA3: string;
+    // Japanese-only (optional)
+    bloodTypeTab?: string;
+    zodiacTab?: string;
+    yourBloodType?: string;
+    partnerBloodType?: string;
+    bloodTypeHeading?: string;
+  };
 }

@@ -205,6 +205,26 @@ const es: Translations = {
     Senior: { label: "Senior", desc: "Se recomienda monitoreo de salud adicional" },
     "Super Senior": { label: "Súper Senior", desc: "Cuidados especiales y visitas veterinarias regulares" },
   },
+
+  compatibility: {
+    heading: "Compatibilidad del Zodiaco",
+    subheading: "Descubre cómo se conecta tu signo con cualquier otro — personalidad, amor y energía.",
+    yourSign: "Tu Signo",
+    partnerSign: "Su Signo",
+    checkButton: "Ver Compatibilidad",
+    scoreLabel: "Puntuación de Compatibilidad",
+    outOf: "/ 10",
+    fullReadingLink: "Ver lectura completa →",
+    teaserTitle: "✨ Revisa Tu Compatibilidad",
+    teaserPlaceholder: "Elige su signo…",
+    backToCalc: "← Volver a la Calculadora",
+    faqQ1: "¿Cómo se calcula la compatibilidad zodiacal?",
+    faqA1: "La compatibilidad se basa en la astrología occidental clásica: afinidad elemental (Fuego, Tierra, Aire, Agua), combinación de modalidad (Cardinal, Fijo, Mutable) e interpretaciones históricas de cada combinación de signos. Los signos opuestos suelen tener una fuerte atracción; los signos del mismo elemento comparten una comprensión natural.",
+    faqQ2: "¿La compatibilidad zodiacal determina el éxito de una relación?",
+    faqA2: "La astrología ofrece una perspectiva para la reflexión, no un veredicto determinista. Muchas parejas de larga duración tienen signos llamados incompatibles. Usa estas lecturas como puntos de partida para la conversación y la autoconciencia, no como juicios definitivos.",
+    faqQ3: "¿Qué significa la puntuación de compatibilidad?",
+    faqA3: "La puntuación (1–10) refleja la facilidad general y la resonancia natural entre dos signos según la tradición astrológica. Una puntuación alta sugiere armonía natural; una puntuación más baja significa que se necesita más esfuerzo consciente — lo cual en sí mismo puede profundizar una relación.",
+  },
 };
 
 export default es;
