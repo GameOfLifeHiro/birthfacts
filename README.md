@@ -25,4 +25,8 @@ npm run build   # outputs to `out/` (static export)
 | `/es/` | Spanish |
 | `/ja/` | Japanese |
 
-Compatibility standalone pages: `/compatibility/`, `/es/compatibilidad/`, `/ja/aisho/` (星座・血液型 相性占い).
+**Compatibility** (zodiac; JA adds blood-type tab): `/compatibility/`, `/es/compatibilidad/`, `/ja/aisho/` (星座・血液型 相性占い).
+
+**Mobile header:** a ☰ **MobileMenu** (dropdown) appears below the `sm` breakpoint next to the language selector so users can open ranking, compatibility, and other tools on phones.
+
+See **`docs/BIRTHFACTS_BUILD_SUMMARY.md`** for homepage “More tools” ordering, i18n, SEO, and performance notes.

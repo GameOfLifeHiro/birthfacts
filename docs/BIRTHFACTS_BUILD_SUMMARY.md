@@ -96,7 +96,8 @@ birthfacts/
 │   ├── DailyFortuneRanking.tsx      # All-12-signs ranking (client); full fortune text; gold/silver/bronze badges
 │   ├── CompatibilityTeaser.tsx      # Zodiac pair preview on result (partner sign select, score bar, link to full page)
 │   ├── BreadcrumbSchema.tsx         # Visual breadcrumb (Home › page) + BreadcrumbList JSON-LD; used on all sub-pages
-│   ├── LanguageSelect.tsx           # Client component: <select> dropdown for locale switching (mobile-friendly)
+│   ├── LanguageSelect.tsx           # Client component: <select> for locale switching (always visible; mobile-friendly)
+│   ├── MobileMenu.tsx                # Client: ☰ hamburger (sm:hidden) + dropdown with nav + key tool links; closes on outside click
 │   ├── ResultDisplay.tsx            # Hero age; DailyFortune; optional compatSlot; optional japanSlot; collapsible stats + countdown
 │   ├── BirthdayCountdown.tsx
 │   ├── BirthProfile.tsx             # Passes t.locale to getBirthProfile(); profile cards (lazy-loaded)
@@ -150,7 +151,9 @@ All routes use trailing slashes in production (e.g. `/faq/`).
 
 ### English (`/`)
 
-Header nav (desktop): Calculator / **🏆 Ranking** / **💞 Compatibility** / FAQ / About. Footer includes **Compatibility** alongside other tools.
+- **Header:** Desktop (`sm+`): Calculator / **🏆 Ranking** / **💞 Compatibility** / FAQ / About. **Mobile (`< sm`):** `components/MobileMenu.tsx` (☰) lists the same links plus **Dog / Cat / Days between** so every primary tool is one tap away; `LanguageSelect` remains beside it.
+- **Homepage "More tools"** (`app/(en)/page.tsx`, card layout): **Fortune Ranking** → **Compatibility** → **Dog Age Calculator** → **Cat Age Calculator** → **Days Between Dates** (FAQ is only in nav/footer, not in this grid).
+- **Footer** includes **Compatibility** alongside other tools.
 
 | Path | Purpose |
 |------|---------|
@@ -248,7 +251,8 @@ The function applies the appropriate locale's strings before returning the profi
 |-----------|---------------------|
 | `AgeCalculator.tsx` | Month names use `MONTHS_ES` or Japanese strings per `t.locale`; share button text localized; passes Western `sign` into `ResultDisplay`; lazy-loads `CompatibilityTeaser` into `compatSlot` |
 | `ResultDisplay.tsx` | Age hero sentence per locale; `DailyFortune`; optional `compatSlot` (compatibility teaser); optional `japanSlot`; collapsible "More stats" + `BirthdayCountdown` |
-| `CompatibilityTeaser.tsx` | `getCompatibility(userSign, partnerSign)`; partner sign `<select>`; score bar + summary; link to locale full page with `?a=&b=` query params |
+| `CompatibilityTeaser.tsx` | `getCompatibility()` for score; **locale text:** `COMPAT_JA` / `compatibility-ja.ts` and `COMPAT_ES` for JA/ES teaser body copy (EN uses `lib/compatibility.ts` summary + description); link to full page with `?a=&b=` |
+| `MobileMenu.tsx` | Hamburger on **`< sm`** only; per-locale link list (mirrors desktop nav + main tools) |
 | `DailyFortune.tsx` | `getDailyFortune(sign, t.locale)`; localized sign name via `getLocalizedSignName()`; cross-link to ranking page (`t.fortune.allSignsLink`) |
 | `DailyFortuneRanking.tsx` | `getDailyRanking()` + `getDailyFortune()` × 12; `getLocalizedSignName()`; gold/silver/bronze rank badges; `t.fortune.luckiestToday/toughDay/updatesNote` |
 | `BirthProfile.tsx` | Passes `t.locale` to `getBirthProfile()` so all profile descriptions arrive pre-translated |
@@ -279,7 +283,7 @@ Implemented in `lib/ageCalc.ts` and `components/ResultDisplay.tsx` / `BirthdayCo
 - **Today's fortune reading (Western horoscope):** After the hero age card, a `DailyFortune` section shows a short reading for the user's **Western zodiac sign** (derived from birth month/day via `getWesternZodiac` in `lib/birthProfile.ts`). **360 original fortunes** — 30 per sign — in **English, Japanese, and Spanish** (`lib/fortunes/en.ts`, `ja.ts`, `es.ts`). Selection is **deterministic per calendar day:** `getDailyFortune` uses `dayOfYear % 30` so the same sign on the same day always gets the same text (shareable, refreshes daily). Sign name is shown in the correct locale (おひつじ座, Escorpio, etc.) via `getLocalizedSignName()`. A cross-link ("See today's ranking for all 12 signs →") leads to the ranking page. No external API; static export friendly.
 - **"More stats" toggle (collapsed by default):** Total months, weeks, days, hours, minutes and the **next birthday countdown** (`BirthdayCountdown`) live behind a disclosure button so the fortune card occupies the prime visual slot. Labels use `t.fortune.moreStats` / `t.fortune.hideStats` in all locales.
 - **Daily fortune ranking page:** Standalone pages at `/fortune-ranking/`, `/ja/uranai-ranking/`, `/es/horoscopo-ranking/` show all 12 signs ranked #1–#12 by luck for the day. Ranking is computed client-side with a seeded Fisher-Yates shuffle (`seededRandom(dayOfYear(date))`) — same calendar day = same ranking for all users globally, refreshes at midnight local time. No server, no API. Gold/silver/bronze badges for top 3; subtle styling for bottom 3. Each entry shows the localized sign name, symbol, and the **full** daily fortune text (`text-base` for readability — not truncated). **Japanese positioning:** page `<title>` / `<h1>` use **今日の占い ランキング** (casual 占い tone vs formal 運勢); subheading uses a `<br />` between the two sentences. **`t.fortune.updatesNote`** is kept short in all locales (no “same ranking for everyone” copy on the page): JA **毎日0時に更新**, EN **Updates at midnight**, ES **Se actualiza a medianoche**. SEO targets include `今日の占い ランキング` (JA), `today's horoscope all signs` (EN), `horóscopo de hoy todos los signos` (ES). Linked from nav, footer, homepage tool cards, and the `DailyFortune` cross-link.
-- **Zodiac & blood-type compatibility reading:** After the daily fortune card, a lazy-loaded **`CompatibilityTeaser`** lets users pick a partner’s Western sign and see a **1–10 score**, one-line summary, and teaser text (EN source in `lib/compatibility.ts`; JA/ES full descriptions in `lib/compatibility-ja.ts` and `lib/compatibility-es.ts`). **78 unique canonical pairs** (order-independent: Aries–Taurus == Taurus–Aries). Standalone pages: **`/compatibility/`** (EN), **`/es/compatibilidad/`** (ES copy from `compatibility-es.ts`), **`/ja/aisho/`** (JA: **星座相性** tab + **血液型相性** tab using `lib/bloodTypeCompat.ts` — 10 canonical blood-type pairs, culturally popular in Japan). Each page includes **FAQPage** JSON-LD and **`BreadcrumbSchema`**. Query params **`?a=Scorpio&b=Taurus`** (English sign names) pre-fill selectors from the teaser link. Nav/footer: **💞 Compatibility** / **💞 Compatibilidad** / **💞 相性占い** in all three locales.
+- **Zodiac & blood-type compatibility reading:** After the daily fortune card, a lazy-loaded **`CompatibilityTeaser`** lets users pick a partner’s Western sign and see a **1–10 score** and body copy. **EN:** `lib/compatibility.ts` (summary + description). **JA / ES:** `CompatibilityTeaser` pulls full paragraph text from **`lib/compatibility-ja.ts`** / **`lib/compatibility-es.ts`** via `pairKey()` so the result card never shows English on localized sites. **78 unique canonical pairs** (order-independent: Aries–Taurus == Taurus–Aries). Standalone pages: **`/compatibility/`** (EN), **`/es/compatibilidad/`** (ES), **`/ja/aisho/`** (JA: **星座相性** tab + **血液型相性** tab using `lib/bloodTypeCompat.ts` — 10 canonical blood-type pairs, culturally popular in Japan). Each page includes **FAQPage** JSON-LD and **`BreadcrumbSchema`**. Query params **`?a=Scorpio&b=Taurus`** (English sign names) pre-fill selectors from the teaser link. Nav/footer: **💞 Compatibility** / **💞 Compatibilidad** / **💞 相性占い** in all three locales.
 - Shareable URL: `/?dob=YYYY-MM-DD` (history replaced on calculate); locale equivalents at `/es/?dob=…` and `/ja/?dob=…`
 
 ---
@@ -401,7 +405,7 @@ Verified in built `out/` HTML:
 - `out/es/index.html` → `lang="es"` ✓
 - `out/ja/index.html` → `lang="ja"` ✓
 
-Each root layout is self-contained: it imports `globals.css`, sets up GA4 scripts, hreflang tags, TranslationsProvider, header navigation (with `LanguageSelect`), and footer — no shared parent needed.
+Each root layout is self-contained: it imports `globals.css`, sets up GA4 scripts, hreflang tags, TranslationsProvider, header navigation (desktop link row + **`MobileMenu`** + `LanguageSelect`), and footer — no shared parent needed.
 
 ---
 
@@ -410,7 +414,8 @@ Each root layout is self-contained: it imports `globals.css`, sets up GA4 script
 The Japanese site has full feature parity with English plus Japanese-specific touches:
 
 - All UI strings in Japanese (via `lib/i18n/ja.ts`)
-- Japanese header navigation: **誕生日占い** (home) / **今日の占い** (ranking) / **💞 相性占い** (`/ja/aisho/`) / よくある質問 / このサイトについて; footer also links **相性占い**
+- **Header:** Desktop: **誕生日占い** / **今日の占い** / **💞 相性占い** / よくある質問 / このサイトについて. **Mobile:** `MobileMenu` (☰) with the same top links plus 早見表（星座・賀寿・厄年）/ 犬・猫 / 日数 / FAQ. Footer still lists **年齢 早見表** and other long-tail links.
+- **Homepage その他のツール** (`app/(ja)/ja/page.tsx`): **今日の占いランキング** → **相性占い** → **星座 早見表** → **賀寿 早見表** → **厄年 早見表** → 犬 / 猫 / **日数計算** → **よくある質問** (年齢早見表 is **not** in this grid; remains in the footer only).
 - **Homepage hero:** `<h1>` **誕生日占い 無料** in `app/(ja)/ja/page.tsx` (fortune-first positioning; see **Hero heading & search intent**). Dog/cat calculator back links use **誕生日占い**.
 - Age displayed as `X歳 Yヶ月 Z日`
 - Weekday meanings end with `〜の日に生まれました。` (polite form)
@@ -426,7 +431,8 @@ The Japanese site has full feature parity with English plus Japanese-specific to
 The Spanish site has full feature parity with English:
 
 - All UI strings in Spanish (via `lib/i18n/es.ts`)
-- Spanish navigation: Calculadora / Ranking / **💞 Compatibilidad** (`/es/compatibilidad/`) / Preguntas / Acerca de; footer links **Compatibilidad**
+- **Header:** Desktop: Calculadora / Ranking / **💞 Compatibilidad** / Preguntas / Acerca de. **Mobile:** `MobileMenu` (☰) with Calculadora, ranking, compatibilidad, dog/cat, days, FAQ, about. Footer links **Compatibilidad**.
+- **Más herramientas** (`app/(es)/es/page.tsx`): **Ranking del Horóscopo** → **Compatibilidad** → **Edad del Perro** → **Edad del Gato** → **Días Entre Fechas** (no FAQ in this grid; FAQ in nav only).
 - **Homepage hero:** `<h1>` **Lectura de Cumpleaños Gratis** in `app/(es)/es/page.tsx` (reading-first for Mexico/LATAM search behavior; see **Hero heading & search intent**).
 - Age displayed as `X años, Y meses, Z días`
 - Month names localized in the date picker
@@ -480,11 +486,10 @@ Added to `package.json` to stop bundling polyfills for `Array.prototype.at`, `Ob
 - Added `aria-label` to all three date picker `<select>` elements in `AgeCalculator.tsx` (locale-aware, e.g. "Month" / "月" / "Mes"). Accessibility score went from 89 → 100.
 - Removed `opacity-60` from language switcher links in all nav headers. Opacity on `text-xs` text dropped contrast below WCAG AA's 4.5:1 minimum.
 
-**Mobile nav overflow → `LanguageSelect` dropdown**
-On narrow screens the full nav (3 page links + 2 language links) overflowed the header. Fix:
-- New `components/LanguageSelect.tsx` client component: a styled native `<select>` that navigates to the selected locale on change. Works without JavaScript being loaded (native form element).
-- Main nav links hidden on mobile (`hidden sm:flex`), visible at `sm` breakpoint (640px+). All pages are also linked in the footer so mobile users can still navigate.
-- Language `<select>` always visible, current locale pre-selected, switches locale on change.
+**Mobile navigation — `LanguageSelect` + `MobileMenu`**
+On narrow screens the horizontal nav links are hidden (`hidden sm:flex`); a **`MobileMenu`** (`components/MobileMenu.tsx`, client) shows a **☰** button on **`sm` and below** that opens a dropdown of primary links (locale-specific: calculator, ranking, compatibility, tool shortcuts, FAQ/about). Tapping outside or choosing a link closes the menu. **`LanguageSelect`** remains a second control: a native `<select>` for **EN / ES / 日本語** that always works as a form element. Desktop (`sm+`) still shows the full text nav row. The footer also lists cross-links for users who scroll.
+
+**Historical note:** Before `MobileMenu`, mobile users relied on footer + language-only header; the hamburger was added so **compatibility and tools** are reachable in one tap from every page.
 
 **Sitemap: hreflang on all sub-pages**
 Previously only the 3 home pages (`/`, `/es/`, `/ja/`) had `xhtml:link` hreflang cross-references in `sitemap.xml`. All 27 URLs now have complete hreflang entries.
@@ -580,4 +585,4 @@ Apply once Search Console shows consistent impressions (any amount).
 
 ---
 
-*Last updated: April 2026 — **Zodiac & blood-type compatibility:** `lib/compatibility.ts` (+ `compatibility-ja.ts`, `compatibility-es.ts`), `lib/bloodTypeCompat.ts` (JA), `components/CompatibilityTeaser.tsx`, `ResultDisplay` `compatSlot`, routes `/compatibility/`, `/es/compatibilidad/`, `/ja/aisho/` (title **星座・血液型 相性占い**), FAQPage + BreadcrumbSchema, nav/footer + layout keywords, sitemap **34** URLs. **Structured data:** `WebApplication` JSON-LD on all three **home** `page.tsx` files (EN/JA/ES) plus existing EN layout block; **`BreadcrumbList`** on **31** sub-pages. Project tree includes **早見表** (厄年, 賀寿, 年齢, 星座), `japaneseLifeEvents.ts`, `JapaneseNextEvent` / `JapaneseProfile`, ranking routes. Earlier: **daily fortune ranking**, favicon, hero H1s by locale, CWV mobile ~99, LCP ~1.8s.*
+*Last updated: April 2026 — **Compatibility feature:** `lib/compatibility.ts`, `compatibility-ja.ts`, `compatibility-es.ts`, `lib/bloodTypeCompat.ts` (JA); `CompatibilityTeaser` uses locale paragraph maps for **JA/ES** (not English `description` on `/ja/` or `/es/`). Routes `/compatibility/`, `/es/compatibilidad/`, `/ja/aisho/` (**星座・血液型 相性占い**), FAQ + breadcrumbs, sitemap **34** URLs, nav/footer + keywords. **Mobile UX:** `components/MobileMenu.tsx` (☰ dropdown) on all locales so compatibility and tools are reachable on phones; home **More tools** / **Más herramientas** / **その他のツール** reordered (ranking → compatibility → dog/cat → days; JA also adds 相性 and reorders 早見表 as documented above). **Structured data:** `WebApplication` on home `page.tsx` (EN/JA/ES) + EN layout; **`BreadcrumbList`** on **31** sub-pages. **早見表**, `japaneseLifeEvents`, `JapaneseNextEvent` / `JapaneseProfile`, fortune ranking, favicon, CWV ~99 / LCP ~1.8s documented earlier.*
