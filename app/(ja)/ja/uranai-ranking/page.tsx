@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import DailyFortuneRanking from "@/components/DailyFortuneRanking";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import JaToolsSection from "@/components/JaToolsSection";
 
 export const metadata: Metadata = {
   title: "今日の占い ランキング｜12星座 無料｜BirthFacts",
@@ -48,6 +49,8 @@ export default function UranaiRankingPage() {
           ← 生年月日を入力して、あなただけの誕生日占いを見る
         </a>
       </div>
+
+      <JaToolsSection />
     </div>
   );
 }

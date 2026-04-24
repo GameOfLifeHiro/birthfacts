@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import JaToolsSection from "@/components/JaToolsSection";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -126,25 +127,7 @@ export default function NenreiHayamihyoPage() {
         </div>
       </div>
 
-      {/* Related 早見表 */}
-      <div className="card p-5 mb-8">
-        <h2 className="text-lg font-bold text-[var(--accent)] mb-3">関連する早見表</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {[
-            { href: "/ja/yakudoshi/", emoji: "⚠️", title: "厄年 早見表", desc: "前厄・本厄・後厄の年齢一覧" },
-            { href: "/ja/gaju/", emoji: "🎊", title: "賀寿 早見表", desc: "還暦・古希・喜寿・米寿の年齢" },
-            { href: "/ja/seiza-hayamihyo/", emoji: "♈", title: "星座 早見表", desc: "12星座の誕生日と特徴" },
-          ].map(({ href, emoji, title, desc }) => (
-            <a key={href} href={href} className="flex items-center gap-3 p-3 rounded-xl border border-[var(--card-border)] hover:border-[var(--accent)] transition-colors">
-              <span className="text-2xl">{emoji}</span>
-              <div>
-                <div className="font-medium text-sm text-[var(--text)]">{title}</div>
-                <div className="text-xs text-[var(--muted)]">{desc}</div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
+      <JaToolsSection />
 
       {/* CTA */}
       <div className="text-center card p-8">

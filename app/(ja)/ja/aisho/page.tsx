@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import JaToolsSection from "@/components/JaToolsSection";
 import { ALL_SIGNS, SIGN_NAMES_JA } from "@/lib/dailyFortune";
 import { getCompatibility, SIGN_ORDER } from "@/lib/compatibility";
 import COMPAT_JA from "@/lib/compatibility-ja";
@@ -267,8 +268,10 @@ export default function AishoPage() {
       </section>
 
       <div className="text-center mt-8">
-        <a href="/ja/" className="text-base text-[var(--accent)] hover:underline">← 誕生日占いに戻る</a>
+        <a href="/ja/" className="text-base text-[var(--accent)] hover:underline">← 生年月日を入力して、あなただけの誕生日占いを見る</a>
       </div>
+
+      <JaToolsSection />
     </div>
   );
 }

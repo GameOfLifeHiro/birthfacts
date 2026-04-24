@@ -123,6 +123,7 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
                 <a href="/ja/" className="hover:text-[var(--accent)] transition-colors">誕生日占い</a>
                 <a href="/ja/uranai-ranking/" className="hover:text-[var(--accent)] transition-colors">🏆 今日の占い</a>
                 <a href="/ja/aisho/" className="hover:text-[var(--accent)] transition-colors">💞 相性占い</a>
+                <a href="/ja/nenrei-hayamihyo/" className="hover:text-[var(--accent)] transition-colors">年齢早見表</a>
                 <a href="/ja/faq/" className="hover:text-[var(--accent)] transition-colors">よくある質問</a>
                 <a href="/ja/about/" className="hover:text-[var(--accent)] transition-colors">このサイトについて</a>
               </div>
@@ -130,6 +131,7 @@ export default function JaRootLayout({ children }: { children: React.ReactNode }
                 { href: "/ja/", label: "誕生日占い" },
                 { href: "/ja/uranai-ranking/", label: "🏆 今日の占いランキング" },
                 { href: "/ja/aisho/", label: "💞 相性占い" },
+                { href: "/ja/nenrei-hayamihyo/", label: "📅 年齢 早見表" },
                 { href: "/ja/seiza-hayamihyo/", label: "♈ 星座 早見表" },
                 { href: "/ja/gaju/", label: "🎊 賀寿 早見表" },
                 { href: "/ja/yakudoshi/", label: "⚠️ 厄年 早見表" },

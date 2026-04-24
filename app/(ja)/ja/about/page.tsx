@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import JaToolsSection from "@/components/JaToolsSection";
 
 export const metadata: Metadata = {
   title: "BirthFactsについて",
@@ -99,6 +100,8 @@ export default function JaAboutPage() {
       <div className="mt-10 text-center">
         <a href="/ja/" className="btn-primary inline-block">誕生日占い 無料</a>
       </div>
+
+      <JaToolsSection />
     </div>
   );
 }
