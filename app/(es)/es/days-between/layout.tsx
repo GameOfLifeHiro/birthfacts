@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import TranslationsProvider from "@/lib/i18n/TranslationsProvider";
-import ja from "@/lib/i18n/ja";
 
 export const metadata: Metadata = {
-  title: "日数計算 — 2つの日付の間の日数 | BirthFacts",
-  description: "2つの日付の間の日数・週数・月数・年数を正確に計算します。",
+  title: "Calculadora de Días Entre Fechas | BirthFacts",
+  description:
+    "Calcula el número exacto de días entre dos fechas. También muestra diferencia en semanas, meses y años. Gratis e instantáneo.",
   alternates: {
-    canonical: "https://birthfacts.net/ja/days-between/",
+    canonical: "https://birthfacts.net/es/days-between/",
     languages: {
       en: "https://birthfacts.net/days-between/",
       es: "https://birthfacts.net/es/days-between/",
@@ -17,5 +16,5 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <TranslationsProvider translations={ja}>{children}</TranslationsProvider>;
+  return <>{children}</>;
 }

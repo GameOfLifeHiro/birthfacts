@@ -40,14 +40,6 @@ export const metadata: Metadata = {
     "compatibilidad signos zodiacales",
   ],
   metadataBase: new URL("https://birthfacts.net"),
-  alternates: {
-    canonical: "https://birthfacts.net/es/",
-    languages: {
-      en: "https://birthfacts.net/",
-      es: "https://birthfacts.net/es/",
-      ja: "https://birthfacts.net/ja/",
-    },
-  },
   openGraph: {
     title: "BirthFacts — Lectura de Cumpleaños Gratis & Horóscopo de Hoy",
     description:
@@ -82,12 +74,7 @@ export const metadata: Metadata = {
 export default function EsRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <head>
-        <link rel="alternate" hrefLang="en" href="https://birthfacts.net/" />
-        <link rel="alternate" hrefLang="es" href="https://birthfacts.net/es/" />
-        <link rel="alternate" hrefLang="ja" href="https://birthfacts.net/ja/" />
-        <link rel="alternate" hrefLang="x-default" href="https://birthfacts.net/" />
-      </head>
+      <head />
       <body className="min-h-screen">
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}

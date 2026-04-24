@@ -5,7 +5,15 @@ export const metadata: Metadata = {
   title: "Age Calculator FAQ – Common Questions Answered | BirthFacts",
   description:
     "Answers to frequently asked questions about calculating age: how to find your age in months, days, weeks, and more.",
-  alternates: { canonical: "https://birthfacts.net/faq/" },
+  alternates: {
+    canonical: "https://birthfacts.net/faq/",
+    languages: {
+      en: "https://birthfacts.net/faq/",
+      es: "https://birthfacts.net/es/faq/",
+      ja: "https://birthfacts.net/ja/faq/",
+      "x-default": "https://birthfacts.net/faq/",
+    },
+  },
 };
 
 const faqs = [

@@ -4,7 +4,15 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 export const metadata: Metadata = {
   title: "Preguntas Frecuentes | BirthFacts",
   description: "Respuestas sobre cómo BirthFacts calcula tu edad, zodiaco, número Kin maya, fase lunar y más.",
-  alternates: { canonical: "https://birthfacts.net/es/faq/" },
+  alternates: {
+    canonical: "https://birthfacts.net/es/faq/",
+    languages: {
+      en: "https://birthfacts.net/faq/",
+      es: "https://birthfacts.net/es/faq/",
+      ja: "https://birthfacts.net/ja/faq/",
+      "x-default": "https://birthfacts.net/faq/",
+    },
+  },
 };
 
 const FAQS = [

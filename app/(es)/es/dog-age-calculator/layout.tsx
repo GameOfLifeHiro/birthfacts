@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dog Age Calculator – Dog Years to Human Years | BirthFacts",
+  title: "Calculadora de Edad de Perro — Años Caninos a Años Humanos | BirthFacts",
   description:
-    "Convert your dog's age to human years instantly. Uses the modern AVMA formula with size adjustment (small, medium, large dogs). Free and accurate.",
+    "Convierte la edad de tu perro a años humanos al instante. Usa la fórmula moderna de la AVMA con ajuste por tamaño (pequeño, mediano, grande). Gratis y preciso.",
   alternates: {
-    canonical: "https://birthfacts.net/dog-age-calculator/",
+    canonical: "https://birthfacts.net/es/dog-age-calculator/",
     languages: {
       en: "https://birthfacts.net/dog-age-calculator/",
       es: "https://birthfacts.net/es/dog-age-calculator/",

@@ -5,7 +5,15 @@ import JaToolsSection from "@/components/JaToolsSection";
 export const metadata: Metadata = {
   title: "BirthFactsについて",
   description: "BirthFacts.netは、誕生日から正確な年齢・干支・マヤ暦・四柱推命・九星気学などを無料で計算できるツールです。",
-  alternates: { canonical: "https://birthfacts.net/ja/about/" },
+  alternates: {
+    canonical: "https://birthfacts.net/ja/about/",
+    languages: {
+      en: "https://birthfacts.net/about/",
+      es: "https://birthfacts.net/es/about/",
+      ja: "https://birthfacts.net/ja/about/",
+      "x-default": "https://birthfacts.net/about/",
+    },
+  },
 };
 
 export default function JaAboutPage() {

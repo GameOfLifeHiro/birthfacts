@@ -20,8 +20,9 @@ export const metadata: Metadata = {
     canonical: "https://birthfacts.net/ja/uranai-ranking/",
     languages: {
       en: "https://birthfacts.net/fortune-ranking/",
-      ja: "https://birthfacts.net/ja/uranai-ranking/",
       es: "https://birthfacts.net/es/horoscopo-ranking/",
+      ja: "https://birthfacts.net/ja/uranai-ranking/",
+      "x-default": "https://birthfacts.net/fortune-ranking/",
     },
   },
 };

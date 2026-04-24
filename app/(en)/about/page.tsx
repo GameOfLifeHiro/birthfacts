@@ -5,7 +5,15 @@ export const metadata: Metadata = {
   title: "About BirthFacts – Your Complete Birthday Profile Tool",
   description:
     "Learn about BirthFacts.net — a free tool that calculates your exact age, zodiac sign, Life Path Number, generational identity, historical facts, and more from your birthday.",
-  alternates: { canonical: "https://birthfacts.net/about/" },
+  alternates: {
+    canonical: "https://birthfacts.net/about/",
+    languages: {
+      en: "https://birthfacts.net/about/",
+      es: "https://birthfacts.net/es/about/",
+      ja: "https://birthfacts.net/ja/about/",
+      "x-default": "https://birthfacts.net/about/",
+    },
+  },
 };
 
 export default function AboutPage() {

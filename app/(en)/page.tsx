@@ -5,7 +5,15 @@ export const metadata: Metadata = {
   title: "Age Calculator – Exact Age in Years, Months, Days & Seconds | BirthFacts",
   description:
     "Calculate your exact age in years, months, weeks, days, hours and minutes instantly. Free age calculator with zodiac sign, birth flower, Life Path Number, generational identity, and more.",
-  alternates: { canonical: "https://birthfacts.net/" },
+  alternates: {
+    canonical: "https://birthfacts.net/",
+    languages: {
+      en: "https://birthfacts.net/",
+      es: "https://birthfacts.net/es/",
+      ja: "https://birthfacts.net/ja/",
+      "x-default": "https://birthfacts.net/",
+    },
+  },
 };
 
 const WEB_APP_SCHEMA = {

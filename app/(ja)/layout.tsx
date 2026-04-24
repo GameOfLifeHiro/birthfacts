@@ -54,14 +54,6 @@ export const metadata: Metadata = {
     "血液型 相性診断",
   ],
   metadataBase: new URL("https://birthfacts.net"),
-  alternates: {
-    canonical: "https://birthfacts.net/ja/",
-    languages: {
-      en: "https://birthfacts.net/",
-      es: "https://birthfacts.net/es/",
-      ja: "https://birthfacts.net/ja/",
-    },
-  },
   openGraph: {
     title: "BirthFacts — 誕生日占い・今日の運勢 無料",
     description:
@@ -96,12 +88,7 @@ export const metadata: Metadata = {
 export default function JaRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
-      <head>
-        <link rel="alternate" hrefLang="en" href="https://birthfacts.net/" />
-        <link rel="alternate" hrefLang="es" href="https://birthfacts.net/es/" />
-        <link rel="alternate" hrefLang="ja" href="https://birthfacts.net/ja/" />
-        <link rel="alternate" hrefLang="x-default" href="https://birthfacts.net/" />
-      </head>
+      <head />
       <body className="min-h-screen">
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}

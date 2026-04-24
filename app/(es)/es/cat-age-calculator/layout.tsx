@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Cat Age Calculator – Cat Years to Human Years | BirthFacts",
+  title: "Calculadora de Edad de Gato — Años Felinos a Años Humanos | BirthFacts",
   description:
-    "Convert your cat's age to human years instantly. Uses the International Cat Care formula. Free and accurate cat age calculator.",
+    "Convierte la edad de tu gato a años humanos al instante. Basado en las directrices de International Cat Care. Gratis y preciso.",
   alternates: {
-    canonical: "https://birthfacts.net/cat-age-calculator/",
+    canonical: "https://birthfacts.net/es/cat-age-calculator/",
     languages: {
       en: "https://birthfacts.net/cat-age-calculator/",
       es: "https://birthfacts.net/es/cat-age-calculator/",

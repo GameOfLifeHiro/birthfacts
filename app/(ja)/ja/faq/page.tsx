@@ -13,7 +13,15 @@ export const metadata: Metadata = {
     "お宮参り いつ", "十三参り", "ハーフ成人式",
     "誕生日占い 疑問", "マヤ暦 よくある質問",
   ],
-  alternates: { canonical: "https://birthfacts.net/ja/faq/" },
+  alternates: {
+    canonical: "https://birthfacts.net/ja/faq/",
+    languages: {
+      en: "https://birthfacts.net/faq/",
+      es: "https://birthfacts.net/es/faq/",
+      ja: "https://birthfacts.net/ja/faq/",
+      "x-default": "https://birthfacts.net/faq/",
+    },
+  },
 };
 
 const FAQS = [

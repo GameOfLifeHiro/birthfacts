@@ -4,7 +4,15 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 export const metadata: Metadata = {
   title: "Acerca de BirthFacts",
   description: "BirthFacts.net es una herramienta gratuita de perfil de cumpleaños: calcula edad exacta, zodiaco, fase lunar, número Kin maya, zodiaco chino y más.",
-  alternates: { canonical: "https://birthfacts.net/es/about/" },
+  alternates: {
+    canonical: "https://birthfacts.net/es/about/",
+    languages: {
+      en: "https://birthfacts.net/about/",
+      es: "https://birthfacts.net/es/about/",
+      ja: "https://birthfacts.net/ja/about/",
+      "x-default": "https://birthfacts.net/about/",
+    },
+  },
 };
 
 export default function EsAboutPage() {

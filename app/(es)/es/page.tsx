@@ -4,7 +4,15 @@ import AgeCalculator from "@/components/AgeCalculator";
 export const metadata: Metadata = {
   title: "Lectura de Cumpleaños Gratis | BirthFacts",
   description: "Descubre tu horóscopo de hoy, signo zodiacal, fase lunar, número Kin maya, numerología y más — todo desde tu fecha de nacimiento. Gratis e instantáneo.",
-  alternates: { canonical: "https://birthfacts.net/es/" },
+  alternates: {
+    canonical: "https://birthfacts.net/es/",
+    languages: {
+      en: "https://birthfacts.net/",
+      es: "https://birthfacts.net/es/",
+      ja: "https://birthfacts.net/ja/",
+      "x-default": "https://birthfacts.net/",
+    },
+  },
 };
 
 const WEB_APP_SCHEMA = {

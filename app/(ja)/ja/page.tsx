@@ -4,7 +4,15 @@ import AgeCalculator from "@/components/AgeCalculator";
 export const metadata: Metadata = {
   title: "誕生日占い 無料 | BirthFacts",
   description: "生年月日を入力するだけで、今日の運勢・星座占い・マヤ暦・月相・数秘術など、あなただけの誕生日占いを無料で鑑定します。",
-  alternates: { canonical: "https://birthfacts.net/ja/" },
+  alternates: {
+    canonical: "https://birthfacts.net/ja/",
+    languages: {
+      en: "https://birthfacts.net/",
+      es: "https://birthfacts.net/es/",
+      ja: "https://birthfacts.net/ja/",
+      "x-default": "https://birthfacts.net/",
+    },
+  },
 };
 
 const WEB_APP_SCHEMA = {
