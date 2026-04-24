@@ -11,17 +11,32 @@ export const metadata: Metadata = {
 const WEB_APP_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
+  "@id": "https://birthfacts.net/#webapp",
   name: "BirthFacts — Age Calculator & Birthday Reading",
   url: "https://birthfacts.net/",
   description: "Free age calculator with zodiac sign, daily fortune, birth flower, Life Path Number, Mayan calendar, generational identity, and more.",
   applicationCategory: "LifestyleApplication",
   operatingSystem: "Web Browser",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  browserRequirements: "Requires JavaScript",
+  inLanguage: "en",
+  isAccessibleForFree: true,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+    availability: "https://schema.org/OnlineOnly",
+  },
   featureList: [
     "Exact age calculator", "Daily horoscope fortune", "Western zodiac sign",
     "Chinese zodiac", "Life Path Number", "Moon phase", "Mayan calendar Kin",
     "Historical timeline", "Dog age calculator", "Cat age calculator",
+    "Zodiac compatibility reading",
   ],
+  publisher: {
+    "@type": "Organization",
+    name: "Ascent Leadership Institute Inc",
+    url: "https://birthfacts.net",
+  },
 };
 
 export default function HomePage() {

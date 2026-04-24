@@ -10,18 +10,32 @@ export const metadata: Metadata = {
 const WEB_APP_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
+  "@id": "https://birthfacts.net/es/#webapp",
   name: "BirthFacts — Lectura de Cumpleaños Gratis",
   url: "https://birthfacts.net/es/",
   description: "Descubre tu horóscopo de hoy, signo zodiacal, fase lunar, número Kin maya, numerología y más desde tu fecha de nacimiento. Gratis.",
   applicationCategory: "LifestyleApplication",
   operatingSystem: "Web Browser",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "MXN" },
+  browserRequirements: "Requiere JavaScript",
+  inLanguage: "es",
+  isAccessibleForFree: true,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "MXN",
+    availability: "https://schema.org/OnlineOnly",
+  },
   featureList: [
     "Lectura de cumpleaños", "Horóscopo diario", "Signo zodiacal",
     "Zodiaco chino", "Número de Sendero de Vida", "Fase lunar",
     "Calendario maya Kin", "Edad del perro", "Edad del gato",
+    "Compatibilidad zodiacal",
   ],
-  inLanguage: "es",
+  publisher: {
+    "@type": "Organization",
+    name: "Ascent Leadership Institute Inc",
+    url: "https://birthfacts.net",
+  },
 };
 
 export default function EsHomePage() {

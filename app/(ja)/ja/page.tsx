@@ -10,18 +10,31 @@ export const metadata: Metadata = {
 const WEB_APP_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
+  "@id": "https://birthfacts.net/ja/#webapp",
   name: "BirthFacts — 誕生日占い 無料",
   url: "https://birthfacts.net/ja/",
   description: "誕生日占い無料。生年月日から今日の運勢・星座占い・マヤ暦キン数・数秘術・月の満ち欠けをすぐに鑑定。",
   applicationCategory: "LifestyleApplication",
   operatingSystem: "Web Browser",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "JPY" },
+  browserRequirements: "JavaScriptが必要",
+  inLanguage: "ja",
+  isAccessibleForFree: true,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "JPY",
+    availability: "https://schema.org/OnlineOnly",
+  },
   featureList: [
     "誕生日占い", "今日の運勢", "星座占い", "マヤ暦 キン数",
     "数秘術", "月相", "九星気学", "四柱推命", "厄年", "賀寿",
-    "犬の年齢計算", "猫の年齢計算",
+    "犬の年齢計算", "猫の年齢計算", "星座相性占い", "血液型相性占い",
   ],
-  inLanguage: "ja",
+  publisher: {
+    "@type": "Organization",
+    name: "Ascent Leadership Institute Inc",
+    url: "https://birthfacts.net",
+  },
 };
 
 export default function JaHomePage() {

@@ -91,22 +91,6 @@ export default function EnRootLayout({ children }: { children: React.ReactNode }
         <link rel="alternate" hrefLang="es" href="https://birthfacts.net/es/" />
         <link rel="alternate" hrefLang="ja" href="https://birthfacts.net/ja/" />
         <link rel="alternate" hrefLang="x-default" href="https://birthfacts.net/" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "BirthFacts Age Calculator",
-              url: "https://birthfacts.net",
-              description:
-                "Free birthday profile tool: exact age calculator plus zodiac, moon phase, Mayan Dreamspell Kin number, Life Path Number, Chinese zodiac, birth flower, spiritual generation, and historical facts.",
-              applicationCategory: "UtilityApplication",
-              operatingSystem: "Any",
-              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-            }),
-          }}
-        />
       </head>
       <body className="min-h-screen">
         <Script
