@@ -3,5 +3,5 @@ Allow: /
 
 Sitemap: https://birthfacts.net/sitemap-index.xml
 Sitemap: https://birthfacts.net/sitemap.xml
-Sitemap: https://birthfacts.net/sitemap-ja.xml
-Sitemap: https://birthfacts.net/sitemap-es.xml
+Sitemap: https://birthfacts.net/ja/sitemap.xml
+Sitemap: https://birthfacts.net/es/sitemap.xml
