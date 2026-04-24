@@ -1,0 +1,27 @@
+name: Annual Rebuild (Jan 1)
+
+# Triggers a Render.com deploy hook every January 1 at 00:05 JST (= 15:05 UTC Dec 31).
+# This ensures CURRENT_YEAR-based content (年齢早見表, 厄年早見表, 賀寿早見表, FAQ) is always up to date.
+#
+# Setup (one-time):
+#   1. Render.com → your service → Settings → Deploy Hooks → Create Deploy Hook
+#   2. Copy the hook URL
+#   3. GitHub → repo Settings → Secrets and variables → Actions → New repository secret
+#      Name:  RENDER_DEPLOY_HOOK_URL
+#      Value: <paste the URL from step 1>
+
+on:
+  schedule:
+    # 15:05 UTC = 00:05 JST on Jan 1
+    - cron: "5 15 31 12 *"
+  workflow_dispatch: # also allows manual trigger from the GitHub Actions UI
+
+jobs:
+  trigger-deploy:
+    name: Trigger Render deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Render deploy hook
+        run: |
+          curl --fail -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+          echo "Deploy triggered successfully."
