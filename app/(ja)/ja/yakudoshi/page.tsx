@@ -171,6 +171,7 @@ export default function YakudoshiPage() {
       </div>
 
       {/* Schema */}
+      {/* Schema — FAQPage */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -188,10 +189,26 @@ export default function YakudoshiPage() {
               },
               {
                 "@type": "Question",
-                name: `${CURRENT_YEAR}年の厄年は何歳ですか？`,
+                name: `${CURRENT_YEAR}年の厄年は何歳ですか？（男性・女性）`,
                 acceptedAnswer: {
                   "@type": "Answer",
                   text: `${CURRENT_YEAR}年の厄年（満年齢の目安）は、男性が前厄${YAKUDOSHI_MALE.filter(e=>e.subtype==="前厄").map(e=>e.age+"歳").join("・")}、本厄${YAKUDOSHI_MALE.filter(e=>e.subtype==="本厄").map(e=>e.age+"歳").join("・")}、後厄${YAKUDOSHI_MALE.filter(e=>e.subtype==="後厄").map(e=>e.age+"歳").join("・")}。女性が前厄${YAKUDOSHI_FEMALE.filter(e=>e.subtype==="前厄").map(e=>e.age+"歳").join("・")}、本厄${YAKUDOSHI_FEMALE.filter(e=>e.subtype==="本厄").map(e=>e.age+"歳").join("・")}、後厄${YAKUDOSHI_FEMALE.filter(e=>e.subtype==="後厄").map(e=>e.age+"歳").join("・")}です。`,
+                },
+              },
+              {
+                "@type": "Question",
+                name: "男性の大厄（42歳）はなぜ最も重要な厄年ですか？",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "男性の42歳（数え年）は「死に」に語呂が似ることから古来最も忌まれてきた大厄です。社会的な責任が重なるこの時期は、体調・仕事・家庭に変化が起きやすいとされています。お祓いや健康診断など念入りな準備が推奨されます。",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "女性の大厄（33歳）はなぜ最も重要な厄年ですか？",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "女性の33歳（数え年）は「散々」に語呂が似ることから古来最も忌まれてきた大厄です。結婚・出産・仕事の転換期と重なりやすく、心身のバランスが崩れやすいとされています。",
                 },
               },
               {
@@ -202,7 +219,53 @@ export default function YakudoshiPage() {
                   text: "前厄は本厄の前年で変化の兆しが現れやすい時期、本厄は最も注意が必要とされる年、後厄は本厄明けの年で「後厄の方が危ない」とも言われます。三年間を通じて注意が必要です。",
                 },
               },
+              {
+                "@type": "Question",
+                name: "厄年にやってはいけないことはありますか？",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "厄年に絶対にやってはいけないことはありませんが、転職・引越し・結婚・手術などの大きな決断は吉日を選ぶなど慎重に判断することが伝統的に推奨されています。まず神社でお祓い（厄払い・厄除け）を受けてから行動する方が多いです。",
+                },
+              },
             ],
+          }),
+        }}
+      />
+      {/* Schema — ItemList (male yakudoshi) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "厄年 一覧（男性）",
+            description: "男性の前厄・本厄・後厄の年齢（満年齢の目安）",
+            numberOfItems: YAKUDOSHI_MALE.length,
+            itemListElement: YAKUDOSHI_MALE.map((e, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: `${e.age}歳 ${e.kanji}${e.isMajor ? "（大厄）" : ""}`,
+              description: e.description,
+            })),
+          }),
+        }}
+      />
+      {/* Schema — ItemList (female yakudoshi) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "厄年 一覧（女性）",
+            description: "女性の前厄・本厄・後厄の年齢（満年齢の目安）",
+            numberOfItems: YAKUDOSHI_FEMALE.length,
+            itemListElement: YAKUDOSHI_FEMALE.map((e, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: `${e.age}歳 ${e.kanji}${e.isMajor ? "（大厄）" : ""}`,
+              description: e.description,
+            })),
           }),
         }}
       />

@@ -126,7 +126,7 @@ export default function GajuPage() {
         </a>
       </div>
 
-      {/* Schema */}
+      {/* Schema — FAQPage */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -134,6 +134,15 @@ export default function GajuPage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: [
+              // Per-milestone Q&As (high search volume: "還暦 何歳", "古希 何歳" etc.)
+              ...GAJU_EVENTS.map((e) => ({
+                "@type": "Question",
+                name: `${e.kanji}は何歳ですか？`,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `${e.kanji}は${e.age}歳です。${e.description}お祝いの方法：${e.activities}`,
+                },
+              })),
               {
                 "@type": "Question",
                 name: "賀寿（長寿のお祝い）とは何ですか？",
@@ -144,21 +153,40 @@ export default function GajuPage() {
               },
               {
                 "@type": "Question",
-                name: "還暦は何歳ですか？なぜ赤いプレゼントを贈るのですか？",
+                name: "賀寿のお祝いに象徴色があるのはなぜですか？",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "還暦は60歳です。60年で十二支と十干が一巡し、生まれ年の干支に「還る」ことから「生まれ直し・赤ちゃんに戻る」と捉え、赤が象徴色となっています。赤いちゃんちゃんこ・赤い座布団などを贈る慣わしがあります。",
+                  text: "還暦（60歳）は赤（生まれ直しの意）、古希・喜寿（70・77歳）は紫（高貴・長寿の色）、傘寿・米寿（80・88歳）は黄・金（実りの色）、卒寿・白寿（90・99歳）は白（清廉・長寿の色）が象徴色です。これらの色に合わせたプレゼントを贈るのが伝統です。",
                 },
               },
               {
                 "@type": "Question",
-                name: "古希・喜寿・米寿・白寿は何歳ですか？",
+                name: "賀寿は数え年と満年齢、どちらで計算しますか？",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "古希は70歳（杜甫の詩「人生七十古来稀なり」から）、喜寿は77歳（「喜」の草書体が七十七と読めることから）、米寿は88歳（「米」の字を分解すると八十八）、白寿は99歳（百から一を引くと白になることから）です。",
+                  text: "伝統的には数え年（生まれた年を1歳、元旦に1歳加算）で計算しますが、現代では満年齢でお祝いするご家庭も多くなっています。BirthFactsでは両方の年齢を表示しています。",
                 },
               },
             ],
+          }),
+        }}
+      />
+      {/* Schema — ItemList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "賀寿 一覧",
+            description: "日本の長寿祝い（賀寿）の節目年齢・象徴色・風習の早見表",
+            numberOfItems: GAJU_EVENTS.length,
+            itemListElement: GAJU_EVENTS.map((e, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: `${e.kanji}（${e.age}歳）`,
+              description: e.description,
+            })),
           }),
         }}
       />

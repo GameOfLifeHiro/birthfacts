@@ -320,7 +320,7 @@ export default function SeizaHayamihyoPage() {
         <a href="/ja/" className="btn-primary inline-block">誕生日占い 無料</a>
       </div>
 
-      {/* Schema */}
+      {/* Schema — FAQPage */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -328,9 +328,18 @@ export default function SeizaHayamihyoPage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             mainEntity: [
+              // Per-sign date range Q&As (high search volume)
+              ...SIGNS.map((s) => ({
+                "@type": "Question",
+                name: `${s.name}はいつからいつまでですか？`,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `${s.name}（${s.en}）の期間は${s.period}です。エレメントは${s.elementJa}、支配星は${s.ruler}。主な特徴：${s.traits.join("、")}。`,
+                },
+              })),
               {
                 "@type": "Question",
-                name: "12星座の誕生日（期間）を教えてください。",
+                name: "12星座の誕生日（期間）を一覧で教えてください。",
                 acceptedAnswer: {
                   "@type": "Answer",
                   text: SIGNS.map((s) => `${s.name}：${s.period}`).join("、"),
@@ -346,13 +355,32 @@ export default function SeizaHayamihyoPage() {
               },
               {
                 "@type": "Question",
-                name: "星座はいつからいつまでですか？境界日はどうなりますか？",
+                name: "星座の境界日（カスプ）はどうなりますか？",
                 acceptedAnswer: {
                   "@type": "Answer",
                   text: "星座の切り替わり日（カスプ）は年によって1〜2日前後することがあります。境界日生まれの方は、生まれた年の正確な太陽の位置で判断する必要があります。BirthFactsでは生年月日を入力すると正確な星座を表示します。",
                 },
               },
             ],
+          }),
+        }}
+      />
+      {/* Schema — ItemList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "12星座 一覧",
+            description: "12星座の誕生日・エレメント・特徴の早見表",
+            numberOfItems: SIGNS.length,
+            itemListElement: SIGNS.map((s, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: `${s.symbol} ${s.name}（${s.en}）`,
+              description: `${s.period}。エレメント：${s.elementJa}。${s.description}`,
+            })),
           }),
         }}
       />

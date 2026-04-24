@@ -67,6 +67,20 @@ export default function ResultDisplay({ result, dob, sign, japanSlot, compatSlot
         <p className="text-[var(--muted)] text-sm mt-3">
           {t.result.bornOn} <span className="text-[var(--accent)] font-medium">{dayOfWeek}</span>
         </p>
+        {mounted && !result.nextBirthday.isToday && (
+          <p className="text-sm mt-2 text-[var(--muted)]">
+            🎂{" "}
+            <span className="font-medium text-[var(--text)]">
+              {t.countdown.nextBirthdayIn}{" "}
+              <span className="text-[var(--accent2)]">{result.nextBirthday.daysUntil} {t.countdown.countdownDays}</span>
+            </span>
+          </p>
+        )}
+        {mounted && result.nextBirthday.isToday && (
+          <p className="text-sm mt-2 font-semibold text-[var(--accent2)]">
+            🎂 {t.countdown.happyBirthday}
+          </p>
+        )}
       </div>
 
       {/* Daily fortune — prime position */}
