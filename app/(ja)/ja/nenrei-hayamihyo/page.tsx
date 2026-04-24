@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import JaToolsSection from "@/components/JaToolsSection";
+import { getEto, getJaYearEvent } from "@/lib/jaYearEvents";
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     "生まれ年 年齢", "満年齢 早見表", "数え年 早見表",
     "満年齢 数え年 違い", "数え年 計算", "和暦 西暦 年齢",
     "生まれ年 令和 平成 昭和", "年齢確認", "何歳",
+    "干支 早見表", "干支 一覧", "生まれ年 干支",
   ],
   alternates: { canonical: "https://birthfacts.net/ja/nenrei-hayamihyo/" },
 };
@@ -39,9 +41,11 @@ function getWareki(year: number): string {
 // Rows from current year back to 1924 (100 years)
 const ROWS = Array.from({ length: CURRENT_YEAR - 1924 }, (_, i) => {
   const birthYear = CURRENT_YEAR - i;
-  const manNenrei = i; // born this year → 0; exact depends on birthday, shown as approximate
+  const manNenrei = i;
   const kazoedoshi = i + 1;
-  return { birthYear, wareki: getWareki(birthYear), manNenrei, kazoedoshi };
+  const eto = getEto(birthYear);
+  const event = getJaYearEvent(birthYear);
+  return { birthYear, wareki: getWareki(birthYear), manNenrei, kazoedoshi, eto, event };
 });
 
 export default function NenreiHayamihyoPage() {
@@ -94,30 +98,39 @@ export default function NenreiHayamihyoPage() {
       {/* Table */}
       <div className="card overflow-hidden mb-8">
         <div className="overflow-x-auto">
-          <table className="w-full text-base">
+          <table className="w-full text-sm">
             <thead className="bg-[var(--card-border)]/30 sticky top-0">
               <tr>
-                <th className="text-left px-4 py-3 font-semibold text-[var(--text)]">生まれ年（西暦）</th>
-                <th className="text-left px-4 py-3 font-semibold text-[var(--text)]">和暦</th>
-                <th className="text-center px-4 py-3 font-semibold text-[var(--accent)]">満年齢</th>
-                <th className="text-center px-4 py-3 font-semibold text-[var(--accent2)]">数え年</th>
+                <th className="text-left px-3 py-3 font-semibold text-[var(--text)] whitespace-nowrap">生まれ年</th>
+                <th className="text-left px-3 py-3 font-semibold text-[var(--text)] whitespace-nowrap">和暦</th>
+                <th className="text-center px-3 py-3 font-semibold text-[var(--text)] whitespace-nowrap">干支</th>
+                <th className="text-center px-3 py-3 font-semibold text-[var(--accent)] whitespace-nowrap">満年齢</th>
+                <th className="text-center px-3 py-3 font-semibold text-[var(--accent2)] whitespace-nowrap">数え年</th>
+                <th className="text-left px-3 py-3 font-semibold text-[var(--text)] whitespace-nowrap hidden sm:table-cell">主な出来事</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--card-border)]">
-              {ROWS.map(({ birthYear, wareki, manNenrei, kazoedoshi }) => {
+              {ROWS.map(({ birthYear, wareki, manNenrei, kazoedoshi, eto, event }) => {
                 const isCurrentYear = birthYear === CURRENT_YEAR;
                 return (
                   <tr
                     key={birthYear}
                     className={`transition-colors hover:bg-[var(--card-border)]/10 ${isCurrentYear ? "bg-[var(--accent)]/5" : ""}`}
                   >
-                    <td className="px-4 py-2.5 font-semibold text-[var(--text)]">{birthYear}年</td>
-                    <td className="px-4 py-2.5 text-[var(--muted)]">{wareki}</td>
-                    <td className="px-4 py-2.5 text-center font-bold text-[var(--accent)]">
+                    <td className="px-3 py-2.5 font-semibold text-[var(--text)] whitespace-nowrap">{birthYear}年</td>
+                    <td className="px-3 py-2.5 text-[var(--muted)] whitespace-nowrap">{wareki}</td>
+                    <td className="px-3 py-2.5 text-center whitespace-nowrap">
+                      <span className="font-bold text-[var(--accent2)]">{eto.kanji}</span>
+                      <span className="text-xs text-[var(--muted)] ml-1">({eto.animal})</span>
+                    </td>
+                    <td className="px-3 py-2.5 text-center font-bold text-[var(--accent)] whitespace-nowrap">
                       {isCurrentYear ? "0〜1" : manNenrei}歳
                     </td>
-                    <td className="px-4 py-2.5 text-center font-bold text-[var(--accent2)]">
+                    <td className="px-3 py-2.5 text-center font-bold text-[var(--accent2)] whitespace-nowrap">
                       {kazoedoshi}歳
+                    </td>
+                    <td className="px-3 py-2.5 text-[var(--muted)] hidden sm:table-cell max-w-xs">
+                      {event}
                     </td>
                   </tr>
                 );
@@ -126,6 +139,11 @@ export default function NenreiHayamihyoPage() {
           </table>
         </div>
       </div>
+
+      {/* Mobile event note */}
+      <p className="sm:hidden text-xs text-[var(--muted)] text-center mb-6">
+        ※ 主な出来事は横スクロール、またはPC表示でご確認いただけます。
+      </p>
 
       <JaToolsSection />
 
