@@ -27,7 +27,7 @@ export default function FortuneRankingTeaser({ locale, rankingHref }: Props) {
   return (
     <div className="mt-6 card px-5 py-4">
       <div className="flex items-center justify-between gap-2 mb-3">
-        <span className="text-xs font-semibold uppercase tracking-wide text-[var(--accent)]">
+        <span className="text-lg font-semibold text-[var(--accent)]">
           🏆 {title}
         </span>
         <a
