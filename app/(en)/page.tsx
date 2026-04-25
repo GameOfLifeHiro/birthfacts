@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AgeCalculator from "@/components/AgeCalculator";
+import FortuneRankingTeaser from "@/components/FortuneRankingTeaser";
 
 export const metadata: Metadata = {
   title: "Age Calculator – Exact Age in Years, Months, Days & Seconds | BirthFacts",
@@ -64,6 +65,9 @@ export default function HomePage() {
 
       {/* Calculator */}
       <AgeCalculator />
+
+      {/* Fortune ranking teaser */}
+      <FortuneRankingTeaser locale="en" rankingHref="/fortune-ranking/" />
 
       {/* Feature highlights */}
       <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">

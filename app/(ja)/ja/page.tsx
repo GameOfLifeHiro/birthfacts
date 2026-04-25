@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AgeCalculator from "@/components/AgeCalculator";
+import FortuneRankingTeaser from "@/components/FortuneRankingTeaser";
 
 export const metadata: Metadata = {
   title: "誕生日占い 無料 | BirthFacts",
@@ -60,6 +61,9 @@ export default function JaHomePage() {
       </div>
 
       <AgeCalculator basePath="/ja/" showJapanFeatures={true} />
+
+      {/* Fortune ranking teaser */}
+      <FortuneRankingTeaser locale="ja" rankingHref="/ja/uranai-ranking/" />
 
       {/* More tools */}
       <div className="mt-12 card p-6">

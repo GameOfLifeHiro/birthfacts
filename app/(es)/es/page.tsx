@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AgeCalculator from "@/components/AgeCalculator";
+import FortuneRankingTeaser from "@/components/FortuneRankingTeaser";
 
 export const metadata: Metadata = {
   title: "Lectura de Cumpleaños Gratis | BirthFacts",
@@ -61,6 +62,9 @@ export default function EsHomePage() {
       </div>
 
       <AgeCalculator basePath="/es/" />
+
+      {/* Fortune ranking teaser */}
+      <FortuneRankingTeaser locale="es" rankingHref="/es/horoscopo-ranking/" />
 
       {/* More tools */}
       <div className="mt-12 card p-6">
