@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import EnToolsSection from "@/components/EnToolsSection";
 
 export const metadata: Metadata = {
   title: "Age Calculator FAQ – Common Questions Answered | BirthFacts",
@@ -109,6 +110,8 @@ export default function FaqPage() {
           Try the Age Calculator
         </a>
       </div>
+
+      <EnToolsSection />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import EsToolsSection from "@/components/EsToolsSection";
 
 export const metadata: Metadata = {
   title: "Preguntas Frecuentes | BirthFacts",
@@ -73,6 +74,8 @@ export default function EsFaqPage() {
       <div className="mt-10 text-center">
         <a href="/es/" className="btn-primary inline-block">Volver a la Calculadora</a>
       </div>
+
+      <EsToolsSection />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import DailyFortuneRanking from "@/components/DailyFortuneRanking";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import EnToolsSection from "@/components/EnToolsSection";
 
 export const metadata: Metadata = {
   title: "Today's Horoscope Ranking — All 12 Zodiac Signs | BirthFacts",
@@ -48,6 +49,8 @@ export default function FortuneRankingPage() {
           ← Enter your birthday for your personal reading
         </a>
       </div>
+
+      <EnToolsSection />
     </div>
   );
 }

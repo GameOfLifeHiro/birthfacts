@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import DailyFortuneRanking from "@/components/DailyFortuneRanking";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import EsToolsSection from "@/components/EsToolsSection";
 
 export const metadata: Metadata = {
   title: "Horóscopo de Hoy — Ranking de los 12 Signos | BirthFacts",
@@ -48,6 +49,8 @@ export default function HoroscopoRankingPage() {
           ← Ingresa tu fecha de nacimiento para tu lectura personal
         </a>
       </div>
+
+      <EsToolsSection />
     </div>
   );
 }

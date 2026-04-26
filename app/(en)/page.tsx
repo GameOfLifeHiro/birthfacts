@@ -103,6 +103,7 @@ export default function HomePage() {
           {[
             { href: "/fortune-ranking/",      emoji: "🏆", title: "Fortune Ranking",     desc: "All 12 signs ranked by luck today" },
             { href: "/compatibility/",         emoji: "💞", title: "Compatibility",        desc: "See how your sign connects with any other" },
+            { href: "/zodiac-signs/",          emoji: "♈", title: "Zodiac Sign Dates",    desc: "Dates, elements & traits for all 12 signs" },
             { href: "/dog-age-calculator/",    emoji: "🐶", title: "Dog Age Calculator",   desc: "How old is your dog in human years?" },
             { href: "/cat-age-calculator/",    emoji: "🐱", title: "Cat Age Calculator",   desc: "How old is your cat in human years?" },
             { href: "/days-between/",          emoji: "📅", title: "Days Between Dates",   desc: "Calculate days, weeks, months between dates" },

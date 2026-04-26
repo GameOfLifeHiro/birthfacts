@@ -5,6 +5,7 @@ import { ALL_SIGNS, SIGN_NAMES_ES } from "@/lib/dailyFortune";
 import { getCompatibility, SIGN_ORDER } from "@/lib/compatibility";
 import COMPAT_ES from "@/lib/compatibility-es";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import EsToolsSection from "@/components/EsToolsSection";
 
 const ELEMENTS: Record<string, { label: string; color: string }> = {
   Aries:       { label: "Fuego ♈",       color: "#ef4444" },
@@ -190,6 +191,8 @@ export default function CompatibilidadPage() {
       <div className="text-center mt-8">
         <a href="/es/" className="text-base text-[var(--accent)] hover:underline">← Volver a la Calculadora</a>
       </div>
+
+      <EsToolsSection />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ALL_SIGNS, SIGN_NAMES_ES } from "@/lib/dailyFortune";
 import { getCompatibility, SIGN_ORDER } from "@/lib/compatibility";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import EnToolsSection from "@/components/EnToolsSection";
 
 const ELEMENTS: Record<string, { label: string; color: string }> = {
   Aries:       { label: "Fire ♈",        color: "#ef4444" },
@@ -175,6 +176,8 @@ export default function CompatibilityPage() {
       <div className="text-center mt-8">
         <a href="/" className="text-base text-[var(--accent)] hover:underline">← Back to Birthday Calculator</a>
       </div>
+
+      <EnToolsSection />
     </div>
   );
 }
