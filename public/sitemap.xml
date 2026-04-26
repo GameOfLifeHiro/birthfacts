@@ -5,13 +5,21 @@
   <!-- ── English (default) ─────────────────────────────────────────────── -->
   <url>
     <loc>https://birthfacts.net/</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <xhtml:link rel="alternate" hreflang="en"        href="https://birthfacts.net/"/>
     <xhtml:link rel="alternate" hreflang="es"        href="https://birthfacts.net/es/"/>
     <xhtml:link rel="alternate" hreflang="ja"        href="https://birthfacts.net/ja/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/"/>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/birthday-countdown/</loc>
+    <lastmod>2026-04-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://birthfacts.net/birthday-countdown/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/birthday-countdown/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://birthfacts.net/fortune-ranking/</loc>
@@ -41,6 +49,30 @@
     <xhtml:link rel="alternate" hreflang="ja"        href="https://birthfacts.net/ja/seiza-hayamihyo/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/zodiac-signs/"/>
     <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/life-path-number/</loc>
+    <lastmod>2026-04-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://birthfacts.net/life-path-number/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/life-path-number/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/moon-phase-birthday/</loc>
+    <lastmod>2026-04-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://birthfacts.net/moon-phase-birthday/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/moon-phase-birthday/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://birthfacts.net/chinese-zodiac/</loc>
+    <lastmod>2026-04-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://birthfacts.net/chinese-zodiac/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://birthfacts.net/chinese-zodiac/"/>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
@@ -117,7 +149,7 @@
   <!-- ── Spanish (/es/) ────────────────────────────────────────────────── -->
   <url>
     <loc>https://birthfacts.net/es/</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <xhtml:link rel="alternate" hreflang="es"        href="https://birthfacts.net/es/"/>
     <xhtml:link rel="alternate" hreflang="en"        href="https://birthfacts.net/"/>
     <xhtml:link rel="alternate" hreflang="ja"        href="https://birthfacts.net/ja/"/>
@@ -229,7 +261,7 @@
   <!-- ── Japanese (/ja/) ────────────────────────────────────────────────── -->
   <url>
     <loc>https://birthfacts.net/ja/</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <xhtml:link rel="alternate" hreflang="ja"        href="https://birthfacts.net/ja/"/>
     <xhtml:link rel="alternate" hreflang="en"        href="https://birthfacts.net/"/>
     <xhtml:link rel="alternate" hreflang="es"        href="https://birthfacts.net/es/"/>

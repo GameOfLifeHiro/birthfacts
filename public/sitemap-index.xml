@@ -4,19 +4,19 @@
   <!-- All locales combined -->
   <sitemap>
     <loc>https://birthfacts.net/sitemap.xml</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
   </sitemap>
 
   <!-- Japanese pages — submit to the https://birthfacts.net/ja/ GSC property -->
   <sitemap>
     <loc>https://birthfacts.net/ja/sitemap.xml</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
   </sitemap>
 
   <!-- Spanish pages — submit to the https://birthfacts.net/es/ GSC property -->
   <sitemap>
     <loc>https://birthfacts.net/es/sitemap.xml</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
   </sitemap>
 
 </sitemapindex>

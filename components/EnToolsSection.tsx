@@ -3,9 +3,13 @@
  */
 export default function EnToolsSection() {
   const tools = [
-    { href: "/fortune-ranking/",     emoji: "🏆", title: "Fortune Ranking",     desc: "All 12 signs ranked by luck today" },
+    { href: "/birthday-countdown/",   emoji: "🎂", title: "Birthday Countdown",  desc: "Live countdown to your next birthday" },
+    { href: "/fortune-ranking/",      emoji: "🏆", title: "Fortune Ranking",     desc: "All 12 signs ranked by luck today" },
     { href: "/compatibility/",        emoji: "💞", title: "Compatibility",        desc: "See how your sign connects with any other" },
     { href: "/zodiac-signs/",         emoji: "♈", title: "Zodiac Sign Dates",    desc: "Dates, elements & traits for all 12 signs" },
+    { href: "/life-path-number/",     emoji: "🔢", title: "Life Path Number",     desc: "Free numerology reading from your birthdate" },
+    { href: "/moon-phase-birthday/",  emoji: "🌙", title: "Moon Phase Birthday",  desc: "What moon were you born under?" },
+    { href: "/chinese-zodiac/",       emoji: "🐉", title: "Chinese Zodiac",       desc: "Find your Chinese animal sign by birth year" },
     { href: "/dog-age-calculator/",   emoji: "🐶", title: "Dog Age Calculator",   desc: "How old is your dog in human years?" },
     { href: "/cat-age-calculator/",   emoji: "🐱", title: "Cat Age Calculator",   desc: "How old is your cat in human years?" },
     { href: "/days-between/",         emoji: "📅", title: "Days Between Dates",   desc: "Calculate days, weeks, months between dates" },

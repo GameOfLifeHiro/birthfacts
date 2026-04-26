@@ -3,8 +3,8 @@ import AgeCalculator from "@/components/AgeCalculator";
 import FortuneRankingTeaser from "@/components/FortuneRankingTeaser";
 
 export const metadata: Metadata = {
-  title: "誕生日占い 無料 | BirthFacts",
-  description: "生年月日を入力するだけで、今日の運勢・星座占い・マヤ暦・月相・数秘術など、あなただけの誕生日占いを無料で鑑定します。",
+  title: "誕生日占い 無料｜誕生日カウントダウン・年齢計算 | BirthFacts",
+  description: "誕生日まで何日？カウントダウンタイマーで残り日数を表示。生年月日を入力するだけで今日の運勢・星座占い・マヤ暦・月相・数秘術など無料で鑑定。",
   alternates: {
     canonical: "https://birthfacts.net/ja/",
     languages: {
@@ -55,8 +55,8 @@ export default function JaHomePage() {
           <span className="gradient-text">誕生日占い 無料</span>
         </h1>
         <p className="text-[var(--muted)] text-lg max-w-xl mx-auto leading-relaxed">
-          生年月日を入力するだけで、今日の運勢・星座占い・マヤ暦・月相・数秘術など、
-          あなただけの誕生日占いを無料で鑑定します。
+          誕生日まで何日？生年月日を入力するだけで誕生日カウントダウン・今日の運勢・
+          星座占い・マヤ暦・月相・数秘術など、あなただけの占いを無料で鑑定します。
         </p>
       </div>
 
@@ -95,6 +95,53 @@ export default function JaHomePage() {
           ))}
         </div>
       </div>
+
+      {/* FAQ */}
+      <section className="mt-12 space-y-4 px-4">
+        <h2 className="text-xl font-bold gradient-text">よくある質問</h2>
+        {[
+          {
+            q: "誕生日まで何日ですか？",
+            a: "上の計算機に生年月日を入力してください。BirthFactsが次の誕生日まで残り何日・何時間・何分・何秒かをリアルタイムでカウントダウン表示します。",
+          },
+          {
+            q: "自分の年齢を正確に計算するには？",
+            a: "生年月日を上のフォームに入力するだけです。年・月・週・日・時間・分単位での正確な年齢をリアルタイムで表示します。",
+          },
+          {
+            q: "自分の星座を調べるには？",
+            a: "西洋占星術の星座は生まれた月日で決まります。生年月日を入力すると星座・今日の運勢・相性などが即座に表示されます。",
+          },
+          {
+            q: "誕生日占いは無料ですか？",
+            a: "はい、完全無料です。登録不要・支払い不要。生年月日を入力するだけで今日の運勢・星座・マヤ暦・月相・数秘術・九星気学など、あなただけの誕生日プロフィールをすぐに鑑定できます。",
+          },
+        ].map(({ q, a }) => (
+          <details key={q} className="card p-4 group">
+            <summary className="font-semibold cursor-pointer text-base list-none flex justify-between items-center">
+              {q}
+              <span className="text-[var(--muted)] group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-base text-[var(--muted)] leading-relaxed">{a}</p>
+          </details>
+        ))}
+      </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              { "@type": "Question", name: "誕生日まで何日ですか？", acceptedAnswer: { "@type": "Answer", text: "生年月日を入力してください。BirthFactsが次の誕生日まで残り何日・何時間・何分・何秒かをリアルタイムでカウントダウン表示します。" } },
+              { "@type": "Question", name: "自分の年齢を正確に計算するには？", acceptedAnswer: { "@type": "Answer", text: "生年月日を入力するだけです。年・月・週・日・時間・分単位での正確な年齢をリアルタイムで表示します。" } },
+              { "@type": "Question", name: "自分の星座を調べるには？", acceptedAnswer: { "@type": "Answer", text: "生年月日を入力すると星座・今日の運勢・相性などが即座に表示されます。" } },
+              { "@type": "Question", name: "誕生日占いは無料ですか？", acceptedAnswer: { "@type": "Answer", text: "はい、完全無料です。登録不要・支払い不要。生年月日を入力するだけで今日の運勢・星座・マヤ暦・月相・数秘術など、あなただけの誕生日プロフィールをすぐに鑑定できます。" } },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }
