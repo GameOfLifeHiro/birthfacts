@@ -15,6 +15,18 @@ export const metadata: Metadata = {
       "x-default": "https://birthfacts.net/faq/",
     },
   },
+  openGraph: {
+    title: "Age Calculator FAQ – Common Questions Answered | BirthFacts",
+    description: "Answers to the most common questions about calculating age, zodiac signs, numerology, moon phases, and more.",
+    url: "https://birthfacts.net/faq/",
+    images: [{ url: "https://birthfacts.net/og-image.png", width: 1200, height: 630, alt: "BirthFacts FAQ" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Age Calculator FAQ | BirthFacts",
+    description: "Answers about age calculation, zodiac, numerology, moon phases, and more.",
+    images: ["https://birthfacts.net/og-image.png"],
+  },
 };
 
 const faqs = [

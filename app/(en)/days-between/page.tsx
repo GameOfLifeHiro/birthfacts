@@ -72,6 +72,24 @@ export default function DaysBetweenPage() {
           </div>
         )}
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: "How to Calculate Days Between Two Dates",
+            description: "Find the exact number of days, weeks, months, and years between any two dates.",
+            step: [
+              { "@type": "HowToStep", name: "Enter the start date", text: "Select or type the first date using the start date field." },
+              { "@type": "HowToStep", name: "Enter the end date", text: "Select or type the second date using the end date field. Today's date is pre-filled for convenience." },
+              { "@type": "HowToStep", name: "Click Calculate", text: "Press the Calculate button to compute the difference." },
+              { "@type": "HowToStep", name: "View the result", text: "The exact number of days is shown, along with approximate weeks, months, and years between the two dates." },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

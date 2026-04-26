@@ -178,6 +178,24 @@ export default function DogAgeCalculatorPage() {
           🐱 Cat Age Calculator
         </a>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: "How to Calculate Your Dog's Age in Human Years",
+            description: "Convert your dog's age to human years using the modern AVMA formula with size adjustment for small, medium, and large dogs.",
+            step: [
+              { "@type": "HowToStep", name: "Enter your dog's age", text: "Type your dog's age in years into the input field. You can use decimals (e.g. 7.5 for seven and a half years)." },
+              { "@type": "HowToStep", name: "Select your dog's size", text: "Choose Small (under 20 lbs), Medium (20–50 lbs), or Large (50+ lbs). Larger dogs age faster than smaller dogs." },
+              { "@type": "HowToStep", name: "Click Calculate Human Age", text: "Press the Calculate Human Age button to run the conversion." },
+              { "@type": "HowToStep", name: "View the result", text: "Your dog's equivalent human age and life stage (Puppy, Junior, Adult, Mature, Senior, or Geriatric) are displayed instantly." },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

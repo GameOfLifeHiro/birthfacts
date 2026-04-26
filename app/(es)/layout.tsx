@@ -71,6 +71,26 @@ export const metadata: Metadata = {
   },
 };
 
+const ORG_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://birthfacts.net/#organization",
+  name: "Ascent Leadership Institute Inc",
+  url: "https://birthfacts.net",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://birthfacts.net/icon.png",
+    width: 512,
+    height: 512,
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    email: "hello@birthfacts.net",
+    availableLanguage: ["English", "Spanish", "Japanese"],
+  },
+};
+
 export default function EsRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
@@ -119,6 +139,7 @@ export default function EsRootLayout({ children }: { children: React.ReactNode }
             </nav>
           </header>
 
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }} />
           <main className="px-4 py-8">{children}</main>
 
           <footer className="border-t border-[var(--card-border)] px-6 py-8 mt-16 text-center text-sm text-[var(--muted)]">

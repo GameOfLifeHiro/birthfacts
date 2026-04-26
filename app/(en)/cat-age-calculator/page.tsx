@@ -144,6 +144,23 @@ export default function CatAgeCalculatorPage() {
           🐶 Dog Age Calculator
         </a>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            name: "How to Calculate Your Cat's Age in Human Years",
+            description: "Convert your cat's age to human years using the International Cat Care formula.",
+            step: [
+              { "@type": "HowToStep", name: "Enter your cat's age", text: "Type your cat's age in years into the input field. You can use decimals for partial years (e.g. 3.5)." },
+              { "@type": "HowToStep", name: "Click Calculate Human Age", text: "Press the Calculate Human Age button to run the conversion." },
+              { "@type": "HowToStep", name: "View the result", text: "Your cat's equivalent human age and life stage (Kitten, Junior, Prime, Mature, Senior, or Super Senior) are displayed instantly." },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }

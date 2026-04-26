@@ -5,6 +5,12 @@ export const metadata: Metadata = {
   title: "Contact | BirthFacts",
   description: "Get in touch with the BirthFacts team for questions, feedback, or partnership inquiries.",
   alternates: { canonical: "https://birthfacts.net/contact/" },
+  openGraph: {
+    title: "Contact BirthFacts",
+    description: "Questions, feedback, or partnership inquiries — get in touch with the BirthFacts team.",
+    url: "https://birthfacts.net/contact/",
+    images: [{ url: "https://birthfacts.net/og-image.png", width: 1200, height: 630, alt: "Contact BirthFacts" }],
+  },
 };
 
 export default function ContactPage() {
@@ -72,6 +78,38 @@ export default function ContactPage() {
           </p>
         </div>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            name: "Contact BirthFacts",
+            url: "https://birthfacts.net/contact/",
+            mainEntity: {
+              "@type": "Organization",
+              "@id": "https://birthfacts.net/#organization",
+              name: "Ascent Leadership Institute Inc",
+              url: "https://birthfacts.net",
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  contactType: "customer support",
+                  email: "hello@birthfacts.net",
+                  availableLanguage: ["English", "Spanish", "Japanese"],
+                },
+                {
+                  "@type": "ContactPoint",
+                  contactType: "sales",
+                  email: "hello@birthfacts.net",
+                  availableLanguage: ["English"],
+                },
+              ],
+            },
+          }),
+        }}
+      />
     </div>
   );
 }
