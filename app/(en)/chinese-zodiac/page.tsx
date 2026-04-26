@@ -105,15 +105,16 @@ export default function ChineseZodiacPage() {
         <form onSubmit={handleCalculate} className="card p-6 space-y-5">
           <div>
             <label className="block text-sm font-medium mb-1 text-[var(--muted)]">Birth Year</label>
-            <input
-              type="number"
-              placeholder="e.g. 1990"
+            <select
               value={year}
               onChange={(e) => setYear(e.target.value)}
-              min={1900}
-              max={2100}
               className="w-full rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)] px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-            />
+            >
+              <option value="">— Select year —</option>
+              {Array.from({ length: 102 }, (_, i) => 2025 - i).map((y) => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <button

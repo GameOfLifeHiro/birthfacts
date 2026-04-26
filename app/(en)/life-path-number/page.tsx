@@ -151,15 +151,16 @@ export default function LifePathNumberPage() {
             </div>
             <div>
               <label className="block text-sm font-medium mb-1 text-[var(--muted)]">Year</label>
-              <input
-                type="number"
-                placeholder="1990"
+              <select
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
-                min={1900}
-                max={2025}
                 className="w-full rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-              />
+              >
+                <option value="">—</option>
+                {Array.from({ length: 102 }, (_, i) => 2025 - i).map((y) => (
+                  <option key={y} value={y}>{y}</option>
+                ))}
+              </select>
             </div>
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
