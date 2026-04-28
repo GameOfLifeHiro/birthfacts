@@ -133,6 +133,45 @@ export default function CatAgeCalculatorPage() {
         </p>
       </div>
 
+      {/* FAQ */}
+      <section className="mt-10 space-y-3">
+        <h2 className="text-xl font-bold gradient-text">Frequently Asked Questions</h2>
+        {[
+          {
+            q: "How old is a 1-year-old cat in human years?",
+            a: "A 1-year-old cat is equivalent to about 15 human years. Cats develop very rapidly in their first year — reaching sexual maturity, full coordination, and near-adult size all within 12 months.",
+          },
+          {
+            q: "How old is a 5-year-old cat in human years?",
+            a: "A 5-year-old cat is approximately 36 human years old. After the first two years (which equal 24 human years), each additional cat year adds about 4 human years.",
+          },
+          {
+            q: "How old is a 10-year-old cat in human years?",
+            a: "A 10-year-old cat is approximately 56 human years old — firmly in the Senior life stage. At this age, regular vet check-ups become especially important.",
+          },
+          {
+            q: "My cat was born in 2020 — how old are they in human years?",
+            a: "A cat born in 2020 is around 5–6 years old (depending on the month), which equals roughly 36–40 human years. Enter your cat's exact age in years above to get a precise result.",
+          },
+          {
+            q: "Is the '1 cat year = 7 human years' rule accurate?",
+            a: "No — that's a myth. The actual formula is non-linear: year 1 = 15 human years, year 2 adds 9 more (24 total), and each year after that adds about 4 human years. This calculator uses the International Cat Care formula.",
+          },
+          {
+            q: "How is a cat year different from a dog year?",
+            a: "The aging rates are similar in structure but cats don't vary by size the way dogs do. Both species mature rapidly in the first two years, then slow to roughly 4 human years per animal year thereafter. Dogs age faster if they are large breeds.",
+          },
+        ].map(({ q, a }) => (
+          <details key={q} className="card p-4 group">
+            <summary className="font-semibold cursor-pointer text-base list-none flex justify-between items-center">
+              {q}
+              <span className="text-[var(--muted)] group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-sm text-[var(--muted)] leading-relaxed">{a}</p>
+          </details>
+        ))}
+      </section>
+
       <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
         <a href="/" className="btn-primary text-center">
           🎂 Birthday Age Calculator
@@ -144,6 +183,23 @@ export default function CatAgeCalculatorPage() {
           🐶 Dog Age Calculator
         </a>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              { "@type": "Question", name: "How old is a 1-year-old cat in human years?", acceptedAnswer: { "@type": "Answer", text: "A 1-year-old cat is equivalent to about 15 human years. Cats develop very rapidly in their first year." } },
+              { "@type": "Question", name: "How old is a 5-year-old cat in human years?", acceptedAnswer: { "@type": "Answer", text: "A 5-year-old cat is approximately 36 human years old. After the first two years (24 human years), each cat year adds about 4 human years." } },
+              { "@type": "Question", name: "How old is a 10-year-old cat in human years?", acceptedAnswer: { "@type": "Answer", text: "A 10-year-old cat is approximately 56 human years old — firmly in the Senior life stage." } },
+              { "@type": "Question", name: "My cat was born in 2020 — how old are they in human years?", acceptedAnswer: { "@type": "Answer", text: "A cat born in 2020 is around 5–6 years old, which equals roughly 36–40 human years. Enter your cat's exact age above for a precise result." } },
+              { "@type": "Question", name: "Is the '1 cat year = 7 human years' rule accurate?", acceptedAnswer: { "@type": "Answer", text: "No. The actual formula: year 1 = 15 human years, year 2 adds 9 more (24 total), and each year after adds about 4 human years. This calculator uses the International Cat Care formula." } },
+            ],
+          }),
+        }}
+      />
 
       <script
         type="application/ld+json"

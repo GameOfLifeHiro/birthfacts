@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dog Age Calculator – Dog Years to Human Years | BirthFacts",
+  title: "Dog Age Calculator — How Old Is Your Dog in Human Years? | BirthFacts",
   description:
-    "Convert your dog's age to human years instantly. Uses the modern AVMA formula with size adjustment (small, medium, large dogs). Free and accurate.",
+    "How old is your dog in human years? Free dog age calculator with size adjustment for small, medium & large breeds. A 7-year-old medium dog = 47 human years. Instant results.",
+  keywords: [
+    "dog age calculator",
+    "dog years to human years",
+    "how old is my dog in human years",
+    "dog years calculator",
+    "dog age in human years",
+    "how old is my dog",
+    "my dog was born on",
+  ],
   alternates: {
     canonical: "https://birthfacts.net/dog-age-calculator/",
     languages: {
@@ -14,15 +23,15 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Dog Age Calculator – Dog Years to Human Years | BirthFacts",
-    description: "Convert your dog's age to human years instantly. Uses the modern AVMA formula with size adjustment for small, medium, and large dogs.",
+    title: "Dog Age Calculator — How Old Is Your Dog in Human Years? | BirthFacts",
+    description: "Free dog years calculator with size adjustment. A 7-year-old medium dog = 47 human years. Instant, accurate results.",
     url: "https://birthfacts.net/dog-age-calculator/",
     images: [{ url: "https://birthfacts.net/og-image.png", width: 1200, height: 630, alt: "Dog Age Calculator – BirthFacts" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dog Age Calculator – Dog Years to Human Years | BirthFacts",
-    description: "Convert your dog's age to human years instantly. AVMA formula with size adjustment.",
+    title: "Dog Age Calculator — How Old Is Your Dog in Human Years? | BirthFacts",
+    description: "Free dog years calculator with size adjustment. A 7-year-old medium dog = 47 human years. Instant, accurate results.",
     images: ["https://birthfacts.net/og-image.png"],
   },
 };

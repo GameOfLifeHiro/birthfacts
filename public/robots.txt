@@ -2,6 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://birthfacts.net/sitemap-index.xml
-Sitemap: https://birthfacts.net/sitemap.xml
-Sitemap: https://birthfacts.net/ja/sitemap.xml
-Sitemap: https://birthfacts.net/es/sitemap.xml

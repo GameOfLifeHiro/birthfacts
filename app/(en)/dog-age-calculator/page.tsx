@@ -167,6 +167,45 @@ export default function DogAgeCalculatorPage() {
         </p>
       </div>
 
+      {/* FAQ */}
+      <section className="mt-10 space-y-3">
+        <h2 className="text-xl font-bold gradient-text">Frequently Asked Questions</h2>
+        {[
+          {
+            q: "My dog was born on a specific date — how old is she in human years?",
+            a: "First, calculate how old your dog is in dog years: subtract their birth year from the current year (adjust if their birthday hasn't occurred yet this year). Then enter that number above and select their size. For example, a dog born in September 2023 is about 1.5 years old — enter 1.5 and click Calculate.",
+          },
+          {
+            q: "How old is a 7-year-old dog in human years?",
+            a: "A 7-year-old medium dog is approximately 47 human years old. Small dogs age a little slower (around 40 human years) and large dogs faster (around 56 human years) at the same age.",
+          },
+          {
+            q: "How old is a 1-year-old dog in human years?",
+            a: "A 1-year-old dog is equivalent to about 15 human years — regardless of size. Dogs mature extremely rapidly in their first year, reaching near-adult size and sexual maturity.",
+          },
+          {
+            q: "Is '1 dog year = 7 human years' accurate?",
+            a: "No — it's a rough myth. The modern formula used by veterinarians is: year 1 = 15 human years, year 2 adds 9 more (24 total), and each year after adds about 4 human years. Large dogs also age faster than small dogs, which a flat 7× ratio ignores.",
+          },
+          {
+            q: "Do large dogs age faster than small dogs?",
+            a: "Yes. Large breeds (50+ lbs) tend to have shorter lifespans and age faster relative to smaller breeds. This calculator applies a size modifier: small dogs age slightly slower, large dogs slightly faster than the medium baseline.",
+          },
+          {
+            q: "How old is a puppy born this year in human years?",
+            a: "A puppy born earlier this year would be under 1 year old in dog years — but already 6–15 human years depending on how many months old they are. Enter their age as a decimal (e.g. 0.5 for a 6-month-old puppy) for the best estimate.",
+          },
+        ].map(({ q, a }) => (
+          <details key={q} className="card p-4 group">
+            <summary className="font-semibold cursor-pointer text-base list-none flex justify-between items-center">
+              {q}
+              <span className="text-[var(--muted)] group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-sm text-[var(--muted)] leading-relaxed">{a}</p>
+          </details>
+        ))}
+      </section>
+
       <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
         <a href="/" className="btn-primary text-center">
           🎂 Birthday Age Calculator
@@ -178,6 +217,24 @@ export default function DogAgeCalculatorPage() {
           🐱 Cat Age Calculator
         </a>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              { "@type": "Question", name: "My dog was born on a specific date — how old is she in human years?", acceptedAnswer: { "@type": "Answer", text: "Calculate your dog's age in dog years first (current year minus birth year), then enter that number above and select their size. For example, a dog born in September 2023 is about 1.5 years old." } },
+              { "@type": "Question", name: "How old is a 7-year-old dog in human years?", acceptedAnswer: { "@type": "Answer", text: "A 7-year-old medium dog is approximately 47 human years old. Small dogs age a little slower (around 40) and large dogs faster (around 56) at the same age." } },
+              { "@type": "Question", name: "How old is a 1-year-old dog in human years?", acceptedAnswer: { "@type": "Answer", text: "A 1-year-old dog is equivalent to about 15 human years. Dogs mature extremely rapidly in their first year." } },
+              { "@type": "Question", name: "Is '1 dog year = 7 human years' accurate?", acceptedAnswer: { "@type": "Answer", text: "No. The modern formula: year 1 = 15 human years, year 2 adds 9 more (24 total), each year after adds about 4 human years. Large dogs also age faster than small dogs." } },
+              { "@type": "Question", name: "Do large dogs age faster than small dogs?", acceptedAnswer: { "@type": "Answer", text: "Yes. Large breeds (50+ lbs) tend to have shorter lifespans and age faster. This calculator applies a size modifier to reflect this difference." } },
+              { "@type": "Question", name: "How old is a puppy born this year in human years?", acceptedAnswer: { "@type": "Answer", text: "Enter their age as a decimal (e.g. 0.5 for a 6-month-old puppy). A 6-month-old puppy is already equivalent to roughly 6–10 human years." } },
+            ],
+          }),
+        }}
+      />
 
       <script
         type="application/ld+json"
