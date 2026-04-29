@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Astrology Widget — Embed Today's Lucky Signs | BirthFacts</title>
+  <meta name="description" content="Add a free daily astrology widget to your website. Shows today's top 3 lucky zodiac signs — updates automatically every day. Copy the embed code and paste it anywhere.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0a18;
+      --surface: #161122;
+      --card: #1e1830;
+      --border: rgba(255,255,255,0.08);
+      --text: #f0ece8;
+      --muted: #9a8db5;
+      --accent: #f5c518;
+      --accent-dim: rgba(245,197,24,0.12);
+      --purple: #a78bfa;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Layout ── */
+    .page { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+    /* ── Nav ── */
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+
+    nav .inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 64px 0 48px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(245,197,24,0.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--accent);
+      color: #0d0a18;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 13px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .hero-cta:hover { opacity: 0.88; }
+
+    /* ── Section headings ── */
+    .section { padding: 56px 0; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 10px;
+    }
+
+    .section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 560px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    /* ── Preview ── */
+    .preview-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .preview-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .preview-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .iframe-shell {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+      background: #0f0c1a;
+      line-height: 0;
+    }
+
+    .iframe-shell iframe {
+      display: block;
+      border: none;
+    }
+
+    /* ── Customizer ── */
+    .customizer-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 48px;
+    }
+
+    .customizer-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .customizer-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .color-row label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    input[type="color"] {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: none;
+      cursor: pointer;
+      padding: 2px;
+    }
+
+    .presets {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .preset-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .preset-swatch:hover { transform: scale(1.15); }
+    .preset-swatch.active { border-color: var(--accent); }
+
+    /* ── Embed code ── */
+    .embed-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .embed-box {
+      position: relative;
+    }
+
+    .embed-code {
+      width: 100%;
+      background: #0d0a18;
+      color: #c9b8f0;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      resize: none;
+      outline: none;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--accent);
+      color: #0d0a18;
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .copy-btn:hover { opacity: 0.85; }
+    .copy-btn.copied { background: #4ade80; }
+
+    /* ── Why section ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .why-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .why-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .why-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .why-card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Divider ── */
+    hr {
+      border: none;
+      height: 1px;
+      background: var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="inner">
+      <a href="https://birthfacts.net" class="nav-logo">Birth<span>Facts</span></a>
+      <a href="https://birthfacts.net/fortune-ranking/" class="nav-link">Full Ranking →</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="page">
+    <div class="hero">
+      <div class="hero-eyebrow">Free Widget</div>
+      <h1>Add <em>Today's Lucky Signs</em><br>to Your Website</h1>
+      <p>A beautiful daily astrology widget that shows your visitors the top 3 luckiest zodiac signs today — automatically updated every day. No maintenance required.</p>
+      <a href="#get-code" class="hero-cta">Get the Embed Code</a>
+    </div>
+
+    <!-- Live Preview -->
+    <section class="section" style="padding-top: 0;">
+      <div class="section-label">Live Preview</div>
+      <h2>See It in Action</h2>
+      <p class="section-desc">This is exactly what your visitors will see. The ranking refreshes every day automatically.</p>
+
+      <div class="preview-wrapper">
+        <div class="preview-box">
+          <div class="preview-label">Dark background</div>
+          <div class="iframe-shell">
+            <iframe id="preview-dark" src="/widget-fortune.html" width="300" height="400" scrolling="no" title="BirthFacts Lucky Signs Widget — Dark"></iframe>
+          </div>
+        </div>
+        <div class="preview-box">
+          <div class="preview-label">Light background</div>
+          <div class="iframe-shell" style="background:#f7f3ee;">
+            <iframe id="preview-light" src="/widget-fortune.html?bg=f7f3ee" width="300" height="400" scrolling="no" title="BirthFacts Lucky Signs Widget — Light"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Customizer + Embed Code -->
+    <section class="section" id="get-code">
+      <div class="section-label">Customize &amp; Embed</div>
+      <h2>Match Your Site's Design</h2>
+      <p class="section-desc">Pick a background color that fits your site. The widget automatically adjusts text and accents so it always looks great.</p>
+
+      <div class="customizer-card">
+        <h3>🎨 Choose a Background Color</h3>
+        <p>Select from the presets or pick any custom color.</p>
+
+        <div class="color-row">
+          <label>Presets:</label>
+          <div class="presets" id="presets"></div>
+          <label>Custom:</label>
+          <input type="color" id="color-picker" value="#0f0c1a" title="Pick a custom background color">
+        </div>
+
+        <!-- Live preview of chosen color -->
+        <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; margin-bottom:24px;">
+          <div>
+            <div class="preview-label" style="margin-bottom:8px;">Preview</div>
+            <div class="iframe-shell" id="custom-shell" style="background:#0f0c1a;">
+              <iframe id="preview-custom" src="/widget-fortune.html?bg=0f0c1a" width="300" height="400" scrolling="no" title="BirthFacts Lucky Signs Widget — Custom"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- Embed code -->
+        <div class="embed-label">Your embed code</div>
+        <div class="embed-box">
+          <textarea class="embed-code" id="embed-code" rows="4" readonly spellcheck="false"></textarea>
+          <button class="copy-btn" id="copy-btn">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Why section -->
+    <section class="section">
+      <div class="section-label">Why Add This Widget?</div>
+      <h2>Your Visitors Will Love It</h2>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🔄</div>
+          <h4>Always Fresh</h4>
+          <p>The ranking updates automatically every day — no editing, no plugins, no maintenance on your end.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">⚡</div>
+          <h4>Zero Setup</h4>
+          <p>One line of HTML. Paste it into any website, blog, or CMS — WordPress, Squarespace, Wix, anything.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🎨</div>
+          <h4>Fits Any Design</h4>
+          <p>Choose any background color. The widget adapts text and accents automatically for perfect readability.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">📱</div>
+          <h4>Mobile Friendly</h4>
+          <p>Looks crisp on every screen. Designed to sit in a 300px sidebar without overflow or scrollbars.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">✨</div>
+          <h4>Premium Design</h4>
+          <p>Elegant typography and a polished layout that elevates your page — not a cheap-looking embed.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🆓</div>
+          <h4>Completely Free</h4>
+          <p>No account, no API key, no subscription. Just copy the code and you're done.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- How to install -->
+    <section class="section">
+      <div class="section-label">Installation</div>
+      <h2>Add It in 3 Steps</h2>
+
+      <div style="display:flex; flex-direction:column; gap:16px; margin-top:24px; max-width:560px;">
+        <div style="display:flex; gap:16px; align-items:flex-start;">
+          <div style="background:var(--accent);color:#0d0a18;font-weight:700;font-size:13px;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">1</div>
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">Pick your background color above</div>
+            <div style="font-size:14px;color:var(--muted);">Use the presets or the color picker to match your site.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:16px; align-items:flex-start;">
+          <div style="background:var(--accent);color:#0d0a18;font-weight:700;font-size:13px;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">2</div>
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">Copy the embed code</div>
+            <div style="font-size:14px;color:var(--muted);">Click the Copy button next to the code box.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:16px; align-items:flex-start;">
+          <div style="background:var(--accent);color:#0d0a18;font-weight:700;font-size:13px;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">3</div>
+          <div>
+            <div style="font-weight:700;margin-bottom:4px;">Paste it into your site</div>
+            <div style="font-size:14px;color:var(--muted);">Paste anywhere that accepts HTML — a sidebar widget, a page, a blog post. Done.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Widget by <a href="https://birthfacts.net" target="_blank">BirthFacts.net</a> &mdash; Free birthday profiles, horoscopes &amp; numerology.</p>
+    <p style="margin-top:6px;font-size:12px;">Questions? <a href="https://birthfacts.net/contact/" target="_blank">Contact us</a></p>
+  </footer>
+
+  <script>
+    const WIDGET_URL = 'https://birthfacts.net/widget-fortune.html';
+
+    // ── Preset swatches ────────────────────────────────────────────────────
+    const PRESETS = [
+      { hex: '0f0c1a', label: 'Default dark' },
+      { hex: '0a1628', label: 'Navy' },
+      { hex: '0d1f12', label: 'Forest' },
+      { hex: '1a1a1a', label: 'Charcoal' },
+      { hex: '2d1b4e', label: 'Violet' },
+      { hex: 'ffffff', label: 'White' },
+      { hex: 'f7f3ee', label: 'Cream' },
+      { hex: 'f0f4f8', label: 'Light gray' },
+    ];
+
+    const presetsEl = document.getElementById('presets');
+    const picker = document.getElementById('color-picker');
+    const previewCustom = document.getElementById('preview-custom');
+    const customShell = document.getElementById('custom-shell');
+    const embedCodeEl = document.getElementById('embed-code');
+    const copyBtn = document.getElementById('copy-btn');
+
+    function generateEmbed(hex) {
+      return `<iframe src="${WIDGET_URL}?bg=${hex}" width="300" height="400" frameborder="0" scrolling="no" style="border:none;overflow:hidden;border-radius:12px;"></iframe>`;
+    }
+
+    function applyColor(hex) {
+      hex = hex.replace(/^#/, '');
+      previewCustom.src = `/widget-fortune.html?bg=${hex}`;
+      customShell.style.background = '#' + hex;
+      embedCodeEl.value = generateEmbed(hex);
+      picker.value = '#' + hex;
+      // Mark active swatch
+      document.querySelectorAll('.preset-swatch').forEach(s => {
+        s.classList.toggle('active', s.dataset.hex === hex);
+      });
+    }
+
+    PRESETS.forEach(({ hex, label }) => {
+      const sw = document.createElement('button');
+      sw.className = 'preset-swatch' + (hex === '0f0c1a' ? ' active' : '');
+      sw.dataset.hex = hex;
+      sw.title = label;
+      sw.style.background = '#' + hex;
+      sw.style.border = hex === 'ffffff' || hex.startsWith('f') ? '2px solid rgba(0,0,0,0.15)' : '2px solid transparent';
+      sw.addEventListener('click', () => applyColor(hex));
+      presetsEl.appendChild(sw);
+    });
+
+    picker.addEventListener('input', () => applyColor(picker.value));
+
+    // Copy button
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(embedCodeEl.value).then(() => {
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    // Initialize
+    applyColor('0f0c1a');
+  </script>
+
+</body>
+</html>

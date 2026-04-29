@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Today's Lucky Signs — BirthFacts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0c1a;
+      --text: #f0ece8;
+      --muted: #9a8db5;
+      --card-bg: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.10);
+      --divider: rgba(245,197,24,0.35);
+      --accent: #f5c518;
+      --accent-dim: rgba(245,197,24,0.15);
+      --gold: #f5c518;
+      --silver: #c8c8d4;
+      --bronze: #c8894a;
+    }
+
+    html, body {
+      width: 300px;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 18px 16px 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.5;
+      margin: 11px 0;
+      flex-shrink: 0;
+    }
+
+    /* ── Rank cards ── */
+    .rankings {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .rank-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rank-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .rank-1::before { background: var(--gold); }
+    .rank-2::before { background: var(--silver); }
+    .rank-3::before { background: var(--bronze); }
+
+    .rank-badge {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      min-width: 26px;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .rank-1 .rank-badge { color: var(--gold); }
+    .rank-2 .rank-badge { color: var(--silver); }
+    .rank-3 .rank-badge { color: var(--bronze); }
+
+    .sign-emoji {
+      font-size: 22px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .sign-info { flex: 1; min-width: 0; }
+
+    .sign-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .sign-fortune {
+      font-size: 10.5px;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-top: 2px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      margin-top: 13px;
+      flex-shrink: 0;
+    }
+
+    .full-ranking-btn {
+      display: inline-block;
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 5px 16px;
+      border: 1px solid rgba(245,197,24,0.35);
+      border-radius: 20px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .full-ranking-btn:hover {
+      background: var(--accent-dim);
+      border-color: rgba(245,197,24,0.6);
+    }
+
+    .powered-by {
+      font-size: 9.5px;
+      color: var(--muted);
+      margin-top: 7px;
+      opacity: 0.75;
+    }
+
+    .powered-by a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .powered-by a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="title">✨ Today's Lucky Signs</div>
+    <div class="subtitle" id="today-date"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="rankings" id="rankings"></div>
+
+  <div class="footer">
+    <a href="https://birthfacts.net/fortune-ranking/" target="_blank" rel="noopener" class="full-ranking-btn">See Full Ranking →</a>
+    <div class="powered-by">Powered by <a href="https://birthfacts.net" target="_blank" rel="noopener">BirthFacts.net</a></div>
+  </div>
+
+  <script>
+    // ── Color customization via ?bg=hex URL param ──────────────────────────
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const raw = (params.get('bg') || '').replace(/^#/, '');
+      if (/^[0-9a-fA-F]{6}$/.test(raw)) {
+        document.body.style.background = '#' + raw;
+        const r = parseInt(raw.slice(0, 2), 16);
+        const g = parseInt(raw.slice(2, 4), 16);
+        const b = parseInt(raw.slice(4, 6), 16);
+        const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        if (lum > 0.55) {
+          // Light background — swap to dark text palette
+          const root = document.documentElement.style;
+          root.setProperty('--text', '#1a1525');
+          root.setProperty('--muted', '#6b5e8a');
+          root.setProperty('--card-bg', 'rgba(0,0,0,0.05)');
+          root.setProperty('--card-border', 'rgba(0,0,0,0.10)');
+          root.setProperty('--divider', 'rgba(160,120,0,0.35)');
+          root.setProperty('--accent', '#9a7700');
+          root.setProperty('--accent-dim', 'rgba(154,119,0,0.10)');
+          root.setProperty('--gold', '#9a7700');
+          root.setProperty('--silver', '#666');
+          root.setProperty('--bronze', '#8b5a1a');
+        }
+      }
+    })();
+
+    // ── Zodiac data ────────────────────────────────────────────────────────
+    const SIGNS = [
+      { name: 'Aries',       symbol: '♈', fortunes: ['Bold moves pay off today.', 'Your energy leads the way.', 'Trust your instincts fully.', 'A surprise opportunity knocks.', 'Confidence opens every door.', 'Action beats hesitation today.', 'Your spark ignites the room.'] },
+      { name: 'Taurus',      symbol: '♉', fortunes: ['Patience brings real rewards.', 'Your calm wins the day.', 'Financial luck shines on you.', 'Comfort and beauty await.', 'Steady effort pays off big.', 'Your loyalty is your strength.', 'Trust what feels grounded.'] },
+      { name: 'Gemini',      symbol: '♊', fortunes: ['Words open unexpected doors.', 'Your wit charms everyone.', 'A new idea changes everything.', 'Connections bring good fortune.', 'Stay curious — answers appear.', 'Two paths, both promising.', 'Your adaptability is your edge.'] },
+      { name: 'Cancer',      symbol: '♋', fortunes: ['Intuition guides you perfectly.', 'Home and heart bring joy.', 'Nurturing others nurtures you.', 'Your empathy is a superpower.', 'A loved one brings good news.', 'Trust your inner compass.', 'Emotions light the way forward.'] },
+      { name: 'Leo',         symbol: '♌', fortunes: ['The spotlight finds you today.', 'Your generosity returns tenfold.', 'Creativity flows like sunlight.', 'Shine without apology today.', 'A recognition moment is near.', 'Your warmth draws people in.', 'Great things begin with boldness.'] },
+      { name: 'Virgo',       symbol: '♍', fortunes: ['Details reveal hidden treasures.', 'Your precision solves the puzzle.', 'A helpful act brings blessings.', 'Order creates opportunity today.', 'Your diligence earns its reward.', 'Small steps lead to big wins.', 'Trust the plan you\'ve prepared.'] },
+      { name: 'Libra',       symbol: '♎', fortunes: ['Balance brings unexpected joy.', 'A new alliance forms today.', 'Harmony attracts good fortune.', 'Your fairness earns deep trust.', 'Beauty and luck walk together.', 'A decision finally becomes clear.', 'Peace of mind is today\'s prize.'] },
+      { name: 'Scorpio',     symbol: '♏', fortunes: ['Deep insight unlocks the path.', 'Transformation is your gift today.', 'What\'s hidden comes to light.', 'Intensity becomes your advantage.', 'Trust what you sense beneath.', 'A powerful shift is underway.', 'Your focus attracts the win.'] },
+      { name: 'Sagittarius', symbol: '♐', fortunes: ['Adventure waits just beyond view.', 'Optimism opens every door today.', 'A distant opportunity draws near.', 'Freedom fuels your best ideas.', 'Your vision inspires others now.', 'Truth and luck travel together.', 'Expand your horizon boldly.'] },
+      { name: 'Capricorn',   symbol: '♑', fortunes: ['Discipline delivers its dividend.', 'Ambition and timing align today.', 'A long effort finally pays off.', 'Steady work builds great things.', 'Your reputation opens new doors.', 'Progress, not perfection, wins.', 'Authority and luck favor you.'] },
+      { name: 'Aquarius',    symbol: '♒', fortunes: ['Your originality sparks the win.', 'Innovation finds its moment today.', 'A bold idea changes the game.', 'Community brings unexpected luck.', 'Think different — then act.', 'Your independence is an asset.', 'The future you imagined arrives.'] },
+      { name: 'Pisces',      symbol: '♓', fortunes: ['Dreams guide you to real gold.', 'Your compassion circles back today.', 'Creativity flows without effort.', 'Intuition knows before the mind.', 'A quiet moment holds the answer.', 'Art and luck intertwine today.', 'Surrender to the flow — it\'s right.'] },
+    ];
+
+    // ── Seeded LCG RNG ────────────────────────────────────────────────────
+    function makeRng(seed) {
+      let s = seed >>> 0;
+      return function () {
+        s = (Math.imul(1664525, s) + 1013904223) >>> 0;
+        return s / 4294967296;
+      };
+    }
+
+    function seededShuffle(arr, seed) {
+      const a = arr.map((v, i) => ({ ...v, idx: i }));
+      const rng = makeRng(seed);
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // ── Daily seed & render ───────────────────────────────────────────────
+    const now = new Date();
+    const seed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+
+    // Date label
+    document.getElementById('today-date').textContent = now.toLocaleDateString('en-US', {
+      month: 'long', day: 'numeric', year: 'numeric'
+    });
+
+    // Shuffle & pick top 3
+    const ranked = seededShuffle(SIGNS, seed);
+    const LABELS = ['1st', '2nd', '3rd'];
+    const container = document.getElementById('rankings');
+
+    ranked.slice(0, 3).forEach((sign, rank) => {
+      const fortune = sign.fortunes[(seed + sign.idx * 31) % sign.fortunes.length];
+      const card = document.createElement('div');
+      card.className = `rank-card rank-${rank + 1}`;
+      card.innerHTML =
+        `<div class="rank-badge">${LABELS[rank]}</div>` +
+        `<div class="sign-emoji">${sign.symbol}</div>` +
+        `<div class="sign-info">` +
+          `<div class="sign-name">${sign.name}</div>` +
+          `<div class="sign-fortune">${fortune}</div>` +
+        `</div>`;
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
