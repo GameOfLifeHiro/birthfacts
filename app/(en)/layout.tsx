@@ -165,6 +165,8 @@ export default function EnRootLayout({ children }: { children: React.ReactNode }
               {" · "}
               <a href="/cat-age-calculator/" className="hover:text-[var(--accent)]">Cat Age Calculator</a>
               {" · "}
+              <a href="/widget-fortune-intro.html" className="hover:text-[var(--accent)]">Free Widget</a>
+              {" · "}
               <a href="/es/" className="hover:text-[var(--accent)]">Español</a>
               {" · "}
               <a href="/ja/" className="hover:text-[var(--accent)]">日本語</a>
