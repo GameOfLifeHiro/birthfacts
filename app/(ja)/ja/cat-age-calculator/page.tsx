@@ -114,6 +114,45 @@ export default function JaCatAgeCalculatorPage() {
         </p>
       </div>
 
+      {/* FAQ */}
+      <section className="mt-12 space-y-4">
+        <h2 className="text-xl font-bold gradient-text">よくある質問</h2>
+        {[
+          { q: "猫1歳は人間で何歳ですか？", a: "猫の1歳は人間の約15歳に相当します。最初の1年間で猫は急速に成長し、思春期を迎えます。" },
+          { q: "猫5歳は人間で何歳ですか？", a: "猫の5歳は人間の約36歳に相当します。1年目15歳＋2年目9歳＋3〜5年目（各4歳）＝36歳となります。活動的で健康な壮年期です。" },
+          { q: "猫10歳は人間で何歳ですか？", a: "猫の10歳は人間の約56歳に相当します。熟年期に入り、定期的な健康診断を始めることが推奨される年齢です。" },
+          { q: "猫15歳は人間で何歳ですか？", a: "猫の15歳は人間の約76歳に相当します。超高齢期に差し掛かり、特別なケアと定期通院が必要になります。" },
+          { q: "猫の年齢換算はどのように計算しますか？", a: "1年目は15人間年、2年目はさらに9年（合計24年）、それ以降は毎年4人間年として計算します。この方式は国際猫ケア機構（International Cat Care）のガイドラインに基づいています。" },
+          { q: "猫と犬では老化速度が違いますか？", a: "犬は体格によって老化速度が変わりますが、猫はほぼ一定です。また猫は犬より一般的に長寿で、20歳以上生きる子もいます。" },
+        ].map(({ q, a }) => (
+          <details key={q} className="card p-4 group">
+            <summary className="font-semibold cursor-pointer text-base list-none flex justify-between items-center">
+              {q}
+              <span className="text-[var(--muted)] group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-base text-[var(--muted)] leading-relaxed">{a}</p>
+          </details>
+        ))}
+      </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              { "@type": "Question", name: "猫1歳は人間で何歳ですか？", acceptedAnswer: { "@type": "Answer", text: "猫の1歳は人間の約15歳に相当します。最初の1年間で猫は急速に成長し、思春期を迎えます。" } },
+              { "@type": "Question", name: "猫5歳は人間で何歳ですか？", acceptedAnswer: { "@type": "Answer", text: "猫の5歳は人間の約36歳に相当します。1年目15歳＋2年目9歳＋3〜5年目（各4歳）＝36歳となります。" } },
+              { "@type": "Question", name: "猫10歳は人間で何歳ですか？", acceptedAnswer: { "@type": "Answer", text: "猫の10歳は人間の約56歳に相当します。熟年期に入り、定期的な健康診断を始めることが推奨される年齢です。" } },
+              { "@type": "Question", name: "猫15歳は人間で何歳ですか？", acceptedAnswer: { "@type": "Answer", text: "猫の15歳は人間の約76歳に相当します。超高齢期に差し掛かり、特別なケアと定期通院が必要になります。" } },
+              { "@type": "Question", name: "猫の年齢換算はどのように計算しますか？", acceptedAnswer: { "@type": "Answer", text: "1年目は15人間年、2年目はさらに9年（合計24年）、それ以降は毎年4人間年として計算します。国際猫ケア機構のガイドラインに基づいています。" } },
+              { "@type": "Question", name: "猫と犬では老化速度が違いますか？", acceptedAnswer: { "@type": "Answer", text: "犬は体格によって老化速度が変わりますが、猫はほぼ一定です。猫は犬より一般的に長寿で、20歳以上生きる子もいます。" } },
+            ],
+          }),
+        }}
+      />
+
       <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
         <a href="/ja/" className="btn-primary text-center">🎂 誕生日・年齢計算</a>
         <a href="/ja/dog-age-calculator/" className="text-center px-5 py-3 rounded-xl border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors font-semibold">

@@ -145,6 +145,45 @@ export default function NenreiHayamihyoPage() {
         ※ 主な出来事は横スクロール、またはPC表示でご確認いただけます。
       </p>
 
+      {/* FAQ */}
+      <section className="mt-12 space-y-4">
+        <h2 className="text-xl font-bold gradient-text">よくある質問</h2>
+        {[
+          {
+            q: `86歳は何年生まれですか？`,
+            a: `${CURRENT_YEAR}年時点で86歳の方は、${CURRENT_YEAR - 86}年（${getWareki(CURRENT_YEAR - 86)}）生まれです。誕生日をまだ迎えていない場合は${CURRENT_YEAR - 85}年生まれになります。`,
+          },
+          {
+            q: `66歳は何年生まれですか？`,
+            a: `${CURRENT_YEAR}年時点で66歳の方は、${CURRENT_YEAR - 66}年（${getWareki(CURRENT_YEAR - 66)}）生まれです。誕生日をまだ迎えていない場合は${CURRENT_YEAR - 65}年生まれになります。`,
+          },
+          {
+            q: `平成19年生まれは何歳ですか？`,
+            a: `平成19年は西暦2007年です。${CURRENT_YEAR}年時点で、誕生日を迎えていれば${CURRENT_YEAR - 2007}歳、まだ誕生日前であれば${CURRENT_YEAR - 2007 - 1}歳です。`,
+          },
+          {
+            q: `1980年生まれは何歳ですか？`,
+            a: `1980年（${getWareki(1980)}）生まれの方は、${CURRENT_YEAR}年時点で誕生日を迎えていれば${CURRENT_YEAR - 1980}歳、誕生日前であれば${CURRENT_YEAR - 1980 - 1}歳です。`,
+          },
+          {
+            q: `満年齢と数え年の違いは何ですか？`,
+            a: `満年齢は誕生日を迎えるごとに1歳加算される現代の法的な数え方です。数え年は生まれた時点で1歳とし、元旦（1月1日）ごとに1歳加算される伝統的な数え方で、厄年・賀寿の計算に使われます。`,
+          },
+          {
+            q: `和暦（平成・昭和）と西暦の換算方法は？`,
+            a: `令和○年＝西暦(2018＋○)年、平成○年＝西暦(1988＋○)年、昭和○年＝西暦(1925＋○)年です。例えば昭和63年は1988年、平成元年は1989年、令和元年は2019年です。`,
+          },
+        ].map(({ q, a }) => (
+          <details key={q} className="card p-4 group">
+            <summary className="font-semibold cursor-pointer text-base list-none flex justify-between items-center">
+              {q}
+              <span className="text-[var(--muted)] group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-base text-[var(--muted)] leading-relaxed">{a}</p>
+          </details>
+        ))}
+      </section>
+
       <JaToolsSection />
 
       {/* CTA */}
@@ -165,27 +204,33 @@ export default function NenreiHayamihyoPage() {
             mainEntity: [
               {
                 "@type": "Question",
-                name: "満年齢と数え年の違いは何ですか？",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "満年齢は誕生日を迎えるごとに1歳加算される現代の数え方で、日本の法律に基づきます。数え年は生まれた時点で1歳とし、元旦に1歳加算される伝統的な数え方です。厄年・賀寿の計算には数え年が使われることが多いです。",
-                },
+                name: `86歳は何年生まれですか？`,
+                acceptedAnswer: { "@type": "Answer", text: `${CURRENT_YEAR}年時点で86歳の方は${CURRENT_YEAR - 86}年（${getWareki(CURRENT_YEAR - 86)}）生まれです。誕生日前の場合は${CURRENT_YEAR - 85}年生まれになります。` },
               },
               {
                 "@type": "Question",
-                name: `${CURRENT_YEAR}年生まれは何歳ですか？`,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: `${CURRENT_YEAR}年生まれの方は、${CURRENT_YEAR}年中に満0〜1歳、数え年では1歳です。`,
-                },
+                name: `66歳は何年生まれですか？`,
+                acceptedAnswer: { "@type": "Answer", text: `${CURRENT_YEAR}年時点で66歳の方は${CURRENT_YEAR - 66}年（${getWareki(CURRENT_YEAR - 66)}）生まれです。誕生日前の場合は${CURRENT_YEAR - 65}年生まれになります。` },
+              },
+              {
+                "@type": "Question",
+                name: `平成19年生まれは何歳ですか？`,
+                acceptedAnswer: { "@type": "Answer", text: `平成19年は西暦2007年です。${CURRENT_YEAR}年時点で、誕生日を迎えていれば${CURRENT_YEAR - 2007}歳、誕生日前であれば${CURRENT_YEAR - 2007 - 1}歳です。` },
+              },
+              {
+                "@type": "Question",
+                name: `1980年生まれは何歳ですか？`,
+                acceptedAnswer: { "@type": "Answer", text: `1980年（${getWareki(1980)}）生まれの方は、${CURRENT_YEAR}年時点で誕生日を迎えていれば${CURRENT_YEAR - 1980}歳、誕生日前であれば${CURRENT_YEAR - 1980 - 1}歳です。` },
+              },
+              {
+                "@type": "Question",
+                name: "満年齢と数え年の違いは何ですか？",
+                acceptedAnswer: { "@type": "Answer", text: "満年齢は誕生日を迎えるごとに1歳加算される現代の数え方で、日本の法律に基づきます。数え年は生まれた時点で1歳とし、元旦に1歳加算される伝統的な数え方です。厄年・賀寿の計算には数え年が使われることが多いです。" },
               },
               {
                 "@type": "Question",
                 name: "和暦（令和・平成・昭和）と西暦の換算方法は？",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "令和○年は西暦(2018+○)年、平成○年は西暦(1988+○)年、昭和○年は西暦(1925+○)年に対応します。例えば昭和63年は1988年、平成元年は1989年、令和元年は2019年です。",
-                },
+                acceptedAnswer: { "@type": "Answer", text: "令和○年は西暦(2018+○)年、平成○年は西暦(1988+○)年、昭和○年は西暦(1925+○)年に対応します。例えば昭和63年は1988年、平成元年は1989年、令和元年は2019年です。" },
               },
             ],
           }),
