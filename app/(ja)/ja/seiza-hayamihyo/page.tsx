@@ -3,11 +3,11 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import JaToolsSection from "@/components/JaToolsSection";
 
 export const metadata: Metadata = {
-  title: "星座 早見表 | 12星座の誕生日・特徴・性格 | BirthFacts",
+  title: "12星座早見表 | 誕生日・特徴・性格 一覧 | BirthFacts",
   description:
-    "12星座の誕生日（いつからいつまで）・象徴・四元素・ルーラー・基本的な性格と特徴を一覧で確認。おひつじ座からうお座まで、星座早見表。",
+    "12星座早見表。各星座の誕生日（いつからいつまで）・象徴・四元素・性格と特徴を一覧で確認できます。おひつじ座からうお座まで完全網羅。",
   keywords: [
-    "星座 早見表", "星座 誕生日 一覧", "星座 いつから いつまで",
+    "12星座早見表", "星座 早見表", "星座 誕生日 一覧", "星座 いつから いつまで",
     "12星座 一覧", "星座 特徴", "星座 性格", "星座 誕生日",
     "おひつじ座 いつ", "しし座 いつ", "さそり座 いつ",
     "星座占い 誕生日", "西洋占星術 星座",
