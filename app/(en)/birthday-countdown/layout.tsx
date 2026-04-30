@@ -7,11 +7,13 @@ export const metadata: Metadata = {
   keywords: [
     "days until my birthday",
     "how many days until my birthday",
+    "how many days till my birthday",
     "birthday countdown",
     "birthday countdown timer",
     "days until birthday",
     "next birthday calculator",
     "when is my birthday",
+    "how many months old am i",
   ],
   alternates: {
     canonical: "https://birthfacts.net/birthday-countdown/",

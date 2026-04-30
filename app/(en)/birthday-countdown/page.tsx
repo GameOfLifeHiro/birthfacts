@@ -89,6 +89,22 @@ const FAQ_SCHEMA = {
         text: "Absolutely. Bookmark this page and visit anytime to see an up-to-date live countdown to your next birthday.",
       },
     },
+    {
+      "@type": "Question",
+      name: "How many days till my birthday?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Pick your birth month and day in the calculator above. BirthFacts instantly shows how many days (and hours, minutes, seconds) are left until your next birthday — updated live every second.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How many months old am I?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "For your exact age in months, use the Age Calculator on the BirthFacts home page — enter your full date of birth and it shows your age broken down into years, months, weeks, days, hours, and minutes, updated in real time.",
+      },
+    },
   ],
 };
 

@@ -53,6 +53,30 @@ const FAQ_SCHEMA = {
         text: "All 8 moon phases occur with roughly equal frequency across the 29.53-day lunar cycle, so no phase is significantly rarer than others. However, many people consider the New Moon or Full Moon birth to be especially significant spiritually.",
       },
     },
+    {
+      "@type": "Question",
+      name: "What was the moon phase on my birthday?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Use the Moon Phase Birthday Calculator above — enter your birth month, day, and year to instantly see which moon phase occurred on your birthday, along with its illumination percentage and spiritual meaning.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I find the moon phase when I was born?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Enter your date of birth in the calculator above. It uses the lunar synodic cycle (29.53 days) to work out exactly which of the 8 phases — New Moon, Waxing Crescent, First Quarter, Waxing Gibbous, Full Moon, Waning Gibbous, Last Quarter, or Waning Crescent — was active on the day you were born.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is a moon phase birthdate calculator?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A moon phase birthdate calculator determines which lunar phase was occurring on the exact date of your birth. BirthFacts' free calculator covers birth dates from 1924 to 2025 and shows your phase name, illumination level, and what it means for your personality.",
+      },
+    },
   ],
 };
 
