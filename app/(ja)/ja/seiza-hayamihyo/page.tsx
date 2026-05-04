@@ -310,6 +310,45 @@ export default function SeizaHayamihyoPage() {
         </div>
       </div>
 
+      {/* FAQ */}
+      <section className="mt-12 space-y-4">
+        <h2 className="text-xl font-bold gradient-text">よくある質問</h2>
+        {[
+          {
+            q: "星座はいつからいつまでですか？",
+            a: SIGNS.map((s) => `${s.name}：${s.period}`).join("　／　"),
+          },
+          {
+            q: "おうし座はいつからいつまでですか？",
+            a: "おうし座（Taurus）は4月20日〜5月20日です。エレメントは地、支配星は金星。安定・忍耐・美的感覚に優れた星座です。",
+          },
+          {
+            q: "おひつじ座はいつからいつまでですか？",
+            a: "おひつじ座（Aries）は3月21日〜4月19日です。エレメントは火、支配星は火星。行動力・情熱・リーダーシップが特徴です。",
+          },
+          {
+            q: "さそり座はいつからいつまでですか？",
+            a: "さそり座（Scorpio）は10月24日〜11月22日です。エレメントは水、支配星は冥王星・火星。洞察力・情熱・神秘性が特徴です。",
+          },
+          {
+            q: "てんびん座はいつからいつまでですか？",
+            a: "てんびん座（Libra）は9月23日〜10月23日です。エレメントは風、支配星は金星。バランス感覚・社交性・公平さが特徴です。",
+          },
+          {
+            q: "星座の境界日（カスプ）生まれはどちらの星座ですか？",
+            a: "厳密には生まれた時刻と年によって太陽が星座を移動する時刻が異なります。境界日前後に生まれた場合は、正確な生年月日時刻を使った占星術チャートで確認するのが確実です。",
+          },
+        ].map(({ q, a }) => (
+          <details key={q} className="card p-4 group">
+            <summary className="font-semibold cursor-pointer text-base list-none flex justify-between items-center">
+              {q}
+              <span className="text-[var(--muted)] group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p className="mt-3 text-base text-[var(--muted)] leading-relaxed">{a}</p>
+          </details>
+        ))}
+      </section>
+
       <JaToolsSection />
 
       {/* CTA */}
